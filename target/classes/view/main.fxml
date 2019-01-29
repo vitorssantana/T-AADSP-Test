@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.web.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane blendMode="SRC_ATOP" prefHeight="602.0" prefWidth="823.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainFX">
+   <children>
+      <Label layoutX="361.0" layoutY="34.0" text="AADSP - Cadastro de Massa de Dados">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <ToolBar layoutX="10.0" layoutY="121.0" prefHeight="40.0" prefWidth="200.0">
+         <items>
+            <Button id="menuStakeholder" mnemonicParsing="false" onAction="#acessarStakeholder" prefHeight="25.0" prefWidth="185.0" text="Stakeholder" />
+         </items>
+      </ToolBar>
+      <ToolBar layoutX="10.0" layoutY="161.0" prefHeight="40.0" prefWidth="200.0">
+         <items>
+            <Button id="menuRequisitos" mnemonicParsing="false" onAction="#acessarRequisitos" prefHeight="25.0" prefWidth="185.0" text="Requisitos" />
+         </items>
+      </ToolBar>
+      <ToolBar layoutX="10.0" layoutY="201.0" prefHeight="40.0" prefWidth="200.0">
+         <items>
+            <Button id="menuDesenvolvedor" mnemonicParsing="false" onAction="#acessarDesenvolvedor" prefHeight="25.0" prefWidth="185.0" text="Desenvolvedor" />
+         </items>
+      </ToolBar>
+      <ToolBar layoutX="10.0" layoutY="81.0" prefHeight="40.0" prefWidth="200.0">
+         <items>
+            <Button id="menuProjeto" mnemonicParsing="false" onAction="#acessarProjeto" prefHeight="25.0" prefWidth="185.0" text="Projeto" />
+         </items>
+      </ToolBar>
+      <ToolBar layoutX="10.0" layoutY="241.0" prefHeight="40.0" prefWidth="200.0">
+         <items>
+            <Button id="menuTarefa" mnemonicParsing="false" onAction="#acessarTarefa" prefHeight="25.0" prefWidth="185.0" text="Tarefa" />
+         </items>
+      </ToolBar>
+      <ToolBar layoutX="10.0" layoutY="281.0" prefHeight="40.0" prefWidth="200.0">
+         <items>
+            <Button id="menuBugs" mnemonicParsing="false" onAction="#acessarBugs" prefHeight="25.0" prefWidth="185.0" text="Abertura de Bugs" />
+         </items>
+      </ToolBar>
+      <ToolBar layoutX="10.0" layoutY="317.0" prefHeight="40.0" prefWidth="200.0">
+         <items>
+            <Button id="menuRelease" mnemonicParsing="false" onAction="#acessarRelease" prefHeight="25.0" prefWidth="185.0" text="Release" />
+         </items>
+      </ToolBar>
+      <Pane fx:id="anchor" layoutX="218.0" layoutY="81.0" prefHeight="493.0" prefWidth="562.0" />
+      <ToolBar layoutX="10.0" layoutY="357.0" prefHeight="40.0" prefWidth="200.0">
+         <items>
+            <Button id="menuPlanoTeste" mnemonicParsing="false" onAction="#acessarPlanoTeste" prefHeight="25.0" prefWidth="185.0" text="Plano de Teste" />
+         </items>
+      </ToolBar>
+   </children>
+   <effect>
+      <Blend />
+   </effect>
+   <cursor>
+      <Cursor fx:constant="E_RESIZE" />
+   </cursor>
+</AnchorPane>

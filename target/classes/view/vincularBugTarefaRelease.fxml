@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="449.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.VincularBugTarefaReleaseFX">
+   <children>
+      <ListView fx:id="listTarefasDisponiveis" layoutX="63.0" layoutY="134.0" prefHeight="110.0" prefWidth="200.0" />
+      <ListView fx:id="listTarefasJaAdicionadas" layoutX="334.0" layoutY="134.0" prefHeight="110.0" prefWidth="200.0" />
+      <Button fx:id="adicionarTarefa" layoutX="284.0" layoutY="149.0" mnemonicParsing="false" onAction="#adicionarTarefa" text="&gt;&gt;" />
+      
+      <Button fx:id="removerTarefa" layoutX="284.0" layoutY="209.0" mnemonicParsing="false" onAction="#removerTarefa" text="&lt;&lt;" />
+      <Label layoutX="171.0" layoutY="30.0" prefHeight="37.0" prefWidth="293.0" text="Vincular Tarefa/Bug a Release">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="99.0" layoutY="97.0" prefHeight="37.0" prefWidth="164.0" text="Tarefas Disponíveis" />
+      <Label layoutX="364.0" layoutY="97.0" prefHeight="37.0" prefWidth="200.0" text="Tarefas ja vinculadas" />
+      <Button fx:id="btnSalvarAlteracao" layoutX="428.0" layoutY="400.0" mnemonicParsing="false" onAction="#salvarAlteracao" text="Salvar Alterações" />
+      <Button fx:id="removerBug" layoutX="286.0" layoutY="350.0" mnemonicParsing="false" onAction="#removerBug" text="&lt;&lt;" />
+      <Button fx:id="adicionarBug" layoutX="286.0" layoutY="290.0" mnemonicParsing="false" onAction="#adicionarBug" text="&gt;&gt;" />
+      <ListView fx:id="listBugsJaAdicionados" layoutX="336.0" layoutY="275.0" prefHeight="110.0" prefWidth="200.0" />
+      <ListView fx:id="listBugsDisponiveis" layoutX="65.0" layoutY="275.0" prefHeight="110.0" prefWidth="200.0" />
+      <Label layoutX="81.0" layoutY="244.0" prefHeight="37.0" prefWidth="164.0" text="Bugs Disponíveis" />
+      <Label layoutX="356.0" layoutY="244.0" prefHeight="37.0" prefWidth="216.0" text="Bugs corrigidos vinculados" />
+   </children>
+</AnchorPane>

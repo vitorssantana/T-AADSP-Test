@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.canvas.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="521.0" prefWidth="659.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.BugFX">
+   <children>
+      <TableView fx:id="listaBugs" layoutX="32.0" layoutY="290.0" prefHeight="188.0" prefWidth="579.0">
+        <columns>
+          <TableColumn fx:id="listId" prefWidth="27.0" text="ID" />
+          <TableColumn fx:id="listTitulo" prefWidth="47.0" text="Titulo" />
+            <TableColumn fx:id="listDescricao" prefWidth="89.0" text="Descricao" />
+            <TableColumn fx:id="listDesenvolvedor" prefWidth="78.0" text="Desenvolvedor" />
+            <TableColumn fx:id="listPrioridade" prefWidth="56.0" text="Prioridade" />
+            <TableColumn fx:id="listImpacto" minWidth="0.0" prefWidth="64.0" text="Nivel Impacto" />
+           <!--<TableColumn fx:id="listRelease" prefWidth="55.0" text="Release" />-->
+            <TableColumn fx:id="listTarefaGeradora" minWidth="0.0" prefWidth="64.0" text="Tarefa Geradora Gerador:" />
+            <TableColumn fx:id="listBugGerador" prefWidth="110.0" text="Bug Gerador" />
+        </columns>
+      </TableView>
+      <Button layoutX="562.0" layoutY="248.0" mnemonicParsing="false" text="Salvar"  onAction="#cadastrarNovoBug"/>
+      <Label layoutX="48.0" layoutY="98.0" text="Titulo:" />
+      <TextField fx:id="titulo" layoutX="85.0" layoutY="94.0" prefHeight="25.0" prefWidth="129.0" />
+      <Label layoutX="232.0" layoutY="98.0" prefHeight="17.0" prefWidth="123.0" text="Descricao:" />
+      <ComboBox fx:id="selectDesenvolvedor" layoutX="502.0" layoutY="211.0" prefHeight="25.0" prefWidth="110.0" />
+      <Label layoutX="402.0" layoutY="215.0" prefHeight="17.0" prefWidth="123.0" text="Desenvolvedor:" />
+      <ComboBox fx:id="selectPrioridade" layoutX="308.0" layoutY="160.0" prefHeight="25.0" prefWidth="82.0" />
+      <Label layoutX="246.0" layoutY="164.0" prefHeight="17.0" prefWidth="66.0" text="Prioridade:" />
+      <Label layoutX="48.0" layoutY="164.0" prefHeight="17.0" prefWidth="123.0" text="Nivel de Impacto:" />
+      <ComboBox fx:id="selectImpacto" layoutX="149.0" layoutY="160.0" prefHeight="25.0" prefWidth="74.0" />
+      <!--<ComboBox fx:id="selectRelease" layoutX="494.0" layoutY="160.0" prefHeight="25.0" prefWidth="110.0" />-->
+      <!--<Label layoutX="418.0" layoutY="164.0" prefHeight="17.0" prefWidth="56.0" text="Release:" />-->
+      <ComboBox fx:id="selectTarefa" onAction="#selecionarTarefaOriginaria" layoutX="142.0" layoutY="211.0" prefHeight="25.0" prefWidth="82.0" />
+      <Label layoutX="48.0" layoutY="215.0" prefHeight="17.0" prefWidth="123.0" text="Tarefa Geradora:" />
+      <Label layoutX="247.0" layoutY="215.0" prefHeight="17.0" prefWidth="123.0" text="Bug Gerador:" />
+      <ComboBox fx:id="selectBug" onAction="#selecionarBugOriginario" layoutX="322.0" layoutY="211.0" prefHeight="25.0" prefWidth="66.0" />
+      <TextArea fx:id="descricao" layoutX="318.0" layoutY="49.0" prefHeight="98.0" prefWidth="289.0" />
+   </children>
+</AnchorPane>

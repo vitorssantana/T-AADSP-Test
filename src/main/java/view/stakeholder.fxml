@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.canvas.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.StakeholderFX">
+   <children>
+      <TableView  fx:id="listaStakeholders" layoutX="46.0" layoutY="120.0" prefHeight="200.0" prefWidth="508.0">
+        <columns>
+          <TableColumn fx:id="id" prefWidth="75.0" text="ID" />
+          <TableColumn fx:id="nomeList" prefWidth="75.0" text="Nome" />
+            <TableColumn fx:id="notaPrioridade" prefWidth="75.0" text="Nota de Prioridade" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnSalvar" onAction="#cadastrarNovoStakeholder" layoutX="506.0" layoutY="80.0" mnemonicParsing="false" text="Salvar" />
+      <Label layoutX="46.0" layoutY="84.0" text="Nome:" />
+      <TextField fx:id="nome" layoutX="102.0" layoutY="80.0" prefHeight="25.0" prefWidth="63.0" />
+      <Label layoutX="250.0" layoutY="84.0" text="Nota de Prioridade" />
+      <ComboBox fx:id="selectPrioridade" layoutX="366.0" layoutY="80.0" prefHeight="25.0" prefWidth="101.0" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.canvas.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.RequisitoFX">
+   <children>
+      <TableView fx:id="listaRequisitos" layoutX="46.0" layoutY="178.0" prefHeight="200.0" prefWidth="508.0">
+        <columns>
+          <TableColumn fx:id="listId" prefWidth="75.0" text="ID" />
+          <TableColumn fx:id="listTitulo" prefWidth="75.0" text="Titulo" />
+            <TableColumn fx:id="listIdProjeto" prefWidth="75.0" text="Id do Projeto" />
+            <TableColumn fx:id="listNotaPrioridade" prefWidth="75.0" text="Nota de Prioridade" />
+            <TableColumn fx:id="listIdStakeholder" prefWidth="75.0" text="Id do Stakeholder" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnSalvar" layoutX="506.0" layoutY="138.0" mnemonicParsing="false" text="Salvar" onAction="#cadastrarNovoRequisito" />
+      <Label layoutX="46.0" layoutY="88.0" text="Titulo:" />
+      <TextField fx:id="titulo" layoutX="88.0" layoutY="84.0" prefHeight="25.0" prefWidth="137.0" />
+      <Label layoutX="46.0" layoutY="142.0" prefHeight="17.0" prefWidth="123.0" text="Nota de Prioridade:" />
+      <ComboBox fx:id="selectNotaPrioridade" layoutX="169.0" layoutY="138.0" prefHeight="25.0" prefWidth="56.0" />
+      <ComboBox fx:id="selectProjeto" layoutX="390.0" layoutY="84.0" prefHeight="25.0" prefWidth="80.0" />
+      <Label layoutX="279.0" layoutY="88.0" prefHeight="17.0" prefWidth="123.0" text="Id do Projeto:" />
+      <Label layoutX="279.0" layoutY="142.0" prefHeight="17.0" prefWidth="123.0" text="Id do Stakeholder:" />
+      <ComboBox fx:id="selectIdStakeholder" layoutX="393.0" layoutY="138.0" prefHeight="25.0" prefWidth="80.0" />
+   </children>
+</AnchorPane>
