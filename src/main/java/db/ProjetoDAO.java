@@ -109,7 +109,31 @@ public class ProjetoDAO {
 		xlsDAO.writeAndCloseXls();
 	}
 
-	public void editProject() {
+	public void editarDadosProjeto(Projeto projeto) {
+		int count = 1;
+		while ((int) abaProjeto.getRow(count).getCell(0).getNumericCellValue() != projeto.getId()) {
+			count++;
+		}
+		
+		Row row = abaProjeto.getRow(count);
+		
+		Cell cell = row.getCell(1);
+		cell.setCellValue(projeto.getNome());
+
+		cell = row.createCell(2);
+		cell.setCellValue(projeto.getIdStakeholder());
+
+		cell = row.createCell(3);
+		cell.setCellValue(projeto.getCusto());
+
+		cell = row.createCell(4);
+		cell.setCellValue(projeto.getPrazoEntrega());
+
+		xlsDAO.writeAndCloseXls();
+
+	}
+
+	public void removerProjeto(int idProjeto) {
 	}
 
 }

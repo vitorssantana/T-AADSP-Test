@@ -21,5 +21,9 @@ public class ProjetoController {
 	public void cadastrarNovoProjeto(Projeto projeto) {
 		projetoDAO.addNewProjeto(projeto);
 	}
+	
+	public void editarProjeto(Projeto projeto) {
+		projetoDAO.editarDadosProjeto(projeto);
+	}
 
 }

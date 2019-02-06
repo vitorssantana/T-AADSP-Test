@@ -43,7 +43,7 @@ public class BugController {
 
 	public List<Bug> retornarListaBugsDeRelease(int idRelease) {
 		List<Bug> listaComTodosBugs = retornarListaBugsDisponiveis();
-		List<Bug> listaComTodosBugsDaRelease = new ArrayList<>();
+		List<Bug> listaComTodosBugsDaRelease = new ArrayList<Bug>();
 		for (Bug bug : listaComTodosBugs) {
 			if (bug.getIdRelease() == idRelease) {
 				listaComTodosBugsDaRelease.add(bug);

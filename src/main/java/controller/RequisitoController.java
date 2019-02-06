@@ -21,4 +21,13 @@ public class RequisitoController {
 	public void cadastrarNovoRequisito(Requisito requisito) {
 		dao.addNewRequisito(requisito);
 	}
+
+	public boolean verificarSeProjetoEstaVinculadoARequisito(int idProjeto) {
+		List<Requisito> listaRequisitos = dao.retornarListarRequisitos();
+		for (Requisito requisito : listaRequisitos) {
+			if (requisito.getIdProjeto() == idProjeto)
+				return true;
+		}
+		return false;
+	}
 }

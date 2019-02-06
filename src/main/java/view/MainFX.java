@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
 public class MainFX implements Initializable {
@@ -23,7 +24,7 @@ public class MainFX implements Initializable {
 	}
 
 	@FXML
-	public void acessarProjeto(ActionEvent event) throws IOException {
+	public void acessarProjeto(MouseEvent event) throws IOException {
 		secondAnchor = FXMLLoader.load(getClass().getResource("projeto.fxml"));
 		setPane(secondAnchor);
 	}
