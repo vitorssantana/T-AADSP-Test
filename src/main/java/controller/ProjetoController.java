@@ -8,22 +8,22 @@ import model.Projeto;
 
 public class ProjetoController {
 
-	private ProjetoDAO projetoDAO;
+	private ProjetoDAO dao;
 
 	public ProjetoController() throws IOException {
-		projetoDAO = new ProjetoDAO();
+		dao = new ProjetoDAO();
 	}
 
 	public List<Projeto> enviarListaProjetos() {
-		return projetoDAO.retornarListarProjetos();
+		return dao.retornarListarProjetos();
 	}
 
 	public void cadastrarNovoProjeto(Projeto projeto) {
-		projetoDAO.addNewProjeto(projeto);
+		dao.addNewProjeto(projeto);
 	}
-	
+
 	public void editarProjeto(Projeto projeto) {
-		projetoDAO.editarDadosProjeto(projeto);
+		dao.editarDadosProjeto(projeto);
 	}
 
 }

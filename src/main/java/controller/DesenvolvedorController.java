@@ -5,20 +5,26 @@ import java.util.List;
 
 import db.DesenvolvedorDAO;
 import model.Desenvolvedor;
+import model.Projeto;
 
 public class DesenvolvedorController {
 
-	private DesenvolvedorDAO desenvolvedorDAO;
+	private DesenvolvedorDAO dao;
 
 	public DesenvolvedorController() throws IOException {
-		desenvolvedorDAO = new DesenvolvedorDAO();
+		dao = new DesenvolvedorDAO();
 	}
 
 	public List<Desenvolvedor> enviarListaDesenvolvedor() {
-		return desenvolvedorDAO.retornarListaDesenvolvedores();
+		return dao.retornarListaDesenvolvedores();
+	}
+
+	public void cadastrarNovoDesenvovedor(Desenvolvedor desenvolvedor) {
+		dao.addNewDesenvolvedor(desenvolvedor);
+	}
+
+	public void editarDesenvolvedor(Desenvolvedor desenvolvedor) {
+		dao.editarDadosDesenvolvedor(desenvolvedor);
 	}
 	
-	public void addNewDesenvolvedor(Desenvolvedor desenvolvedor) {
-		desenvolvedorDAO.addNewDesenvolvedor(desenvolvedor);
-	}
 }

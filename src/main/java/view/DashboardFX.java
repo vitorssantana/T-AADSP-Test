@@ -16,12 +16,17 @@ public class DashboardFX implements Initializable {
 
 	@FXML
 	private Pane anchor, segundoPane;
+	private static DashboardFX INSTANCE;
+	
+	public static DashboardFX getInstance() {
+		return INSTANCE;
+	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-
+		INSTANCE = this;
 	}
-
+	
 	@FXML
 	private void acessarTelaProjetos(MouseEvent event) throws IOException {
 		segundoPane = FXMLLoader.load(getClass().getResource("projeto.fxml"));
@@ -36,19 +41,19 @@ public class DashboardFX implements Initializable {
 
 	@FXML
 	private void acessarTelaDesenvolvedores(MouseEvent event) throws IOException {
-		segundoPane = FXMLLoader.load(getClass().getResource("projeto.fxml"));
+		segundoPane = FXMLLoader.load(getClass().getResource("desenvolvedor.fxml"));
 		setPane(segundoPane);
 	}
 
 	@FXML
 	private void acessarTelaPlanosTeste(MouseEvent event) throws IOException {
-		segundoPane = FXMLLoader.load(getClass().getResource("projeto.fxml"));
+		segundoPane = FXMLLoader.load(getClass().getResource("planoTeste.fxml"));
 		setPane(segundoPane);
 	}
 
 	@FXML
 	private void acessarTelaStakeholders(MouseEvent event) throws IOException {
-		segundoPane = FXMLLoader.load(getClass().getResource("projeto.fxml"));
+		segundoPane = FXMLLoader.load(getClass().getResource("stakeholder.fxml"));
 		setPane(segundoPane);
 	}
 
@@ -60,7 +65,12 @@ public class DashboardFX implements Initializable {
 
 	@FXML
 	private void acessarTelaSprints(MouseEvent event) throws IOException {
-		segundoPane = FXMLLoader.load(getClass().getResource("projeto.fxml"));
+		segundoPane = FXMLLoader.load(getClass().getResource("sprint.fxml"));
+		setPane(segundoPane);
+	}
+	
+	public void acessarTelaVincularRequisitoSprint() throws IOException {
+		segundoPane = FXMLLoader.load(getClass().getResource("vincularRequisitoSprint.fxml"));
 		setPane(segundoPane);
 	}
 

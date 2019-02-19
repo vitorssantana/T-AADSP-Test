@@ -7,9 +7,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import controller.DesenvolvedorController;
-import controller.ReleaseController;
+import controller.SprintController;
 import controller.BugController;
-import controller.TarefaController;
 import controller.BugController;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -23,7 +22,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Desenvolvedor;
-import model.Release;
+import model.Sprint;
 import model.Bug;
 import model.Tarefa;
 import model.Bug;
@@ -33,40 +32,32 @@ public class BugFX implements Initializable {
 	@FXML
 	private TextField titulo;
 	@FXML
-	private TextArea descricao;
-	@FXML
 	private ComboBox<String> selectDesenvolvedor;
 	@FXML
 	private ComboBox<String> selectPrioridade;
 	@FXML
 	private ComboBox<String> selectImpacto;
-//	@FXML
-//	private ComboBox<String> selectRelease;
 	@FXML
-	private ComboBox<String> selectTarefa;
-	@FXML
-	private ComboBox<String> selectBug;
+	private ComboBox<String> selectRelease;
 	@FXML
 	private Button btnSalvar;
 	@FXML
 	private TableView<Bug> listaBugs;
 	@FXML
-	private TableColumn<Bug, Integer> listId;
+	private TableColumn<Bug, Integer> listaId;
 	@FXML
-	private TableColumn<Bug, String> listTitulo, listDescricao;
+	private TableColumn<Bug, String> listaTitulo, listaDescricao;
 	@FXML
-	private TableColumn<Bug, Integer> listDesenvolvedor;
+	private TableColumn<Bug, Integer> listaDesenvolvedor;
 	@FXML
-	private TableColumn<Bug, String> listPrioridade;
+	private TableColumn<Bug, String> listaPrioridade;
 	@FXML
-	private TableColumn<Bug, String> listImpacto;
+	private TableColumn<Bug, String> listaImpacto;
 	@FXML
-	private TableColumn<Bug, Integer> listRelease;
+	private TableColumn<Bug, Integer> listaRelease;
 	@FXML
-	private TableColumn<Bug, Integer> listTarefaGeradora;
-	@FXML
-	private TableColumn<Bug, Integer> listBugGerador;
-	@FXML
+	private TableColumn<Bug, Integer> listaIdRequisito;
+
 	private BugController controller;
 
 	@Override
@@ -76,9 +67,8 @@ public class BugFX implements Initializable {
 			carregarListaBugs();
 			carregarListaPrioridadeImpactoStatus();
 			carregarListaDesenvolvedor();
-			//carregarListaRelease();
+			// carregarListaRelease();
 			carregarListaComBugs();
-			carregarListaTarefa();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -90,15 +80,14 @@ public class BugFX implements Initializable {
 		List<Bug> listaBugs = controller.enviarListaBug();
 		setTableContent(listaBugs);
 		if (listaBugs.size() > 0) {
-			listId.setCellValueFactory(new PropertyValueFactory<Bug, Integer>("id"));
-			listTitulo.setCellValueFactory(new PropertyValueFactory<Bug, String>("titulo"));
-			listDescricao.setCellValueFactory(new PropertyValueFactory<Bug, String>("descricao"));
-			listDesenvolvedor.setCellValueFactory(new PropertyValueFactory<Bug, Integer>("idDesenvolvedor"));
-			listPrioridade.setCellValueFactory(new PropertyValueFactory<Bug, String>("prioridade"));
-			listImpacto.setCellValueFactory(new PropertyValueFactory<Bug, String>("nivelImpacto"));
-			//listRelease.setCellValueFactory(new PropertyValueFactory<Bug, Integer>("idRelease"));
-			listTarefaGeradora.setCellValueFactory(new PropertyValueFactory<Bug, Integer>("idTarefaGeradora"));
-			listBugGerador.setCellValueFactory(new PropertyValueFactory<Bug, Integer>("idBugGerador"));
+			listaId.setCellValueFactory(new PropertyValueFactory<Bug, Integer>("id"));
+			listaTitulo.setCellValueFactory(new PropertyValueFactory<Bug, String>("titulo"));
+			listaDescricao.setCellValueFactory(new PropertyValueFactory<Bug, String>("descricao"));
+			listaDesenvolvedor.setCellValueFactory(new PropertyValueFactory<Bug, Integer>("idDesenvolvedor"));
+			listaPrioridade.setCellValueFactory(new PropertyValueFactory<Bug, String>("prioridade"));
+			listaImpacto.setCellValueFactory(new PropertyValueFactory<Bug, String>("nivelImpacto"));
+			// listRelease.setCellValueFactory(new PropertyValueFactory<Bug,
+			// Integer>("idRelease"));
 		}
 	}
 
@@ -125,14 +114,6 @@ public class BugFX implements Initializable {
 //		}
 //	}
 
-	private void carregarListaTarefa() throws IOException {
-		TarefaController controller = new TarefaController();
-		List<Tarefa> listTarefa = controller.enviarListaTarefa();
-
-		for (Tarefa tarefa : listTarefa) {
-			selectTarefa.getItems().addAll(tarefa.getId() + " - " + tarefa.getTitulo());
-		}
-	}
 
 	private void carregarListaComBugs() throws IOException {
 		selectBug.getItems().clear();
@@ -166,22 +147,6 @@ public class BugFX implements Initializable {
 		carregarListaBugs();
 
 		carregarListaComBugs();
-	}
-
-	@FXML
-	private void selecionarBugOriginario(Event e) {
-		String selecao = selectBug.getSelectionModel().getSelectedItem();
-		if (!selectTarefa.getSelectionModel().isEmpty())
-			selectTarefa.getSelectionModel().clearSelection();
-		selectBug.getSelectionModel().select(selecao);
-	}
-
-	@FXML
-	private void selecionarTarefaOriginaria(Event e) {
-		String selecao = selectTarefa.getSelectionModel().getSelectedItem();
-		if (!selectBug.getSelectionModel().isEmpty())
-			selectBug.getSelectionModel().clearSelection();
-		selectTarefa.getSelectionModel().select(selecao);
 	}
 
 	private void setTableContent(List<Bug> listaBugs) {

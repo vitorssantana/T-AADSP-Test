@@ -20,6 +20,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Projeto;
 import model.Stakeholder;
+import utils.AlertController;
 
 public class ProjetoFX implements Initializable {
 
@@ -85,13 +86,13 @@ public class ProjetoFX implements Initializable {
 			projetoController.editarProjeto(projeto);
 			carregarListaProjetos();
 			AlertController.alertUsingInformationDialog("Alteação feita com sucesso!");
-
 		}
-
+		limparCamposTela();
 	}
 
+	@FXML
 	private void limparCamposTela() {
-		//TODO
+		// TODO
 	}
 
 	private void carregarListaProjetos() {

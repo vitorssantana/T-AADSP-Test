@@ -11,6 +11,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import model.Desenvolvedor;
+import model.Desenvolvedor;
 
 public class DesenvolvedorDAO {
 	private XlsDAO xlsDAO;
@@ -87,6 +88,24 @@ public class DesenvolvedorDAO {
 		cell.setCellValue(desenvolvedor.getNivel());
 
 		xlsDAO.writeAndCloseXls();
+	}
+
+	public void editarDadosDesenvolvedor(Desenvolvedor desenvolvedor) {
+		int count = 1;
+		while ((int) abaDesenvolvedor.getRow(count).getCell(0).getNumericCellValue() != desenvolvedor.getId()) {
+			count++;
+		}
+
+		Row row = abaDesenvolvedor.getRow(count);
+
+		Cell cell = row.getCell(1);
+		cell.setCellValue(desenvolvedor.getNome());
+
+		cell = row.createCell(2);
+		cell.setCellValue(desenvolvedor.getNivel());
+
+		xlsDAO.writeAndCloseXls();
+
 	}
 
 }

@@ -10,6 +10,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import model.Desenvolvedor;
 import model.Stakeholder;
 
 public class StakeholderDAO {
@@ -88,5 +89,23 @@ public class StakeholderDAO {
 		cell.setCellValue(stakeholder.getNotaPrioridade());
 
 		xlsDAO.writeAndCloseXls();
+	}
+	
+	public void editarDadosStakeholder(Stakeholder stakeholder) {
+		int count = 1;
+		while ((int) abaStakeholder.getRow(count).getCell(0).getNumericCellValue() != stakeholder.getId()) {
+			count++;
+		}
+
+		Row row = abaStakeholder.getRow(count);
+
+		Cell cell = row.getCell(1);
+		cell.setCellValue(stakeholder.getNome());
+
+		cell = row.createCell(2);
+		cell.setCellValue(stakeholder.getNotaPrioridade());
+
+		xlsDAO.writeAndCloseXls();
+
 	}
 }

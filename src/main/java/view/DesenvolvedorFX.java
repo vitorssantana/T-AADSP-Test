@@ -16,8 +16,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Desenvolvedor;
+import utils.AlertController;
+import model.Desenvolvedor;
 
 public class DesenvolvedorFX implements Initializable {
+
+	private boolean isCadastrarNovoDesenvolvedor = true;
 
 	@FXML
 	private Button btnSalvar;
@@ -26,11 +30,11 @@ public class DesenvolvedorFX implements Initializable {
 	@FXML
 	private ComboBox<String> selectNivel;
 	@FXML
-	private TableColumn<Desenvolvedor, Integer> listId;
+	private TableColumn<Desenvolvedor, Integer> listaId;
 	@FXML
-	private TableColumn<Desenvolvedor, String> listNome;
+	private TableColumn<Desenvolvedor, String> listaNome;
 	@FXML
-	private TableColumn<Desenvolvedor, Integer> listNivel;
+	private TableColumn<Desenvolvedor, Integer> listaNivel;
 	@FXML
 	private TableView<Desenvolvedor> listaDesenvolvedores;
 	private DesenvolvedorController controller;
@@ -42,33 +46,68 @@ public class DesenvolvedorFX implements Initializable {
 			carregarListaDesenvolvedors();
 			carregarListaPrioridade();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
+	}
+
+	@FXML
+	public void limparCamposTela() {
+	}
+
+	@FXML
+	public void editarDesenvolvedor() {
+		if (listaDesenvolvedores.getSelectionModel().getSelectedItem() == null)
+			AlertController.alertUsingWarningDialog("Selecione um desenvolvedor da lista");
+		else {
+			nome.clear();
+			nome.setText(listaDesenvolvedores.getSelectionModel().getSelectedItem().getNome());
+
+			for (int i = 0; i < selectNivel.getItems().size(); i++) {
+				if (selectNivel.getItems().get(i)
+						.equals(listaDesenvolvedores.getSelectionModel().getSelectedItem().getNivel()))
+					selectNivel.getSelectionModel().select((selectNivel.getItems().get(i)));
+			}
+
+			isCadastrarNovoDesenvolvedor = false;
+		}
+	}
+
+	@FXML
+	public void confirmarDesenvolvedor(Event e) {
+
+		Desenvolvedor desenvolvedor = new Desenvolvedor();
+		desenvolvedor.setNome(nome.getText());
+		desenvolvedor.setNivel(selectNivel.getSelectionModel().getSelectedItem().toString());
+
+		if (isCadastrarNovoDesenvolvedor == true) {
+			controller.cadastrarNovoDesenvovedor(desenvolvedor);
+			carregarListaDesenvolvedors();
+
+			AlertController.alertUsingInformationDialog("Cadastro feito com sucesso!");
+		} else {
+			desenvolvedor.setId(listaDesenvolvedores.getSelectionModel().getSelectedItem().getId());
+			controller.editarDesenvolvedor(desenvolvedor);
+			carregarListaDesenvolvedors();
+			AlertController.alertUsingInformationDialog("Alteação feita com sucesso!");
+
+		}
+
+		limparCamposTela();
 	}
 
 	private void carregarListaDesenvolvedors() {
 		List<Desenvolvedor> listaDesenvolvedores = controller.enviarListaDesenvolvedor();
 		setTableContent(listaDesenvolvedores);
 		if (listaDesenvolvedores.size() > 0) {
-			listId.setCellValueFactory(new PropertyValueFactory<Desenvolvedor, Integer>("id"));
-			listNome.setCellValueFactory(new PropertyValueFactory<Desenvolvedor, String>("nome"));
-			listNivel.setCellValueFactory(new PropertyValueFactory<Desenvolvedor, Integer>("nivel"));
+			listaId.setCellValueFactory(new PropertyValueFactory<Desenvolvedor, Integer>("id"));
+			listaNome.setCellValueFactory(new PropertyValueFactory<Desenvolvedor, String>("nome"));
+			listaNivel.setCellValueFactory(new PropertyValueFactory<Desenvolvedor, Integer>("nivel"));
 		}
 	}
 
 	private void carregarListaPrioridade() {
-		selectNivel.getItems().addAll("Junior","Pleno","Senior");
-	}
-
-	@FXML
-	private void cadastrarNovoDesenvolvedor(Event e) {
-		Desenvolvedor desenvolvedor = new Desenvolvedor();
-		desenvolvedor.setNome(nome.getText());
-		desenvolvedor.setNivel(selectNivel.getSelectionModel().getSelectedItem().toString());
-		controller.addNewDesenvolvedor(desenvolvedor);
-		carregarListaDesenvolvedors();
+		selectNivel.getItems().addAll("Junior", "Pleno", "Senior");
 	}
 
 	private void setTableContent(List<Desenvolvedor> listaDesenvolvedor) {

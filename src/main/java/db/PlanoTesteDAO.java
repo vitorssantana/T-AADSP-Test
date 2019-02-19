@@ -11,6 +11,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import model.PlanoTeste;
+import model.Projeto;
 import model.PlanoTeste;
 
 public class PlanoTesteDAO {
@@ -96,5 +97,25 @@ public class PlanoTesteDAO {
 		cell.setCellValue(planoTeste.getIdRequisito());
 
 		xlsDAO.writeAndCloseXls();
+	}
+
+	public void editarDadosTeste(PlanoTeste planoTeste) {
+		int count = 1;
+		while ((int) abaPlanoTeste.getRow(count).getCell(0).getNumericCellValue() != planoTeste.getId()) {
+			count++;
+		}
+
+		Row row = abaPlanoTeste.getRow(count);
+
+		Cell cell = row.getCell(1);
+		cell.setCellValue(planoTeste.getDescricao());
+		cell = row.createCell(2);
+		cell.setCellValue(planoTeste.getTipoTeste());
+
+		cell = row.createCell(3);
+		cell.setCellValue(planoTeste.getIdRequisito());
+
+		xlsDAO.writeAndCloseXls();
+
 	}
 }

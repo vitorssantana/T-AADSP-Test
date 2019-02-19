@@ -2,8 +2,11 @@ package view;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import com.jfoenix.controls.JFXComboBox;
 
 import controller.PlanoTesteController;
 import controller.RequisitoController;
@@ -11,47 +14,66 @@ import controller.RequisitoController;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.PlanoTeste;
 import model.PlanoTeste;
 import model.Requisito;
+import utils.AlertController;
 import model.PlanoTeste;
 
 public class PlanoTesteFX implements Initializable {
 
+	private boolean isCadastrarNovoTeste = true;
+
 	@FXML
-	private TableView<PlanoTeste> listPlanoTestes;
+	private TableView<PlanoTeste> listaTestes;
 	@FXML
-	private TableColumn<PlanoTeste, Integer> listId;
+	private TableColumn<PlanoTeste, Integer> listaId;
 	@FXML
-	private TableColumn<PlanoTeste, String> listDescricao;
+	private TableColumn<PlanoTeste, String> listaDescricao;
 	@FXML
-	private TableColumn<PlanoTeste, Integer> listIdRequisito;
+	private TableColumn<PlanoTeste, String> listaTipoTeste;
 	@FXML
-	private TableColumn<PlanoTeste, String> listTipoTeste;
+	private TextField descricao;
 	@FXML
-	private TextArea descricao;
+	private JFXComboBox<String> selectRequisito, selectTipoTeste;
 	@FXML
-	private ComboBox<String> selectRequisito, selectTipoTeste;
+	private Button btnEditar, btnConfirmar, btnRemover;
 
 	private PlanoTesteController controller;
-	private RequisitoController requisitoController;
+	private int requisitoSelecionado;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		try {
 			controller = new PlanoTesteController();
-			carregarListaTipoTeste();
 			carregarListaRequisito();
-			carregarListaPlanoTestes();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	@FXML
+	public void carregarListaElementosRestantes(Event e) {
+		requisitoSelecionado = Integer.parseInt(selectRequisito.getSelectionModel().getSelectedItem().toString()
+				.substring(0, selectRequisito.getSelectionModel().getSelectedItem().toString().indexOf(" ")));
+		btnEditar.setDisable(false);
+		btnRemover.setDisable(false);
+		btnConfirmar.setDisable(false);
+		listaTestes.setDisable(false);
+		selectTipoTeste.setDisable(false);
+		selectRequisito.setDisable(false);
+		descricao.setDisable(false);
+
+		carregarListaPlanoTestes();
+		carregarListaTipoTeste();
 	}
 
 	public void carregarListaTipoTeste() {
@@ -81,30 +103,69 @@ public class PlanoTesteFX implements Initializable {
 	}
 
 	@FXML
-	public void cadastrarNovoPlanoTeste(Event e) {
+	public void confirmarPlanoTeste(Event e) {
 		PlanoTeste planoTeste = new PlanoTeste();
 		planoTeste.setDescricao(descricao.getText());
 		planoTeste.setTipoTeste(selectTipoTeste.getSelectionModel().getSelectedItem());
 		planoTeste.setIdRequisito(Integer.parseInt(selectRequisito.getSelectionModel().getSelectedItem().toString()
 				.substring(0, selectRequisito.getSelectionModel().getSelectedItem().toString().indexOf(" "))));
 
-		controller.addNewPlanoTeste(planoTeste);
+		if (isCadastrarNovoTeste == true) {
+			controller.addNewPlanoTeste(planoTeste);
+			carregarListaPlanoTestes();
+
+			AlertController.alertUsingInformationDialog("Cadastro feito com sucesso!");
+		} else {
+			planoTeste.setId(listaTestes.getSelectionModel().getSelectedItem().getId());
+			controller.editarTeste(planoTeste);
+			carregarListaPlanoTestes();
+			AlertController.alertUsingInformationDialog("Alteração feita com sucesso!");
+		}
 		carregarListaPlanoTestes();
+		limparCamposTela();
+	}
+
+	@FXML
+	private void editarTeste(Event E) {
+		if (listaTestes.getSelectionModel().getSelectedItem() == null)
+			AlertController.alertUsingWarningDialog("Selecione um teste da lista");
+		else {
+
+			descricao.clear();
+			descricao.setText(listaTestes.getSelectionModel().getSelectedItem().getDescricao());
+
+			for (int i = 0; i < selectTipoTeste.getItems().size(); i++) {
+				if (selectTipoTeste.getItems().get(i)
+						.contains(listaTestes.getSelectionModel().getSelectedItem().getTipoTeste()))
+					selectTipoTeste.getSelectionModel().select((selectTipoTeste.getItems().get(i)));
+			}
+
+			isCadastrarNovoTeste = false;
+		}
+
+	}
+
+	@FXML
+	public void limparCamposTela() {
 	}
 
 	public void carregarListaPlanoTestes() {
 		List<PlanoTeste> listaPlanoTestes = controller.enviarListaPlanoTeste();
-		setTableContent(listaPlanoTestes);
-		if (listaPlanoTestes.size() > 0) {
-			listId.setCellValueFactory(new PropertyValueFactory<PlanoTeste, Integer>("id"));
-			listDescricao.setCellValueFactory(new PropertyValueFactory<PlanoTeste, String>("descricao"));
-			listTipoTeste.setCellValueFactory(new PropertyValueFactory<PlanoTeste, String>("tipoTeste"));
-			listIdRequisito.setCellValueFactory(new PropertyValueFactory<PlanoTeste, Integer>("idRequisito"));
+		List<PlanoTeste> listaPlanoTestesPorRequisito = new ArrayList<PlanoTeste>();
+		for (PlanoTeste planoTeste : listaPlanoTestes) {
+			if (requisitoSelecionado == planoTeste.getIdRequisito())
+				listaPlanoTestesPorRequisito.add(planoTeste);
+		}
+		setTableContent(listaPlanoTestesPorRequisito);
+		if (listaPlanoTestesPorRequisito.size() > 0) {
+			listaId.setCellValueFactory(new PropertyValueFactory<PlanoTeste, Integer>("id"));
+			listaDescricao.setCellValueFactory(new PropertyValueFactory<PlanoTeste, String>("descricao"));
+			listaTipoTeste.setCellValueFactory(new PropertyValueFactory<PlanoTeste, String>("tipoTeste"));
 		}
 	}
 
 	private void setTableContent(List<PlanoTeste> listaPlanoTeste) {
-		listPlanoTestes.getItems().setAll(listaPlanoTeste);
+		listaTestes.getItems().setAll(listaPlanoTeste);
 	}
 
 }

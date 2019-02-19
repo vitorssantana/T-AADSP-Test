@@ -8,18 +8,22 @@ import model.PlanoTeste;
 
 public class PlanoTesteController {
 
-	private PlanoTesteDAO planoTesteDAO;
+	private PlanoTesteDAO dao;
 
 	public PlanoTesteController() throws IOException {
-		planoTesteDAO = new PlanoTesteDAO();
+		dao = new PlanoTesteDAO();
 	}
 
 	public List<PlanoTeste> enviarListaPlanoTeste() {
-		return planoTesteDAO.retornarListaPlanoTestes();
+		return dao.retornarListaPlanoTestes();
 	}
 
 	public void addNewPlanoTeste(PlanoTeste planoTeste) {
-		planoTesteDAO.addNewPlanoTeste(planoTeste);
+		dao.addNewPlanoTeste(planoTeste);
+	}
+
+	public void editarTeste(PlanoTeste planoTeste) {
+		dao.editarDadosTeste(planoTeste);
 	}
 
 }

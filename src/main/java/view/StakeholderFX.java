@@ -15,23 +15,28 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Stakeholder;
+import utils.AlertController;
+import model.Stakeholder;
 
 public class StakeholderFX implements Initializable {
+
+	private boolean isCadastrarNovoStakeholder = true;
 
 	@FXML
 	private Button btnSalvar;
 	@FXML
 	private TextField nome;
 	@FXML
-	private ComboBox<Integer> selectPrioridade;
+	private ComboBox<Integer> selectNotaPrioridade;
 	@FXML
-	private TableColumn<Stakeholder, Integer> id;
+	private TableColumn<Stakeholder, Integer> listaId;
 	@FXML
-	private TableColumn<Stakeholder, String> nomeList;
+	private TableColumn<Stakeholder, String> listaNome;
 	@FXML
-	private TableColumn<Stakeholder, Integer> notaPrioridade;
+	private TableColumn<Stakeholder, Integer> listaNotaPrioridade;
 	@FXML
 	private TableView<Stakeholder> listaStakeholders;
+
 	private StakeholderController controller;
 
 	@Override
@@ -41,24 +46,70 @@ public class StakeholderFX implements Initializable {
 			carregarListaStakeholders();
 			carregarListaPrioridade();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
+	}
+
+	@FXML
+	public void limparCamposTela() {
+	}
+
+	@FXML
+	public void editarStakeholder() {
+		if (listaStakeholders.getSelectionModel().getSelectedItem() == null)
+			AlertController.alertUsingWarningDialog("Selecione um stakeholder da lista");
+		else {
+
+			nome.clear();
+			nome.setText(listaStakeholders.getSelectionModel().getSelectedItem().getNome());
+
+			for (int i = 0; i < selectNotaPrioridade.getItems().size(); i++) {
+				if (selectNotaPrioridade.getItems().get(i)
+						.equals(listaStakeholders.getSelectionModel().getSelectedItem().getNotaPrioridade()))
+					selectNotaPrioridade.getSelectionModel().select((selectNotaPrioridade.getItems().get(i)));
+			}
+
+			isCadastrarNovoStakeholder = false;
+		}
+	}
+
+	@FXML
+	public void confirmarStakeholder(Event e) {
+
+		Stakeholder stakeholder = new Stakeholder();
+		stakeholder.setNome(nome.getText());
+		stakeholder
+				.setNotaPrioridade(Integer.valueOf(selectNotaPrioridade.getSelectionModel().getSelectedItem().toString()));
+
+		if (isCadastrarNovoStakeholder == true) {
+			controller.addNewStakeholder(stakeholder);
+			carregarListaStakeholders();
+
+			AlertController.alertUsingInformationDialog("Cadastro feito com sucesso!");
+		} else {
+			stakeholder.setId(listaStakeholders.getSelectionModel().getSelectedItem().getId());
+			controller.editarStakeholder(stakeholder);
+			carregarListaStakeholders();
+			AlertController.alertUsingInformationDialog("Alteação feita com sucesso!");
+
+		}
+
+		limparCamposTela();
 	}
 
 	private void carregarListaStakeholders() {
 		List<Stakeholder> listaStakeholders = controller.enviarListaStakeholder();
 		setTableContent(listaStakeholders);
 		if (listaStakeholders.size() > 0) {
-			id.setCellValueFactory(new PropertyValueFactory<Stakeholder, Integer>("id"));
-			nomeList.setCellValueFactory(new PropertyValueFactory<Stakeholder, String>("nome"));
-			notaPrioridade.setCellValueFactory(new PropertyValueFactory<Stakeholder, Integer>("notaPrioridade"));
+			listaId.setCellValueFactory(new PropertyValueFactory<Stakeholder, Integer>("id"));
+			listaNome.setCellValueFactory(new PropertyValueFactory<Stakeholder, String>("nome"));
+			listaNotaPrioridade.setCellValueFactory(new PropertyValueFactory<Stakeholder, Integer>("notaPrioridade"));
 		}
 	}
 
 	private void carregarListaPrioridade() {
-		selectPrioridade.getItems().addAll(1, 2, 3, 4, 5, 6, 7, 8, 9,10);
+		selectNotaPrioridade.getItems().addAll(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 	}
 
 	@FXML
@@ -66,7 +117,7 @@ public class StakeholderFX implements Initializable {
 		Stakeholder stakeholder = new Stakeholder();
 		stakeholder.setNome(nome.getText());
 		stakeholder
-				.setNotaPrioridade(Integer.valueOf(selectPrioridade.getSelectionModel().getSelectedItem().toString()));
+				.setNotaPrioridade(Integer.valueOf(selectNotaPrioridade.getSelectionModel().getSelectedItem().toString()));
 		controller.addNewStakeholder(stakeholder);
 		carregarListaStakeholders();
 	}

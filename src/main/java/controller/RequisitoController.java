@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import db.RequisitoDAO;
+import model.Projeto;
 import model.Requisito;
 
 public class RequisitoController {
@@ -21,6 +22,11 @@ public class RequisitoController {
 	public void cadastrarNovoRequisito(Requisito requisito) {
 		dao.addNewRequisito(requisito);
 	}
+	
+	public void editarRequisito(Requisito requisito) {
+		dao.editarDadosRequisito(requisito);
+	}
+
 
 	public boolean verificarSeProjetoEstaVinculadoARequisito(int idProjeto) {
 		List<Requisito> listaRequisitos = dao.retornarListarRequisitos();

@@ -9,18 +9,22 @@ import model.Stakeholder;
 
 public class StakeholderController {
 
-	private StakeholderDAO stakeholderDAO;
+	private StakeholderDAO dao;
 
 	public StakeholderController() throws IOException {
-		stakeholderDAO = new StakeholderDAO();
+		dao = new StakeholderDAO();
 	}
 
 	public List<Stakeholder> enviarListaStakeholder() {
-		return stakeholderDAO.retornarListaStakeholders();
+		return dao.retornarListaStakeholders();
 	}
-	
+
 	public void addNewStakeholder(Stakeholder stakeholder) {
-		stakeholderDAO.addNewStakeholder(stakeholder);
+		dao.addNewStakeholder(stakeholder);
+	}
+
+	public void editarStakeholder(Stakeholder stakeholder) {
+		dao.editarDadosStakeholder(stakeholder);
 	}
 
 }

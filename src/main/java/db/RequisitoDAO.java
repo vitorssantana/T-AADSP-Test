@@ -9,6 +9,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import model.Projeto;
 import model.Requisito;
 import model.Requisito;
 
@@ -91,6 +92,29 @@ public class RequisitoDAO {
 		cell.setCellValue(count);
 
 		cell = row.createCell(1);
+		cell.setCellValue(requisito.getTitulo());
+
+		cell = row.createCell(2);
+		cell.setCellValue(requisito.getIdProjeto());
+
+		cell = row.createCell(3);
+		cell.setCellValue(requisito.getNotaPrioridade());
+
+		cell = row.createCell(4);
+		cell.setCellValue(requisito.getIdStakeholder());
+
+		xlsDAO.writeAndCloseXls();
+	}
+
+	public void editarDadosRequisito(Requisito requisito) {
+		int count = 1;
+		while ((int) abaRequisito.getRow(count).getCell(0).getNumericCellValue() != requisito.getId()) {
+			count++;
+		}
+
+		Row row = abaRequisito.getRow(count);
+
+		Cell cell = row.getCell(1);
 		cell.setCellValue(requisito.getTitulo());
 
 		cell = row.createCell(2);

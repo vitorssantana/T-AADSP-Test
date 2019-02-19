@@ -17,9 +17,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class XlsDAO {
 
 	private final static String PATH = "AADSP-DB.xlsx";
-	XSSFWorkbook workbook;
-	XSSFRow row;
-	XSSFCell cell;
+	private XSSFWorkbook workbook;
+	private XSSFRow row;
+	private XSSFCell cell;
 
 	public XlsDAO() throws IOException {
 
@@ -47,22 +47,16 @@ public class XlsDAO {
 		XSSFSheet abaStakeholder = workbook.createSheet("Stakeholder");
 		XSSFSheet abaDesenvolvedor = workbook.createSheet("Desenvolvedor");
 		XSSFSheet abaRequisitos = workbook.createSheet("Requisito");
-		XSSFSheet abaTarefa = workbook.createSheet("Tarefa");
 		XSSFSheet abaBugs = workbook.createSheet("Bugs");
-		XSSFSheet abaRelease = workbook.createSheet("Release");
-		XSSFSheet abaReleaseTarefa = workbook.createSheet("Release_Tarefa");
-		XSSFSheet abaBugsRelease = workbook.createSheet("Bugs_Release");
+		XSSFSheet abaSprint = workbook.createSheet("Sprint");
 		XSSFSheet abaPlanoTeste = workbook.createSheet("PlanoTeste");
 
 		preencherCabecalhoAbaProjeto(abaProjeto);
 		preencherCabecalhoAbaStakeholder(abaStakeholder);
 		preencherCabecalhoAbaDesenvolvedor(abaDesenvolvedor);
 		preencherCabecalhoAbaRequisitos(abaRequisitos);
-		preencherCabecalhoAbaTarefa(abaTarefa);
 		preencherCabecalhoAbaBugs(abaBugs);
-		preencherCabecalhoAbaRelease(abaRelease);
-		preencherCabecalhoAbaReleaseTarefa(abaReleaseTarefa);
-		preencherCabecalhoAbaBugsRelease(abaBugsRelease);
+		preencherCabecalhoAbaSprint(abaSprint);
 		preencherCabecalhoAbaPlanoTeste(abaPlanoTeste);
 		writeAndCloseXls();
 		System.out.println("Arquivo Excel criado com sucesso!");
@@ -96,7 +90,6 @@ public class XlsDAO {
 		cell = row.createCell(4);
 		cell.setCellValue("Prazo de Entrega");
 		cell.setCellStyle(estilizarCabecalho(workbook));
-
 	}
 
 	private void preencherCabecalhoAbaStakeholder(XSSFSheet abaStakeholder) {
@@ -132,7 +125,7 @@ public class XlsDAO {
 		cell.setCellValue("Nivel de Experiência");
 		cell.setCellStyle(estilizarCabecalho(workbook));
 	}
-	
+
 	private void preencherCabecalhoAbaPlanoTeste(XSSFSheet abaPlanoTeste) {
 
 		row = abaPlanoTeste.createRow(0);
@@ -148,12 +141,11 @@ public class XlsDAO {
 		cell = row.createCell(2);
 		cell.setCellValue("Tipo_Teste");
 		cell.setCellStyle(estilizarCabecalho(workbook));
-	
+
 		cell = row.createCell(3);
 		cell.setCellValue("ID_Requisito");
 		cell.setCellStyle(estilizarCabecalho(workbook));
 	}
-
 
 	private void preencherCabecalhoAbaRequisitos(XSSFSheet abaRequisitos) {
 
@@ -170,48 +162,14 @@ public class XlsDAO {
 		cell = row.createCell(2);
 		cell.setCellValue("Id_Projeto");
 		cell.setCellStyle(estilizarCabecalho(workbook));
-		
+
 		cell = row.createCell(3);
 		cell.setCellValue("Nota_Prioridade");
 		cell.setCellStyle(estilizarCabecalho(workbook));
-		
+
 		cell = row.createCell(4);
 		cell.setCellValue("Id_Stakeholder");
 		cell.setCellStyle(estilizarCabecalho(workbook));
-	}
-
-	private void preencherCabecalhoAbaTarefa(XSSFSheet abaTarefa) {
-
-		row = abaTarefa.createRow(0);
-
-		cell = row.createCell(0);
-		cell.setCellValue("ID");
-		cell.setCellStyle(estilizarCabecalho(workbook));
-
-		cell = row.createCell(1);
-		cell.setCellValue("Título");
-		cell.setCellStyle(estilizarCabecalho(workbook));
-
-		cell = row.createCell(2);
-		cell.setCellValue("Status");
-		cell.setCellStyle(estilizarCabecalho(workbook));
-		
-		cell = row.createCell(3);
-		cell.setCellValue("Id_Desenvolvedor");
-		cell.setCellStyle(estilizarCabecalho(workbook));
-		
-		cell = row.createCell(4);
-		cell.setCellValue("Prioridade");
-		cell.setCellStyle(estilizarCabecalho(workbook));
-		
-		cell = row.createCell(5);
-		cell.setCellValue("Nivel_Impacto");
-		cell.setCellStyle(estilizarCabecalho(workbook));
-		
-		cell = row.createCell(6);
-		cell.setCellValue("Id_Release");
-		cell.setCellStyle(estilizarCabecalho(workbook));
-		
 	}
 
 	private void preencherCabecalhoAbaBugs(XSSFSheet abaBugs) {
@@ -229,35 +187,31 @@ public class XlsDAO {
 		cell = row.createCell(2);
 		cell.setCellValue("Status");
 		cell.setCellStyle(estilizarCabecalho(workbook));
-		
+
 		cell = row.createCell(3);
 		cell.setCellValue("Id_Desenvolvedor");
 		cell.setCellStyle(estilizarCabecalho(workbook));
-		
+
 		cell = row.createCell(4);
 		cell.setCellValue("Prioridade");
 		cell.setCellStyle(estilizarCabecalho(workbook));
-		
+
 		cell = row.createCell(5);
 		cell.setCellValue("Nivel_Impacto");
 		cell.setCellStyle(estilizarCabecalho(workbook));
-		
+
 		cell = row.createCell(6);
-		cell.setCellValue("Id_Release");
+		cell.setCellValue("Id_Sprint");
 		cell.setCellStyle(estilizarCabecalho(workbook));
 		
 		cell = row.createCell(7);
-		cell.setCellValue("Id_Projeto_Gerador");
-		cell.setCellStyle(estilizarCabecalho(workbook));
-		
-		cell = row.createCell(8);
-		cell.setCellValue("Id_ReleaseBug_Gerador");
+		cell.setCellValue("Id_Requisito");
 		cell.setCellStyle(estilizarCabecalho(workbook));
 	}
 
-	private void preencherCabecalhoAbaRelease(XSSFSheet abaRelease) {
+	private void preencherCabecalhoAbaSprint(XSSFSheet abaSprint) {
 
-		row = abaRelease.createRow(0);
+		row = abaSprint.createRow(0);
 
 		cell = row.createCell(0);
 		cell.setCellValue("ID");
@@ -266,39 +220,18 @@ public class XlsDAO {
 		cell = row.createCell(1);
 		cell.setCellValue("Versao");
 		cell.setCellStyle(estilizarCabecalho(workbook));
-	}
-
-	private void preencherCabecalhoAbaReleaseTarefa(XSSFSheet abaReleaseTarefa) {
-
-		row = abaReleaseTarefa.createRow(0);
-
-		cell = row.createCell(0);
-		cell.setCellValue("ID");
-		cell.setCellStyle(estilizarCabecalho(workbook));
-
-		cell = row.createCell(1);
-		cell.setCellValue("Id_Release");
-		cell.setCellStyle(estilizarCabecalho(workbook));
 
 		cell = row.createCell(2);
-		cell.setCellValue("Id_Tarefa");
-		cell.setCellStyle(estilizarCabecalho(workbook));
-	}
-
-	private void preencherCabecalhoAbaBugsRelease(XSSFSheet abaBugsRelease) {
-
-		row = abaBugsRelease.createRow(0);
-
-		cell = row.createCell(0);
-		cell.setCellValue("ID");
+		cell.setCellValue("Data Inicio");
 		cell.setCellStyle(estilizarCabecalho(workbook));
 
-		cell = row.createCell(1);
-		cell.setCellValue("Id_Bug");
+		cell = row.createCell(3);
+		cell.setCellValue("Data Fim");
 		cell.setCellStyle(estilizarCabecalho(workbook));
+		
 
-		cell = row.createCell(2);
-		cell.setCellValue("Id_Stakeholder");
+		cell = row.createCell(4);
+		cell.setCellValue("Status");
 		cell.setCellStyle(estilizarCabecalho(workbook));
 	}
 
@@ -313,12 +246,9 @@ public class XlsDAO {
 		}
 	}
 
-	public void openXls() {
-
-	}
-
-	private CellStyle estilizarCabecalho(XSSFWorkbook workbook2) {
-		CellStyle style = workbook2.createCellStyle();
+	@SuppressWarnings("deprecation")
+	private CellStyle estilizarCabecalho(XSSFWorkbook workbook) {
+		CellStyle style = workbook.createCellStyle();
 		style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
 		style.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
 		style.setFillForegroundColor(HSSFColor.LEMON_CHIFFON.index);
