@@ -69,7 +69,6 @@ public class DesenvolvedorDAO {
 	}
 
 	public void addNewDesenvolvedor(Desenvolvedor desenvolvedor) {
-		Iterator<Row> iterator = abaDesenvolvedor.iterator();
 		int count = 0;
 
 		while (abaDesenvolvedor.getRow(count) != null) {

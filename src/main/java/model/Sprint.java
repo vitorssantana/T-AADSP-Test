@@ -7,12 +7,9 @@ public class Sprint {
 
 	private int id;
 	private String nome, dataInicio, dataFim, status;
-	private List<Bug> listaBugs;
-	private List<Tarefa> listaTarefas;
 
 	public Sprint() {
-		listaBugs = new ArrayList<Bug>();
-		listaTarefas = new ArrayList<Tarefa>();
+
 	}
 
 	public int getId() {
@@ -29,22 +26,6 @@ public class Sprint {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public List<Bug> getListaBugs() {
-		return listaBugs;
-	}
-
-	public List<Tarefa> getListaTarefas() {
-		return listaTarefas;
-	}
-
-	public void addBug(Bug bug) {
-		listaBugs.add(bug);
-	}
-
-	public void addTarefa(Tarefa tarefa) {
-		listaTarefas.add(tarefa);
 	}
 
 	public String getDataInicio() {
@@ -69,14 +50,6 @@ public class Sprint {
 
 	public void setStatus(String status) {
 		this.status = status;
-	}
-
-	public void setListaBugs(List<Bug> listaBugs) {
-		this.listaBugs = listaBugs;
-	}
-
-	public void setListaTarefas(List<Tarefa> listaTarefas) {
-		this.listaTarefas = listaTarefas;
 	}
 
 }

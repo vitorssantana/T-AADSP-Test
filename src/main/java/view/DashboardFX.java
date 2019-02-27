@@ -73,6 +73,11 @@ public class DashboardFX implements Initializable {
 		segundoPane = FXMLLoader.load(getClass().getResource("vincularRequisitoSprint.fxml"));
 		setPane(segundoPane);
 	}
+	
+	public void acessarTelaVincularDesenvolvedorRequisitoNaSprint() throws IOException {
+		segundoPane = FXMLLoader.load(getClass().getResource("vincularDesenvolvedorRequisitoNaSprint.fxml"));
+		setPane(segundoPane);
+	}
 
 	private void setPane(Pane pane) {
 		List<Node> parentChildren = ((Pane) anchor.getParent()).getChildren();

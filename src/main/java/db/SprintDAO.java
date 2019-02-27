@@ -121,8 +121,30 @@ public class SprintDAO {
 		xlsDAO.writeAndCloseXls();
 	}
 
-	public void mudarStatusSprint() {
-		// TODO
+	public void finalizarSprint(Sprint sprint) {
+		int count = 1;
+		while ((int) abaSprint.getRow(count).getCell(0).getNumericCellValue() != sprint.getId()) {
+			count++;
+		}
+
+		Row row = abaSprint.getRow(count);
+
+		Cell cell = row.createCell(4);
+		cell.setCellValue("Finalizada");
+		xlsDAO.writeAndCloseXls();
+	}
+	
+	public void iniciarSprint(Sprint sprint) {
+		int count = 1;
+		while ((int) abaSprint.getRow(count).getCell(0).getNumericCellValue() != sprint.getId()) {
+			count++;
+		}
+
+		Row row = abaSprint.getRow(count);
+
+		Cell cell = row.createCell(4);
+		cell.setCellValue("Em Andamento");
+		xlsDAO.writeAndCloseXls();
 	}
 
 }

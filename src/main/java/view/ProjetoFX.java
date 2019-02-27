@@ -51,7 +51,6 @@ public class ProjetoFX implements Initializable {
 	private Button btnSalvar;
 
 	private ProjetoController projetoController;
-	private Projeto projetoEditado;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {

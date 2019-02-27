@@ -50,6 +50,7 @@ public class XlsDAO {
 		XSSFSheet abaBugs = workbook.createSheet("Bugs");
 		XSSFSheet abaSprint = workbook.createSheet("Sprint");
 		XSSFSheet abaPlanoTeste = workbook.createSheet("PlanoTeste");
+		XSSFSheet abaRequisitoSprint = workbook.createSheet("Requisito_Sprint");
 
 		preencherCabecalhoAbaProjeto(abaProjeto);
 		preencherCabecalhoAbaStakeholder(abaStakeholder);
@@ -58,6 +59,7 @@ public class XlsDAO {
 		preencherCabecalhoAbaBugs(abaBugs);
 		preencherCabecalhoAbaSprint(abaSprint);
 		preencherCabecalhoAbaPlanoTeste(abaPlanoTeste);
+		preencherCabecalhoRequisitoSprint(abaRequisitoSprint);
 		writeAndCloseXls();
 		System.out.println("Arquivo Excel criado com sucesso!");
 
@@ -123,6 +125,10 @@ public class XlsDAO {
 
 		cell = row.createCell(2);
 		cell.setCellValue("Nivel de Experiência");
+		cell.setCellStyle(estilizarCabecalho(workbook));
+
+		cell = row.createCell(3);
+		cell.setCellValue("Nota");
 		cell.setCellStyle(estilizarCabecalho(workbook));
 	}
 
@@ -203,7 +209,7 @@ public class XlsDAO {
 		cell = row.createCell(6);
 		cell.setCellValue("Id_Sprint");
 		cell.setCellStyle(estilizarCabecalho(workbook));
-		
+
 		cell = row.createCell(7);
 		cell.setCellValue("Id_Requisito");
 		cell.setCellStyle(estilizarCabecalho(workbook));
@@ -228,11 +234,32 @@ public class XlsDAO {
 		cell = row.createCell(3);
 		cell.setCellValue("Data Fim");
 		cell.setCellStyle(estilizarCabecalho(workbook));
-		
 
 		cell = row.createCell(4);
 		cell.setCellValue("Status");
 		cell.setCellStyle(estilizarCabecalho(workbook));
+	}
+
+	private void preencherCabecalhoRequisitoSprint(XSSFSheet abaSprint) {
+
+		row = abaSprint.createRow(0);
+
+		cell = row.createCell(0);
+		cell.setCellValue("ID");
+		cell.setCellStyle(estilizarCabecalho(workbook));
+
+		cell = row.createCell(1);
+		cell.setCellValue("Id_Sprint");
+		cell.setCellStyle(estilizarCabecalho(workbook));
+
+		cell = row.createCell(2);
+		cell.setCellValue("Id_Requisito");
+		cell.setCellStyle(estilizarCabecalho(workbook));
+
+		cell = row.createCell(3);
+		cell.setCellValue("jaAdicionouDesenvolvedores");
+		cell.setCellStyle(estilizarCabecalho(workbook));
+
 	}
 
 	public void writeAndCloseXls() {

@@ -151,7 +151,7 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <JFXButton buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="116.0" ripplerFill="WHITE" style="-fx-background-color: #ffa500; -fx-background-radius: 0px;" text="Iniciar Sprint" textFill="WHITE">
+                  <JFXButton buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#iniciarSprint" prefHeight="45.0" prefWidth="116.0" ripplerFill="WHITE" style="-fx-background-color: #ffa500; -fx-background-radius: 0px;" text="Iniciar Sprint" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -165,7 +165,7 @@
                         <Insets left="25.0" right="25.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="135.0" ripplerFill="WHITE" style="-fx-background-color: #CCCC00; -fx-background-radius: 0px;" text="Finalizar Sprint" textFill="WHITE">
+                  <JFXButton buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#finalizarSprint" prefHeight="45.0" prefWidth="135.0" ripplerFill="WHITE" style="-fx-background-color: #CCCC00; -fx-background-radius: 0px;" text="Finalizar Sprint" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

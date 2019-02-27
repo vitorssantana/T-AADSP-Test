@@ -28,18 +28,18 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="600.0" prefWidth="724.0" snapToPixel="false" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="600.0" prefWidth="724.0" snapToPixel="false" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.RequisitoSprintFX">
    <children>
       <VBox prefHeight="600.0" prefWidth="724.0">
          <children>
             <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="724.0" style="-fx-background-color: #fff;">
                <children>
-                  <Label layoutX="14.0" layoutY="24.0" text="Vincular Release a Sprint" textFill="#7c8184">
+                  <Label layoutX="14.0" layoutY="24.0" text="Vincular Requisito a Sprint" textFill="#7c8184">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <JFXButton buttonType="RAISED" disable="true" layoutX="570.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="110.0" ripplerFill="#433333" style="-fx-background-color: #00A2D3; -fx-background-radius: 0px;" text="Editar" textFill="WHITE">
+                  <JFXButton fx:id="btnEditar" buttonType="RAISED" disable="true" layoutX="570.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#editar" prefHeight="45.0" prefWidth="110.0" ripplerFill="#433333" style="-fx-background-color: #00A2D3; -fx-background-radius: 0px;" text="Editar" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -50,7 +50,7 @@
                         <FontAwesomeIcon glyphStyle="-fx-fill:#fff" iconName="EDIT" size="1.5em" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton buttonType="RAISED" disable="true" layoutX="442.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="110.0" ripplerFill="WHITE" style="-fx-background-color: #E50404; -fx-background-radius: 0px;" text="Remover" textFill="WHITE">
+                  <JFXButton fx:id="btnRemover" buttonType="RAISED" disable="true" layoutX="442.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="110.0" ripplerFill="WHITE" style="-fx-background-color: #E50404; -fx-background-radius: 0px;" text="Remover" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -82,7 +82,7 @@
                         <Insets top="15.0" />
                      </padding>
                   </Label>
-                  <JFXComboBox layoutX="38.0" layoutY="36.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="39.0" prefWidth="174.0">
+                  <JFXComboBox fx:id="selectRequisito" layoutX="38.0" layoutY="36.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#ativarCamposRestantes" prefHeight="39.0" prefWidth="174.0">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
@@ -97,12 +97,12 @@
             </Pane>
             <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="408.0">
                <children>
-                  <Label disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="218.0" text="Nivel de Impacto das Alterações">
+                  <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="218.0" text="Nivel de Impacto das Alterações">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <JFXComboBox disable="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="94.0" />
+                  <JFXComboBox fx:id="selectImpactoAlteracoes" disable="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="94.0" />
                </children>
                <VBox.margin>
                   <Insets left="49.0" top="25.0" />
@@ -113,12 +113,12 @@
             </HBox>
             <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="119.0">
                <children>
-                  <Label disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="124.0" text="Desenvolvedores">
+                  <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="124.0" text="Desenvolvedores">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <JFXButton buttonType="RAISED" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="185.0" ripplerFill="WHITE" style="-fx-background-color: #71E438; -fx-background-radius: 0px;" text="Vincular Desevolvedor" textFill="WHITE">
+                  <JFXButton fx:id="btnVincularDesenvolvedor" buttonType="RAISED" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#vincularDesenvolvedor" prefHeight="32.0" prefWidth="185.0" ripplerFill="WHITE" style="-fx-background-color: #71E438; -fx-background-radius: 0px;" text="Vincular Desevolvedor" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -140,11 +140,10 @@
                   <Insets top="15.0" />
                </padding>
             </HBox>
-            <TableView disable="true" fixedCellSize="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.79" prefHeight="203.0" prefWidth="628.0" snapToPixel="false" style="-fx-padding: #393e4a;" VBox.vgrow="ALWAYS">
+            <TableView fx:id="listaRequisitoSprint" fixedCellSize="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#selecionarRequisitoSprint" onMousePressed="#selecionarRequisitoSprint" opacity="0.79" prefHeight="203.0" prefWidth="628.0" snapToPixel="false" style="-fx-padding: #393e4a;" VBox.vgrow="ALWAYS">
               <columns>
-                  <TableColumn editable="false" prefWidth="310.0" text="ID" />
-                  <TableColumn editable="false" prefWidth="310.0" text="NIVEL DE IMPACTO" />
-                  <TableColumn editable="false" prefWidth="310.0" text="DESENVOLVEDORES" />
+                  <TableColumn fx:id="listaRequisito" editable="false" prefWidth="310.0" text="REQUISITO" />
+                  <TableColumn fx:id="listaNivelImpacto" editable="false" prefWidth="310.0" text="NIVEL DE IMPACTO" />
               </columns>
                <VBox.margin>
                   <Insets left="50.0" right="30.0" top="40.0" />
@@ -156,7 +155,7 @@
                   <Cursor fx:constant="DISAPPEAR" />
                </cursor>
             </TableView>
-            <JFXButton buttonType="RAISED" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="110.0" ripplerFill="WHITE" style="-fx-background-color: #71E438; -fx-background-radius: 0px;" text="Confirmar" textFill="WHITE">
+            <JFXButton fx:id="btnConfirmar" buttonType="RAISED" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#confirmar" prefHeight="45.0" prefWidth="110.0" ripplerFill="WHITE" style="-fx-background-color: #71E438; -fx-background-radius: 0px;" text="Confirmar" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

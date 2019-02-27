@@ -12,7 +12,6 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import model.Bug;
-import model.Tarefa;
 
 public class BugDAO {
 
@@ -122,7 +121,7 @@ public class BugDAO {
 		cell.setCellValue(bug.getNivelImpacto());
 
 		cell = row.createCell(6);
-		//cell.setCellValue(bug.getIdRelease());
+		// cell.setCellValue(bug.getIdRelease());
 		if (bug.getIdTarefaGeradora() != null) {
 			cell = row.createCell(7);
 			cell.setCellValue(bug.getIdTarefaGeradora());
@@ -149,58 +148,10 @@ public class BugDAO {
 		return bugsDisponiveis;
 	}
 
-	public List<Bug> retornarListaBugsVinculados(int idRelease) {
 
-		List<Bug> bugsDisponiveis = new ArrayList<Bug>();
-		List<Bug> listaBugs = retornarListaBugs();
 
-		for (Bug bug : listaBugs) {
-			if (!(bug.getIdRelease() == null)) {
-				if (bug.getIdRelease().equals(idRelease))
-					bugsDisponiveis.add(bug);
-			}
-		}
 
-		return bugsDisponiveis;
 
-	}
 
-	public void vincularBugARelease(List<Bug> listaBugsVinculadosRelease, int idRelease) throws InterruptedException {
-		Iterator<Row> iterator = abaBug.iterator();
-		Row nextRow;
-		while (iterator.hasNext()) {
-			nextRow = iterator.next();
-			if (nextRow.getRowNum() == 0)
-				nextRow = iterator.next();
-
-			for (Bug bug : listaBugsVinculadosRelease) {
-				if (bug.getId() == (int) nextRow.getCell(0).getNumericCellValue()) {
-					Cell cell = nextRow.createCell(6);
-					cell.setCellValue(idRelease);
-				}
-			}
-		}
-		xlsDAO.writeAndCloseXls();
-	}
-
-	public void desvincularBugARelease(List<Bug> listaBugsDesvinculadosRelease) throws InterruptedException {
-		abaBug = null;
-		abaBug = workbook.getSheet("Bugs");
-		Iterator<Row> iterator = abaBug.iterator();
-		Row nextRow;
-		while (iterator.hasNext()) {
-			nextRow = iterator.next();
-			if (nextRow.getRowNum() == 0)
-				nextRow = iterator.next();
-
-			for (Bug bug : listaBugsDesvinculadosRelease) {
-				if (bug.getId() == (int) nextRow.getCell(0).getNumericCellValue()) { 
-					nextRow.createCell(6);
-				}
-			}
-		}
-		xlsDAO.writeAndCloseXls();
-	}
-	
 
 }

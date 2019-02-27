@@ -25,4 +25,12 @@ public class SprintController {
 	public void editarSprint(Sprint sprint) {
 		dao.editarSprint(sprint);
 	}
+	
+	public void iniciarSprint(Sprint sprint) {
+		dao.iniciarSprint(sprint);
+	}
+	
+	public void finalizarSprint(Sprint sprint) {
+		dao.finalizarSprint(sprint);
+	}
 }

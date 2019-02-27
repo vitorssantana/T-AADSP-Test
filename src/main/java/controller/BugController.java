@@ -29,17 +29,7 @@ public class BugController {
 		return bugDAO.retornarListaBugsDisponiveis();
 	}
 
-	public List<Bug> retornarListaBugsVinculados(int idRelease) {
-		return bugDAO.retornarListaBugsVinculados(idRelease);
-	}
 
-	public void vincularBugARelease(List<Bug> bug, int idRelease) throws InterruptedException {
-		bugDAO.vincularBugARelease(bug, idRelease);
-	}
-
-	public void desvincularBugARelease(List<Bug> bug) throws InterruptedException {
-		bugDAO.desvincularBugARelease(bug);
-	}
 
 	public List<Bug> retornarListaBugsDeRelease(int idRelease) {
 		List<Bug> listaComTodosBugs = retornarListaBugsDisponiveis();
