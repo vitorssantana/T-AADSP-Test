@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.testapps.*?>
+<?import javafx.scene.shape.*?>
+<?import com.jfoenix.controls.*?>
+<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="600.0" prefWidth="724.0" snapToPixel="false" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.IndicarStatusCasosTesteFX">
+   <children>
+      <VBox prefHeight="583.0" prefWidth="724.0">
+         <children>
+            <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="724.0" style="-fx-background-color: #fff;">
+               <children>
+                  <Label layoutX="14.0" layoutY="24.0" text="Indicar Status Dos Casos de Teste" textFill="#7c8184">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <JFXButton fx:id="btnConfirmar1" buttonType="RAISED" layoutX="561.0" layoutY="22.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#voltar" prefHeight="32.0" prefWidth="110.0" ripplerFill="WHITE" style="-fx-background-color: #FF0000; -fx-background-radius: 0px;" text="Voltar" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="Calibri Light" size="14.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIcon glyphStyle="-fx-fill:#fff" iconName="MINUS" size="1.5em" text="" />
+                     </graphic>
+                  </JFXButton>
+               </children>
+               <effect>
+                  <DropShadow blurType="ONE_PASS_BOX" color="#e8e4e4" height="10.0" radius="4.5" width="10.0" />
+               </effect>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Pane>
+            <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="408.0">
+               <children>
+                  <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="135.0" text="Selecionar Requisito">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="663.0">
+                     <children>
+                        <JFXComboBox fx:id="selectRequisito" onAction="#carregarCamposRestantes" prefHeight="25.0" prefWidth="136.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </JFXComboBox>
+                        <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="335.0">
+                           <opaqueInsets>
+                              <Insets bottom="10.0" left="10.0" />
+                           </opaqueInsets>
+                           <HBox.margin>
+                              <Insets left="15.0" right="20.0" top="15.0" />
+                           </HBox.margin>
+                        </HBox>
+                     </children>
+                  </HBox>
+               </children>
+               <VBox.margin>
+                  <Insets left="49.0" top="25.0" />
+               </VBox.margin>
+            </HBox>
+            <TableView fx:id="listaStatusCasosTeste" disable="true" fixedCellSize="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#selecionarCasoTeste" onMousePressed="#selecionarCasoTeste" opacity="0.79" prefHeight="355.0" prefWidth="628.0" snapToPixel="false" style="-fx-padding: #393e4a;" VBox.vgrow="ALWAYS">
+              <columns>
+                  <TableColumn fx:id="listaDescricao" editable="false" prefWidth="264.0" text="DESCRIÇÃO" />
+                  <TableColumn fx:id="listaStatus" editable="false" prefWidth="169.0" text="STATUS" />
+              </columns>
+               <VBox.margin>
+                  <Insets left="50.0" right="30.0" top="40.0" />
+               </VBox.margin>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+               <cursor>
+                  <Cursor fx:constant="DISAPPEAR" />
+               </cursor>
+            </TableView>
+            <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="585.0">
+               <VBox.margin>
+                  <Insets left="49.0" top="25.0" />
+               </VBox.margin>
+               <children>
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="291.0">
+                     <children>
+                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="176.0" text="Status do Caso de Teste:">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="663.0">
+                           <children>
+                              <JFXComboBox fx:id="selectStatusTeste" disable="true" prefHeight="25.0" prefWidth="136.0">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </JFXComboBox>
+                              <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="335.0">
+                                 <opaqueInsets>
+                                    <Insets bottom="10.0" left="10.0" />
+                                 </opaqueInsets>
+                                 <HBox.margin>
+                                    <Insets left="15.0" right="20.0" top="15.0" />
+                                 </HBox.margin>
+                              </HBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <JFXButton fx:id="btnConfirmar" buttonType="RAISED" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#confirmar" prefHeight="32.0" prefWidth="110.0" ripplerFill="WHITE" style="-fx-background-color: #71E438; -fx-background-radius: 0px;" text="Confirmar" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="Calibri Light" size="14.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIcon glyphStyle="-fx-fill:#fff" iconName="PLUS_CIRCLE" size="1.5em" text="" />
+                     </graphic>
+                     <HBox.margin>
+                        <Insets left="227.0" />
+                     </HBox.margin>
+                  </JFXButton>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

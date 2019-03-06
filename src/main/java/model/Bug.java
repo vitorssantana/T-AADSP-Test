@@ -2,8 +2,8 @@ package model;
 
 public class Bug {
 
-	private Integer id, idDesenvolvedor, idRelease, idTarefaGeradora, idBugGerador;
-	private String titulo, nivelImpacto, descricao, prioridade;
+	private Integer id, idDesenvolvedor, idRequisitoSprint;
+	private String titulo, nivelImpacto, descricao;
 
 	public Bug() {
 		// TODO Auto-generated constructor stub
@@ -23,14 +23,6 @@ public class Bug {
 
 	public void setIdDesenvolvedor(int idDesenvolvedor) {
 		this.idDesenvolvedor = idDesenvolvedor;
-	}
-
-	public Integer getIdRelease() {
-		return idRelease;
-	}
-
-	public void setIdRelease(int idRelease) {
-		this.idRelease = idRelease;
 	}
 
 	public String getTitulo() {
@@ -57,38 +49,24 @@ public class Bug {
 		this.descricao = descricao;
 	}
 
-	public String getPrioridade() {
-		return prioridade;
-	}
-
-	public void setPrioridade(String prioridade) {
-		this.prioridade = prioridade;
-	}
-
-	public Integer getIdTarefaGeradora() {
-		return idTarefaGeradora;
-	}
-
-	public void setIdTarefaGeradora(int idTarefaGeradora) {
-		if (idTarefaGeradora == 0)
-			this.idTarefaGeradora = (Integer) null;
-		else
-			this.idTarefaGeradora = idTarefaGeradora;
-	}
-
-	public Integer getIdBugGerador() {
-		return idBugGerador;
-	}
-
-	public void setIdBugGerador(int idBugGerador) {
-		if (idBugGerador == 0)
-			this.idBugGerador = (Integer) null;
-		else
-			this.idBugGerador = idBugGerador;
-	}
-	
 	public String toString() {
 		return id + " - " + titulo;
 	}
-	
+
+	public Integer getIdRequisitoSprint() {
+		return idRequisitoSprint;
+	}
+
+	public void setIdRequisitoSprint(Integer idRequisitoSprint) {
+		this.idRequisitoSprint = idRequisitoSprint;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public void setIdDesenvolvedor(Integer idDesenvolvedor) {
+		this.idDesenvolvedor = idDesenvolvedor;
+	}
+
 }

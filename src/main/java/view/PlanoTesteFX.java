@@ -55,7 +55,6 @@ public class PlanoTesteFX implements Initializable {
 			controller = new PlanoTesteController();
 			carregarListaRequisito();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

@@ -11,35 +11,23 @@ import model.Bug;
 
 public class BugController {
 
-	private BugDAO bugDAO;
+	private BugDAO dao;
 
 	public BugController() throws IOException {
-		bugDAO = new BugDAO();
+		dao = new BugDAO();
 	}
 
 	public List<Bug> enviarListaBug() {
-		return bugDAO.retornarListaBugs();
+		return dao.retornarListaBugs();
 	}
 
 	public void addNewBug(Bug bug) {
-		bugDAO.addNewBug(bug);
+		dao.addNewBug(bug);
+	}
+	
+	public void editarBug(Bug bug) {
+		dao.editarBug(bug);
 	}
 
-	public List<Bug> retornarListaBugsDisponiveis() {
-		return bugDAO.retornarListaBugsDisponiveis();
-	}
-
-
-
-	public List<Bug> retornarListaBugsDeRelease(int idRelease) {
-		List<Bug> listaComTodosBugs = retornarListaBugsDisponiveis();
-		List<Bug> listaComTodosBugsDaRelease = new ArrayList<Bug>();
-		for (Bug bug : listaComTodosBugs) {
-			if (bug.getIdRelease() == idRelease) {
-				listaComTodosBugsDaRelease.add(bug);
-			}
-		}
-		return listaComTodosBugsDaRelease;
-	}
 
 }

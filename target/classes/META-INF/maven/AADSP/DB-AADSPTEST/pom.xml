@@ -15,7 +15,15 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
+		<jayes.version>2.0.1-SNAPSHOT</jayes.version>
 	</properties>
+	
+	<repositories>
+    <repository>
+        <id>recommenders</id>
+        <url>https://repo.eclipse.org/content/repositories/recommenders/</url>
+    </repository>
+</repositories>
 
 	<dependencies>
 		<dependency>
@@ -45,22 +53,47 @@
 			<version>11</version>
 		</dependency>
 		
-
-
-		
-
-	<!--	<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi</artifactId>
-			<version>3.13</version>
-		</dependency> -->
-
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
 			<version>3.15</version>
 		</dependency>
-
+		
+		 <dependency>
+        <groupId>org.eclipse.recommenders</groupId>
+        <artifactId>org.eclipse.recommenders.jayes</artifactId>
+        <version>${jayes.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.eclipse.recommenders</groupId>
+        <artifactId>org.eclipse.recommenders.jayes.io</artifactId>
+        <version>${jayes.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.eclipse.recommenders</groupId>
+        <artifactId>org.eclipse.recommenders.jayes.transformation</artifactId>
+        <version>${jayes.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>15.0</version>
+    </dependency>
+    <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>2.0.1</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>3.1</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-math</artifactId>
+        <version>2.1</version>
+    </dependency>
 
 	</dependencies>
 </project>

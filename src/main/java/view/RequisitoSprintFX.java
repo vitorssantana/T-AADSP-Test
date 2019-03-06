@@ -47,6 +47,7 @@ public class RequisitoSprintFX implements Initializable {
 			controller = new RequisitoSprintController();
 			carregarListaRequisitoSprint();
 			carregarListaRequisito();
+			carregarOpcoesNivelImpacto();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -84,7 +85,7 @@ public class RequisitoSprintFX implements Initializable {
 	@FXML
 	public void ativarCamposRestantes() {
 		selectImpactoAlteracoes.setDisable(false);
-		carregarOpcoesNivelImpacto();
+		
 		listaRequisitoSprint.setDisable(false);
 		btnConfirmar.setDisable(false);
 

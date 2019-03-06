@@ -137,7 +137,7 @@ public class SprintFX implements Initializable {
 	}
 
 	@FXML
-	public void exibirPopUpOpcoesSprint() {
+	public void exibirPopUpOpcoesSprint() throws IOException {
 
 		if (listaSprints.getSelectionModel().getSelectedItem().getStatus().equals("Finalizada")
 				|| listaSprints.getSelectionModel().getSelectedItem().getStatus().equals("Pendente")) {
@@ -168,14 +168,13 @@ public class SprintFX implements Initializable {
 				Optional<ButtonType> result = dialogoExe.showAndWait();
 
 				if (result.get() == btnInserirSprint) {
-					try {
-						DashboardFX.getInstance().acessarTelaVincularRequisitoSprint();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+
+					DashboardFX.getInstance().acessarTelaVincularRequisitoSprint();
+
 				} else if (result.get() == btnRealizarPredicao) {
 
 				} else if (result.get() == btnIndicarStatusTestes) {
+					DashboardFX.getInstance().acessarTelaIndicarStatusCasosTeste();
 
 				} else if (result.get() == btnCadastrarBugsAchados) {
 

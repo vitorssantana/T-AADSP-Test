@@ -15,9 +15,9 @@ import javafx.scene.layout.Pane;
 public class DashboardFX implements Initializable {
 
 	@FXML
-	private Pane anchor, segundoPane;
-	private static DashboardFX INSTANCE;
-	
+	public Pane anchor, segundoPane;
+	public static DashboardFX INSTANCE;
+
 	public static DashboardFX getInstance() {
 		return INSTANCE;
 	}
@@ -26,60 +26,65 @@ public class DashboardFX implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		INSTANCE = this;
 	}
-	
+
 	@FXML
-	private void acessarTelaProjetos(MouseEvent event) throws IOException {
+	public void acessarTelaProjetos(MouseEvent event) throws IOException {
 		segundoPane = FXMLLoader.load(getClass().getResource("projeto.fxml"));
 		setPane(segundoPane);
 	}
 
 	@FXML
-	private void acessarTelaRequisitos(MouseEvent event) throws IOException {
+	public void acessarTelaRequisitos(MouseEvent event) throws IOException {
 		segundoPane = FXMLLoader.load(getClass().getResource("requisito.fxml"));
 		setPane(segundoPane);
 	}
 
 	@FXML
-	private void acessarTelaDesenvolvedores(MouseEvent event) throws IOException {
+	public void acessarTelaDesenvolvedores(MouseEvent event) throws IOException {
 		segundoPane = FXMLLoader.load(getClass().getResource("desenvolvedor.fxml"));
 		setPane(segundoPane);
 	}
 
 	@FXML
-	private void acessarTelaPlanosTeste(MouseEvent event) throws IOException {
+	public void acessarTelaPlanosTeste(MouseEvent event) throws IOException {
 		segundoPane = FXMLLoader.load(getClass().getResource("planoTeste.fxml"));
 		setPane(segundoPane);
 	}
 
 	@FXML
-	private void acessarTelaStakeholders(MouseEvent event) throws IOException {
+	public void acessarTelaStakeholders(MouseEvent event) throws IOException {
 		segundoPane = FXMLLoader.load(getClass().getResource("stakeholder.fxml"));
 		setPane(segundoPane);
 	}
 
 	@FXML
-	private void acessarTelaBugs(MouseEvent event) throws IOException {
-		segundoPane = FXMLLoader.load(getClass().getResource("projeto.fxml"));
+	public void acessarTelaBugs(MouseEvent event) throws IOException {
+		segundoPane = FXMLLoader.load(getClass().getResource("bug.fxml"));
 		setPane(segundoPane);
 	}
 
 	@FXML
-	private void acessarTelaSprints(MouseEvent event) throws IOException {
+	public void acessarTelaSprints() throws IOException {
 		segundoPane = FXMLLoader.load(getClass().getResource("sprint.fxml"));
 		setPane(segundoPane);
 	}
-	
+
 	public void acessarTelaVincularRequisitoSprint() throws IOException {
 		segundoPane = FXMLLoader.load(getClass().getResource("vincularRequisitoSprint.fxml"));
 		setPane(segundoPane);
 	}
-	
+
 	public void acessarTelaVincularDesenvolvedorRequisitoNaSprint() throws IOException {
 		segundoPane = FXMLLoader.load(getClass().getResource("vincularDesenvolvedorRequisitoNaSprint.fxml"));
 		setPane(segundoPane);
 	}
 
-	private void setPane(Pane pane) {
+	public void acessarTelaIndicarStatusCasosTeste() throws IOException {
+		segundoPane = FXMLLoader.load(getClass().getResource("indicarStatusCasosTeste.fxml"));
+		setPane(segundoPane);
+	}
+
+	public void setPane(Pane pane) {
 		List<Node> parentChildren = ((Pane) anchor.getParent()).getChildren();
 		parentChildren.set(parentChildren.indexOf(anchor), pane);
 

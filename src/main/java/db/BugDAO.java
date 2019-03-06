@@ -64,23 +64,11 @@ public class BugDAO {
 						break;
 
 					case 4:
-						bug.setPrioridade(nextCell.getStringCellValue());
-						break;
-
-					case 5:
 						bug.setNivelImpacto(nextCell.getStringCellValue());
 						break;
 
-					case 6:
-						bug.setIdRelease((int) nextCell.getNumericCellValue());
-						break;
-
-					case 7:
-						bug.setIdTarefaGeradora((int) nextCell.getNumericCellValue());
-						break;
-
-					case 8:
-						bug.setIdBugGerador((int) nextCell.getNumericCellValue());
+					case 5:
+						bug.setIdRequisitoSprint((int) nextCell.getNumericCellValue());
 						break;
 					}
 
@@ -115,43 +103,38 @@ public class BugDAO {
 		cell.setCellValue(bug.getIdDesenvolvedor());
 
 		cell = row.createCell(4);
-		cell.setCellValue(bug.getPrioridade());
-
-		cell = row.createCell(5);
 		cell.setCellValue(bug.getNivelImpacto());
 
-		cell = row.createCell(6);
-		// cell.setCellValue(bug.getIdRelease());
-		if (bug.getIdTarefaGeradora() != null) {
-			cell = row.createCell(7);
-			cell.setCellValue(bug.getIdTarefaGeradora());
-		}
-
-		if (bug.getIdBugGerador() != null) {
-			cell = row.createCell(8);
-			cell.setCellValue(bug.getIdBugGerador());
-		}
+		cell = row.createCell(5);
+		cell.setCellValue(bug.getIdRequisitoSprint());
 
 		xlsDAO.writeAndCloseXls();
 	}
 
-	public List<Bug> retornarListaBugsDisponiveis() {
-		List<Bug> bugsDisponiveis = new ArrayList<Bug>();
-		List<Bug> listaBugs = retornarListaBugs();
-
-		for (Bug bug : listaBugs) {
-			if (bug.getIdRelease() == null || bug.getIdRelease().equals(0)) {
-				bugsDisponiveis.add(bug);
-			}
+	public void editarBug(Bug bug) {
+		int count = 1;
+		while ((int) abaBug.getRow(count).getCell(0).getNumericCellValue() != bug.getId()) {
+			count++;
 		}
 
-		return bugsDisponiveis;
+		Row row = abaBug.getRow(count);
+
+		Cell cell = row.getCell(1);
+		cell.setCellValue(bug.getTitulo());
+
+		cell = row.createCell(2);
+		cell.setCellValue(bug.getDescricao());
+
+		cell = row.createCell(3);
+		cell.setCellValue(bug.getIdDesenvolvedor());
+
+		cell = row.createCell(4);
+		cell.setCellValue(bug.getNivelImpacto());
+
+		cell = row.createCell(5);
+		cell.setCellValue(bug.getIdRequisitoSprint());
+
+		xlsDAO.writeAndCloseXls();
 	}
-
-
-
-
-
-
 
 }
