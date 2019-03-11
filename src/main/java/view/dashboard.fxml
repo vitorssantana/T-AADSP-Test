@@ -153,7 +153,7 @@
                   <Insets left="10.0" />
                </padding>
             </HBox>
-            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="338.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" styleClass="btns">
+            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="338.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="29.0" prefWidth="300.0" styleClass="btns">
                <children>
                   <FontAwesomeIcon glyphStyle="-fx-fill:#7C8184" iconName="LIST" size="1.3em" />
                   <Label onMouseClicked="#acessarTelaSprints" text="Sprints" textFill="#7c8184">
@@ -180,6 +180,25 @@
                         <Insets top="10.0" />
                     </VBox.margin>
                 </HBox>
+            <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#acessarTelaPredicao" prefHeight="23.0" prefWidth="300.0" styleClass="btns">
+               <children>
+                  <FontAwesomeIcon glyphStyle="-fx-fill:#7C8184" iconName="LIST" size="1.3em" />
+                  <Label onMouseClicked="#acessarTelaSprints" text="Predição" textFill="#7c8184">
+                     <font>
+                        <Font name="Calibri Light" size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </HBox>
             </children>
         </VBox>
         <VBox layoutX="300.0" prefHeight="600.0" prefWidth="724.0">

@@ -84,6 +84,11 @@ public class DashboardFX implements Initializable {
 		setPane(segundoPane);
 	}
 
+	public void acessarTelaPredicao() throws IOException {
+		segundoPane = FXMLLoader.load(getClass().getResource("predicaoTeste.fxml"));
+		setPane(segundoPane);
+	}
+
 	public void setPane(Pane pane) {
 		List<Node> parentChildren = ((Pane) anchor.getParent()).getChildren();
 		parentChildren.set(parentChildren.indexOf(anchor), pane);
