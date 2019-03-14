@@ -32,6 +32,15 @@
 			<version>3.8.1</version>
 			<scope>test</scope>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
+<dependency>
+    <groupId>joda-time</groupId>
+    <artifactId>joda-time</artifactId>
+    <version>2.10.1</version>
+</dependency>
+		
+		
 
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -88,6 +97,11 @@
     <groupId>de.jensd</groupId>
     <artifactId>fontawesomefx</artifactId>
     <version>8.1</version>
+</dependency>
+<dependency>
+    <groupId>com.jfoenix</groupId>
+    <artifactId>jfoenix</artifactId>
+    <version>9.0.0</version>
 </dependency>
     <dependency>
         <groupId>org.apache.commons</groupId>

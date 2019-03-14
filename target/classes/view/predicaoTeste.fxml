@@ -60,8 +60,8 @@
                         <Insets top="15.0" />
                      </padding>
                   </Label>
-                  <JFXTextField layoutX="337.0" layoutY="14.0" maxWidth="62.0" minWidth="62.0" prefHeight="31.0" prefWidth="62.0" />
-                  <JFXButton buttonType="RAISED" layoutX="524.0" layoutY="23.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="151.0" ripplerFill="WHITE" style="-fx-background-color: #71E438; -fx-background-radius: 0px;" text="Realizar Predição" textFill="WHITE">
+                  <JFXTextField fx:id="numTestadoresDisponiveis" layoutX="337.0" layoutY="14.0" maxWidth="62.0" minWidth="62.0" prefHeight="31.0" prefWidth="62.0" />
+                  <JFXButton buttonType="RAISED" layoutX="524.0" layoutY="23.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#realizarPredicao" prefHeight="31.0" prefWidth="151.0" ripplerFill="WHITE" style="-fx-background-color: #71E438; -fx-background-radius: 0px;" text="Realizar Predição" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -85,11 +85,13 @@
                   <Insets top="15.0" />
                </padding>
             </HBox>
-            <TableView disable="true" fixedCellSize="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.79" prefHeight="339.0" prefWidth="628.0" snapToPixel="false" style="-fx-padding: #393e4a;" VBox.vgrow="ALWAYS">
+            <TableView fx:id="listaPredicaoTestes" disable="true" fixedCellSize="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.79" prefHeight="339.0" prefWidth="628.0" snapToPixel="false" style="-fx-padding: #393e4a;" VBox.vgrow="ALWAYS">
               <columns>
-                  <TableColumn editable="false" prefWidth="72.0" text="ID" />
-                  <TableColumn editable="false" prefWidth="149.0" text="NOME" />
-                  <TableColumn editable="false" prefWidth="268.0" text="\% DE CHANCHES DE ENCONTRAR BUGS" />
+                  <TableColumn fx:id="listaNomeRequisito" editable="false" prefWidth="87.0" text="NOME REQUISITO" />
+                  <TableColumn fx:id="listaNomeProjeto" editable="false" prefWidth="331.0" text="NOME PROJETO" />
+                  <TableColumn fx:id="listaPrioridadeAlta" editable="false" prefWidth="292.0" text="\% PRIORIDADE ALTA" />
+                  <TableColumn fx:id="listaPrioridadeMedia" editable="false" prefWidth="292.0" text="\%PRIORIDADE MEDIA" />
+                  <TableColumn fx:id="listaPrioridadeBaixa" editable="false" prefWidth="292.0" text="\%PRIORIDADE BAIXA" />
               </columns>
                <VBox.margin>
                   <Insets left="50.0" right="30.0" />

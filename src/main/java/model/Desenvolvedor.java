@@ -4,13 +4,14 @@ public class Desenvolvedor {
 
 	private int id;
 
-	private String nome, nivel, nota;
+	private String nome, nivel;
+	double nota;
 
-	public String getNota() {
+	public double getNota() {
 		return nota;
 	}
 
-	public void setNota(String nota) {
+	public void setNota(double nota) {
 		this.nota = nota;
 	}
 
