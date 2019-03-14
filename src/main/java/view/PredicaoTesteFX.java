@@ -12,6 +12,7 @@ import controller.ProjetoController;
 import controller.RequisitoController;
 import controller.RequisitoSprintController;
 import controller.SprintController;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -51,10 +52,12 @@ public class PredicaoTesteFX implements Initializable {
 		// sprint já foi feita)
 
 		try {
+			int size = 0;
 			controller = new PredicaoTesteController();
 			List<Sprint> listaSprint = new SprintController().enviarListaSprint();
 			List<PredicaoTeste> listaPredicaoTeste = controller.retornarListaPredicao();
 			for (Sprint sprint : listaSprint) {
+				size++;
 				if (sprint.getStatus().equals("Em Andamento")) {
 					sprintAtual = sprint;
 					for (int i = 0; i < listaPredicaoTeste.size(); i++) {
@@ -67,7 +70,7 @@ public class PredicaoTesteFX implements Initializable {
 						}
 					}
 
-				} else {
+				} else if (size == listaSprint.size() - 1) {
 					// TODO emitir mensagem dizendo que nao existe sprint em andamento
 					AlertController.alertUsingWarningDialog("Não existe sprint em andamento");
 				}
@@ -98,7 +101,7 @@ public class PredicaoTesteFX implements Initializable {
 	}
 
 	@FXML
-	public void realizarPredicao() throws IOException, ParseException {
+	public void realizarPredicao(Event e) throws IOException, ParseException {
 		List<RequisitoSprint> listaTodosRequisitoSprint = new RequisitoSprintController()
 				.retornarListaRequisitoSprint();
 		List<Requisito> listaRequisito = new RequisitoController().enviarListaRequisitos();
