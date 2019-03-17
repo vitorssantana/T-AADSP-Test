@@ -5,13 +5,13 @@ public class Desenvolvedor {
 	private int id;
 
 	private String nome, nivel;
-	double nota;
+	Double nota;
 
 	public double getNota() {
 		return nota;
 	}
 
-	public void setNota(double nota) {
+	public void setNota(Double nota) {
 		this.nota = nota;
 	}
 
@@ -21,10 +21,6 @@ public class Desenvolvedor {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public Desenvolvedor() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public int getId() {

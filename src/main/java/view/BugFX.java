@@ -54,10 +54,10 @@ public class BugFX implements Initializable {
 	private TableColumn<Bug, Integer> listaIdDesenvolvedor;
 	@FXML
 	private TableColumn<Bug, String> listaNivelImpacto;
-
 	private int idRequisitoSprintAtual;
-
 	private BugController controller;
+	private Sprint sprintAtual;
+	List<RequisitoSprint> listaRequisitoSprintAtual;
 
 	private boolean isCadastrarNovoBug = true;
 
@@ -76,15 +76,21 @@ public class BugFX implements Initializable {
 	}
 
 	public void carregarListaRequisitos() throws IOException {
+		boolean isEmAndamento = false;
 		List<Sprint> listaSprints = new SprintController().enviarListaSprint();
 		List<RequisitoSprint> listaRequisitoSprint = new RequisitoSprintController().retornarListaRequisitoSprint();
 		List<Integer> listaIdRequisitos = new ArrayList<Integer>();
 		List<Requisito> listaRequisito = new RequisitoController().enviarListaRequisitos();
+		listaRequisitoSprintAtual = new ArrayList<RequisitoSprint>();
 
 		for (int i = 0; i < listaSprints.size(); i++) {
 			if (listaSprints.get(i).getStatus().equals("Em Andamento")) {
+				sprintAtual = listaSprints.get(i);
+				isEmAndamento = true;
+				
 				for (RequisitoSprint requisitoSprint : listaRequisitoSprint) {
 					if (requisitoSprint.getIdSprint().equals(listaSprints.get(i).getId())) {
+						listaRequisitoSprintAtual.add(requisitoSprint);
 						idRequisitoSprintAtual = requisitoSprint.getId();
 						listaIdRequisitos.add(requisitoSprint.getIdRequisito());
 					}
@@ -94,15 +100,15 @@ public class BugFX implements Initializable {
 						selectRequisito.getItems().add(requisito.getId() + " - " + requisito.getTitulo());
 					}
 				}
-			} else if (i == listaSprints.size() - 1) {
-				AlertController.alertUsingErrorDialog("Não existe Sprint em andamento");
+			} else if (i == listaSprints.size() - 1 && isEmAndamento == false) {
+				AlertController.alertUsingErrorDialog("Não existe Sprint em andamento ou a sprint em andamento não tem requisito vinculado");
 				selectRequisito.setDisable(true);
 			}
 		}
 	}
 
 	@FXML
-	public void desbloquearCamposRestantes() {
+	public void desbloquearCamposRestantes() throws IOException {		
 		btnConfirmar.setDisable(false);
 		btnRemover.setDisable(false);
 		btnEditar.setDisable(false);
@@ -114,10 +120,21 @@ public class BugFX implements Initializable {
 		carregarListaBugs();
 	}
 
-	private void carregarListaBugs() {
+	private void carregarListaBugs() throws IOException {
 		List<Bug> listaBugs = controller.enviarListaBug();
-		setTableContent(listaBugs);
-		if (listaBugs.size() > 0) {
+		List<Bug> listaBugsDaSprint = new ArrayList<Bug>();
+		
+		for(Bug bug: listaBugs) {
+			for(RequisitoSprint requisitoSprint :listaRequisitoSprintAtual) {
+				if(bug.getIdRequisitoSprint() == requisitoSprint.getId() && requisitoSprint.getIdRequisito() == Integer.parseInt(selectRequisito.getSelectionModel().getSelectedItem().toString()
+						.substring(0, selectRequisito.getSelectionModel().getSelectedItem().toString().indexOf(" ")))) {
+					listaBugsDaSprint.add(bug);
+				}
+			}
+		}
+		
+		setTableContent(listaBugsDaSprint);
+		if (listaBugsDaSprint.size() > 0) {
 			listaId.setCellValueFactory(new PropertyValueFactory<Bug, Integer>("id"));
 			listaTitulo.setCellValueFactory(new PropertyValueFactory<Bug, String>("titulo"));
 			listaDescricao.setCellValueFactory(new PropertyValueFactory<Bug, String>("descricao"));
@@ -169,7 +186,7 @@ public class BugFX implements Initializable {
 	}
 
 	@FXML
-	public void confirmar() {
+	public void confirmar() throws IOException {
 
 		Bug bug = new Bug();
 		bug.setDescricao(descricao.getText());

@@ -26,4 +26,7 @@ public class ProjetoController {
 		dao.editarDadosProjeto(projeto);
 	}
 
+	public void removerProjeto(Projeto projeto) {
+		dao.removerProjeto(projeto);
+	}
 }

@@ -90,9 +90,10 @@ public class ProjetoDAO {
 			count++;
 		}
 		Row row = abaProjeto.createRow(count);
+		Row row1 = abaProjeto.getRow(count-1);
 
 		Cell cell = row.createCell(0);
-		cell.setCellValue(count);
+		cell.setCellValue(((int)row1.getCell(0).getNumericCellValue()) + 1);
 
 		cell = row.createCell(1);
 		cell.setCellValue(projeto.getNome());
@@ -130,10 +131,17 @@ public class ProjetoDAO {
 		cell.setCellValue(projeto.getPrazoEntrega());
 
 		xlsDAO.writeAndCloseXls();
-
 	}
 
-	public void removerProjeto(int idProjeto) {
+	public void removerProjeto(Projeto projeto) {
+		int count = 1;
+		while ((int) abaProjeto.getRow(count).getCell(0).getNumericCellValue() != projeto.getId()) {
+			count++;
+		}
+		Row row = abaProjeto.getRow(count);
+		abaProjeto.removeRow(row);
+		
+		xlsDAO.writeAndCloseXls();
 	}
 
 }

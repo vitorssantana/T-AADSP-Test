@@ -91,7 +91,10 @@ public class ProjetoFX implements Initializable {
 
 	@FXML
 	private void limparCamposTela() {
-		// TODO
+		nome.clear();
+		custo.clear();
+		selectStakeholder.getSelectionModel().clearSelection();
+		prazo.clear();
 	}
 
 	private void carregarListaProjetos() {
@@ -125,7 +128,9 @@ public class ProjetoFX implements Initializable {
 				AlertController
 						.alertUsingWarningDialog("Não se pode deletar o projeto, ele está vinculado a Requisitos");
 			} else {
-				// TODO Deletar Projeto
+				projetoController.removerProjeto(listaProjetos.getSelectionModel().getSelectedItem());
+				AlertController.alertUsingSuccessDialog("Projeto excluido com sucesso!");
+				carregarListaProjetos();
 			}
 		}
 	}

@@ -38,7 +38,7 @@ public class DesenvolvedorFX implements Initializable {
 	@FXML
 	private TableView<Desenvolvedor> listaDesenvolvedores;
 	private DesenvolvedorController controller;
-
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		try {
@@ -74,7 +74,7 @@ public class DesenvolvedorFX implements Initializable {
 	}
 
 	@FXML
-	public void confirmarDesenvolvedor(Event e) {
+	public void confirmarDesenvolvedor(Event e) throws IOException {
 
 		Desenvolvedor desenvolvedor = new Desenvolvedor();
 		desenvolvedor.setNome(nome.getText());

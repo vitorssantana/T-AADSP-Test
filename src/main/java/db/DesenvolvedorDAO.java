@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -58,6 +59,9 @@ public class DesenvolvedorDAO {
 						desenvolvedor.setNivel(nextCell.getStringCellValue());
 						break;
 
+					case 3:
+						desenvolvedor.setNota(Double.valueOf(nextCell.getNumericCellValue()));
+
 					}
 
 				}
@@ -68,7 +72,7 @@ public class DesenvolvedorDAO {
 		return listaDesenvolvedores;
 	}
 
-	public void addNewDesenvolvedor(Desenvolvedor desenvolvedor) {
+	public void addNewDesenvolvedor(Desenvolvedor desenvolvedor) throws IOException {
 		int count = 0;
 
 		while (abaDesenvolvedor.getRow(count) != null) {
@@ -86,6 +90,9 @@ public class DesenvolvedorDAO {
 		cell = row.createCell(2);
 		cell.setCellValue(desenvolvedor.getNivel());
 
+		cell = row.createCell(3);
+		cell.setCellValue(10);
+
 		xlsDAO.writeAndCloseXls();
 	}
 
@@ -96,15 +103,18 @@ public class DesenvolvedorDAO {
 		}
 
 		Row row = abaDesenvolvedor.getRow(count);
-
+		
 		Cell cell = row.getCell(1);
 		cell.setCellValue(desenvolvedor.getNome());
-
+		
+		
 		cell = row.createCell(2);
 		cell.setCellValue(desenvolvedor.getNivel());
-
+		
+		cell = row.createCell(3);
+		cell.setCellValue(desenvolvedor.getNota());
+		
 		xlsDAO.writeAndCloseXls();
-
 	}
 
 }

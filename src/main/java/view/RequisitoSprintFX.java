@@ -2,6 +2,7 @@ package view;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -55,14 +56,15 @@ public class RequisitoSprintFX implements Initializable {
 
 	public void carregarListaRequisitoSprint() {
 		List<RequisitoSprint> listaRequisitoSprint = controller.retornarListaRequisitoSprint();
-
+		List<RequisitoSprint> listaRequisitoSprintJaAdicionados = new ArrayList<RequisitoSprint>();
+		
 		for (int i = 0; i < listaRequisitoSprint.size(); i++) {
-			if (listaRequisitoSprint.get(i).getIdSprint() != SprintFX.getInstance().getSprintSelecionada().getId())
-				listaRequisitoSprint.remove(i);
+			if (listaRequisitoSprint.get(i).getIdSprint() == SprintFX.getInstance().getSprintSelecionada().getId())
+				listaRequisitoSprintJaAdicionados.add((listaRequisitoSprint.get(i)));
 		}
 
-		setTableContent(listaRequisitoSprint);
-		if (listaRequisitoSprint.size() > 0) {
+		setTableContent(listaRequisitoSprintJaAdicionados);
+		if (listaRequisitoSprintJaAdicionados.size() > 0) {
 			listaRequisito.setCellValueFactory(new PropertyValueFactory<RequisitoSprint, String>("idRequisito"));
 			listaNivelImpacto
 					.setCellValueFactory(new PropertyValueFactory<RequisitoSprint, String>("nivelImpactoAlteracoes"));
@@ -79,7 +81,7 @@ public class RequisitoSprintFX implements Initializable {
 	}
 
 	public void carregarOpcoesNivelImpacto() {
-		selectImpactoAlteracoes.getItems().addAll("Baixo", "Médio", "Alto");
+		selectImpactoAlteracoes.getItems().addAll("Baixo", "Medio", "Alto");
 	}
 
 	@FXML

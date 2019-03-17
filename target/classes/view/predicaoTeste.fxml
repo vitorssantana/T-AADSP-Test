@@ -61,7 +61,7 @@
                      </padding>
                   </Label>
                   <JFXTextField fx:id="numTestadoresDisponiveis" layoutX="337.0" layoutY="14.0" maxWidth="62.0" minWidth="62.0" prefHeight="31.0" prefWidth="62.0" />
-                  <JFXButton buttonType="RAISED" layoutX="524.0" layoutY="23.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#realizarPredicao" prefHeight="31.0" prefWidth="151.0" ripplerFill="WHITE" style="-fx-background-color: #71E438; -fx-background-radius: 0px;" text="Realizar Predição" textFill="WHITE">
+                  <JFXButton fx:id="btnRealizarPredicao" buttonType="RAISED" layoutX="524.0" layoutY="23.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#realizarPredicao" prefHeight="31.0" prefWidth="151.0" ripplerFill="WHITE" style="-fx-background-color: #71E438; -fx-background-radius: 0px;" text="Realizar Predição" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

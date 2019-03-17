@@ -53,26 +53,27 @@ public class PredicaoTesteFX implements Initializable {
 
 		try {
 			int size = 0;
+			boolean isEmAndamento = false;
 			controller = new PredicaoTesteController();
 			List<Sprint> listaSprint = new SprintController().enviarListaSprint();
 			List<PredicaoTeste> listaPredicaoTeste = controller.retornarListaPredicao();
 			for (Sprint sprint : listaSprint) {
 				size++;
 				if (sprint.getStatus().equals("Em Andamento")) {
+					isEmAndamento = true;
 					sprintAtual = sprint;
 					for (int i = 0; i < listaPredicaoTeste.size(); i++) {
 						if (listaPredicaoTeste.get(i).getIdSprint() == sprint.getId()) {
 							carregarListaPredicaoTeste();
 							btnRealizarPredicao.setDisable(true);
-						} else if (null == null) {
-							// TODO ver se te algo a se fazer nesse caso
-							btnRealizarPredicao.setDisable(false);
+							return;
 						}
 					}
 
-				} else if (size == listaSprint.size() - 1) {
+				} else if (size == listaSprint.size() && isEmAndamento == false) {
 					// TODO emitir mensagem dizendo que nao existe sprint em andamento
 					AlertController.alertUsingWarningDialog("Não existe sprint em andamento");
+					btnRealizarPredicao.setDisable(true);
 				}
 			}
 		} catch (IOException e) {
@@ -82,9 +83,16 @@ public class PredicaoTesteFX implements Initializable {
 
 	public void carregarListaPredicaoTeste() {
 		List<PredicaoTeste> listaPredicaoTeste = controller.retornarListaPredicao();
-		setTableContent(listaPredicaoTeste);
+		List<PredicaoTeste> listaPredicaoTesteSprintAtual = new ArrayList<PredicaoTeste>();
 
-		if (listaPredicaoTeste.size() > 0) {
+		for (PredicaoTeste predicaoTeste : listaPredicaoTeste) {
+			if (predicaoTeste.getIdSprint() == sprintAtual.getId()) {
+				listaPredicaoTesteSprintAtual.add(predicaoTeste);
+			}
+		}
+		setTableContent(listaPredicaoTesteSprintAtual);
+
+		if (listaPredicaoTesteSprintAtual.size() > 0) {
 			listaNomeRequisito.setCellValueFactory(new PropertyValueFactory<PredicaoTeste, String>("nomeRequisito"));
 			listaNomeProjeto.setCellValueFactory(new PropertyValueFactory<PredicaoTeste, String>("nomeProjeto"));
 			listaPrioridadeAlta
@@ -124,12 +132,13 @@ public class PredicaoTesteFX implements Initializable {
 			for (Projeto projeto : listaProjeto) {
 				if (projeto.getId() == requisito.getIdProjeto()) {
 					predicaoTeste.setIdProjeto(projeto.getId());
+					predicaoTeste.setIdRequisito(requisito.getId());
+					predicaoTeste.setIdSprint(sprintAtual.getId());
+					predicaoTeste.setNomeProjeto(projeto.getNome());
+					predicaoTeste.setNomeRequisito(requisito.getTitulo());
+					controller.realizarPredicao(predicaoTeste, requisito, sprintAtual);
 				}
 			}
-
-			predicaoTeste.setIdRequisito(requisito.getId());
-			predicaoTeste.setIdSprint(sprintAtual.getId());
-			controller.realizarPredicao(predicaoTeste, requisito, sprintAtual);
 		}
 
 		btnRealizarPredicao.setDisable(true);

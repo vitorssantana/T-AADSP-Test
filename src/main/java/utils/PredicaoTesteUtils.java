@@ -66,11 +66,11 @@ public class PredicaoTesteUtils {
 		}
 
 		if (requisitoSprint.getNivelImpactoAlteracoes().equals("Alto")) {
-			alteracoesRequisito = "Alto";
-		} else if (requisitoSprint.getNivelImpactoAlteracoes().equals("Médio")) {
-			alteracoesRequisito = "Médio";
+			alteracoesRequisito = "AltaProporcao";
+		} else if (requisitoSprint.getNivelImpactoAlteracoes().equals("Medio")) {
+			alteracoesRequisito = "MediaProporcao";
 		} else {
-			alteracoesRequisito = "Baixo";
+			alteracoesRequisito = "BaixaProporcao";
 		}
 	}
 
@@ -92,11 +92,13 @@ public class PredicaoTesteUtils {
 			for (Desenvolvedor desenvolvedor : listaDesenvolvedor) {
 				if (desenvolvedor.getId() == devReqSprint.getIdDesenvolvedor()) {
 					listaDesenvolvedorVinculados.add(desenvolvedor);
-					notaDesenvolvedores = notaDesenvolvedores + desenvolvedor.getNota()
-							+ Integer.valueOf(devReqSprint.getNivelParticipacao());
+					notaDesenvolvedores = notaDesenvolvedores
+							+ (Double.valueOf(desenvolvedor.getNota()) * devReqSprint.getNivelParticipacao());
 				}
 			}
 		}
+
+		notaDesenvolvedores = notaDesenvolvedores / 100;
 
 		if (notaDesenvolvedores < 5.0) {
 			nivelDesenvolvedores = "PoucoConfiavel";
@@ -115,12 +117,25 @@ public class PredicaoTesteUtils {
 			return;
 		}
 
+		// verificar se requisito tem caso de teste vinculado
+		// se nao, sete coberturaminina
+
 		List<StatusCasosTeste> listaStatusCasosTestes = new StatusCasosTesteController()
 				.retornarListaStatusCasosTeste();
 		List<StatusCasosTeste> listaStatusCasosTestesSelecionados = new ArrayList<StatusCasosTeste>();
 		List<RequisitoSprint> listaRequisitoSprint = new RequisitoSprintController().retornarListaRequisitoSprint();
 
-		for (int i = listaRequisitoSprint.size(); i >= 0; i--) {
+		for (int i = 0; i < listaStatusCasosTestes.size(); i++) {
+			if (listaStatusCasosTestes.get(i).getIdRequisitoSprint() != requisitoSprint.getId()
+					&& i == listaStatusCasosTestes.size() - 1) {
+				porctCobertTestesAnterior = "CoberturaMinima";
+				return;
+			} else if (listaStatusCasosTestes.get(i).getIdRequisitoSprint() == requisitoSprint.getId()) {
+				break;
+			}
+		}
+
+		for (int i = listaRequisitoSprint.size() - 1; i >= 0; i--) {
 			if (listaRequisitoSprint.get(i).getIdRequisito() == requisito.getId()
 					&& listaRequisitoSprint.get(i).getId() < requisitoSprint.getId()) {
 
@@ -132,7 +147,7 @@ public class PredicaoTesteUtils {
 
 				int contador = 0;
 				for (StatusCasosTeste statusCasosTeste : listaStatusCasosTestesSelecionados) {
-					if (statusCasosTeste.getStatus() == "Sucesso") {
+					if (statusCasosTeste.getStatus().equals("Sucesso")) {
 						contador++;
 					}
 				}
@@ -149,7 +164,7 @@ public class PredicaoTesteUtils {
 
 				return;
 
-			} else if (listaRequisitoSprint.get(i).getIdRequisito() != requisito.getId() && i == 0) {
+			} else if (i == 0) {
 				porctCobertTestesAnterior = "CoberturaMinima";
 				return;
 			}
@@ -249,6 +264,7 @@ public class PredicaoTesteUtils {
 	}
 
 	public double[] retornarListaProbabilidade() {
+		bn = new BayesianNetwork();
 		return bn.realizarPredicao(alteracoesRequisito, nivelDesenvolvedores, porctCobertTestesAnterior,
 				nivelImporStakeholderProjeto, nivelImportanciaStakeholderRequisito, custoProjeto, deadlineProjeto);
 	}

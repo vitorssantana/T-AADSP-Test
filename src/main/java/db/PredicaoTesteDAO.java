@@ -97,15 +97,19 @@ public class PredicaoTesteDAO {
 						break;
 
 					case 4:
-						predicaoteste.setProbabilidadeAlta(nextCell.getNumericCellValue());
-						break;
-
+						predicaoteste.setNomeProjeto(nextCell.getStringCellValue());
+						break;	
+						
 					case 5:
-						predicaoteste.setProbabilidadeMedia(nextCell.getNumericCellValue());
+						predicaoteste.setProbabilidadeAlta((double)nextCell.getNumericCellValue());
 						break;
 
 					case 6:
-						predicaoteste.setProbabilidadeBaixa((int) nextCell.getNumericCellValue());
+						predicaoteste.setProbabilidadeMedia((double)nextCell.getNumericCellValue());
+						break;
+
+					case 7:
+						predicaoteste.setProbabilidadeBaixa((double) nextCell.getNumericCellValue());
 						break;
 
 					}

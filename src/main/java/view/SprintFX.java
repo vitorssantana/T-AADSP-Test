@@ -24,6 +24,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.Sprint;
 import utils.AlertController;
+import utils.CalculoNotaDesenvolvedorUtils;
 
 public class SprintFX implements Initializable {
 
@@ -143,6 +144,8 @@ public class SprintFX implements Initializable {
 				|| listaSprints.getSelectionModel().getSelectedItem().getStatus().equals("Pendente")) {
 			AlertController.alertUsingInformationDialog("Essa sprint não foi iniciada ou já foi finalizada");
 			return;
+		} else if (listaSprints.getSelectionModel().getSelectedItem() == null) {
+			AlertController.alertUsingWarningDialog("Selecione uma sprint da lista");
 		} else {
 			INSTANCE = this;
 			sprintSelecionada = listaSprints.getSelectionModel().getSelectedItem();
@@ -152,31 +155,22 @@ public class SprintFX implements Initializable {
 
 				Alert dialogoExe = new Alert(Alert.AlertType.INFORMATION);
 				ButtonType btnInserirSprint = new ButtonType("Inserir Release");
-
-				ButtonType btnRealizarPredicao = new ButtonType("Realizar Predicao");
 				ButtonType btnIndicarStatusTestes = new ButtonType("Indicar Status dos Testes");
-				ButtonType btnCadastrarBugsAchados = new ButtonType("Cadastrar Bugs");
 
-				dialogoExe.setTitle("Opções de Sprit");
+				dialogoExe.setTitle("Opções de Sprnit");
 				dialogoExe.setHeaderText("Selecione uma das opções");
 				dialogoExe.setContentText("O que você deseja?");
-				dialogoExe.getButtonTypes().setAll(btnInserirSprint, btnRealizarPredicao, btnIndicarStatusTestes,
-						btnCadastrarBugsAchados);
+				dialogoExe.getButtonTypes().setAll(btnInserirSprint, btnIndicarStatusTestes);
 
 				dialogoExe.setHeaderText(null);
 
 				Optional<ButtonType> result = dialogoExe.showAndWait();
 
 				if (result.get() == btnInserirSprint) {
-
 					DashboardFX.getInstance().acessarTelaVincularRequisitoSprint();
-
-				} else if (result.get() == btnRealizarPredicao) {
 
 				} else if (result.get() == btnIndicarStatusTestes) {
 					DashboardFX.getInstance().acessarTelaIndicarStatusCasosTeste();
-
-				} else if (result.get() == btnCadastrarBugsAchados) {
 
 				}
 
@@ -203,11 +197,12 @@ public class SprintFX implements Initializable {
 		} else {
 			controller.iniciarSprint(this.listaSprints.getSelectionModel().getSelectedItem());
 			carregarListaSprints();
+			AlertController.alertUsingSuccessDialog("Sprint Iniciada com sucesso!");
 		}
 	}
 
 	@FXML
-	public void finalizarSprint() {
+	public void finalizarSprint() throws IOException, InterruptedException {
 		if (this.listaSprints.getSelectionModel().getSelectedItem() == null) {
 			AlertController.alertUsingWarningDialog("Selecione uma sprint da lista");
 		} else if (this.listaSprints.getSelectionModel().getSelectedItem().getStatus().equals("Finalizada")) {
@@ -215,9 +210,12 @@ public class SprintFX implements Initializable {
 		} else if (this.listaSprints.getSelectionModel().getSelectedItem().getStatus().equals("Pendente")) {
 			AlertController.alertUsingWarningDialog("A Sprint não está em andamento");
 		} else if (this.listaSprints.getSelectionModel().getSelectedItem().getStatus().equals("Em Andamento")) {
-
-			controller.finalizarSprint(this.listaSprints.getSelectionModel().getSelectedItem());
+			CalculoNotaDesenvolvedorUtils utils = new CalculoNotaDesenvolvedorUtils(this.listaSprints.getSelectionModel().getSelectedItem());
+ 			utils.calcularNotaDesenvolvedor();
+ 			controller = new SprintController();
+ 			controller.finalizarSprint(this.listaSprints.getSelectionModel().getSelectedItem());
 			carregarListaSprints();
+			AlertController.alertUsingSuccessDialog("Sprint Finalizada com sucesso!");
 		}
 	}
 

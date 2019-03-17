@@ -19,7 +19,7 @@ public class DesenvolvedorController {
 		return dao.retornarListaDesenvolvedores();
 	}
 
-	public void cadastrarNovoDesenvovedor(Desenvolvedor desenvolvedor) {
+	public void cadastrarNovoDesenvovedor(Desenvolvedor desenvolvedor) throws IOException {
 		dao.addNewDesenvolvedor(desenvolvedor);
 	}
 

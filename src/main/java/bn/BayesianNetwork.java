@@ -33,14 +33,14 @@ public class BayesianNetwork {
 		iniciarNoRiscoDeBugsNoRequisito();
 		iniciarNoNivelHierarquiaRequisito();
 		iniciarNoPrioridadeDoRequisito();
-//		iniciarNoPrioridadeTesteDoRequisito();
+		iniciarNoPrioridadeTesteDoRequisito();
 	}
 
 	public static void main(String[] args) {
 		BayesianNetwork bn = new BayesianNetwork();
 
-		System.out.print(bn.realizarPredicao("BaixaProporcao", "MuitoConfiavel", "CoberturaAlta", "Alta", "Alta", "Alto",
-				"Medio").length);
+		System.out.print(bn.realizarPredicao("BaixaProporcao", "MuitoConfiavel", "CoberturaAlta", "Alta", "Alta",
+				"Alto", "Medio").length);
 	}
 
 	public double[] realizarPredicao(String alteracoesRequisito, String nivelDesenvolvedores,
@@ -60,8 +60,8 @@ public class BayesianNetwork {
 		evidence.put(this.deadlineProjeto, deadlineProjeto);
 
 		inferer.setEvidence(evidence);
-		double[] beliefsC = inferer.getBeliefs(chanceImpactoRequisito);
-		inferer.getBeliefs(prioridadeDoRequisito);
+		double[] beliefsC = inferer.getBeliefs(prioridadeDeTesteDoRequisito);
+
 		return beliefsC;
 	}
 
@@ -195,7 +195,7 @@ public class BayesianNetwork {
 		prioridadeDeTesteDoRequisito.setParents(Arrays.asList(prioridadeDoRequisito, riscoDeBugRequisito));
 
 		prioridadeDeTesteDoRequisito.setProbabilities(//
-				0.10, 0.0, 0.0, //
+				1, 0.0, 0.0, //
 				0.7, 0.25, 0.05, //
 				0.5, 0.25, 0.25, //
 				0.7, 0.25, 0.05, //
