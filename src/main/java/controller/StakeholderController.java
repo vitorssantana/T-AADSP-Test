@@ -26,5 +26,9 @@ public class StakeholderController {
 	public void editarStakeholder(Stakeholder stakeholder) {
 		dao.editarDadosStakeholder(stakeholder);
 	}
+	
+	public void removerStakeholder(Stakeholder stakeholder) {
+		dao.removerStakeholder(stakeholder);
+	}
 
 }

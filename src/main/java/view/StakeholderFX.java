@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import controller.ProjetoController;
+import controller.RequisitoController;
 import controller.StakeholderController;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -14,6 +17,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import model.Projeto;
+import model.Requisito;
 import model.Stakeholder;
 import utils.AlertController;
 import model.Stakeholder;
@@ -53,6 +58,8 @@ public class StakeholderFX implements Initializable {
 
 	@FXML
 	public void limparCamposTela() {
+		selectNotaPrioridade.getSelectionModel().clearSelection();
+		nome.clear();
 	}
 
 	@FXML
@@ -79,8 +86,8 @@ public class StakeholderFX implements Initializable {
 
 		Stakeholder stakeholder = new Stakeholder();
 		stakeholder.setNome(nome.getText());
-		stakeholder
-				.setNotaPrioridade(Integer.valueOf(selectNotaPrioridade.getSelectionModel().getSelectedItem().toString()));
+		stakeholder.setNotaPrioridade(
+				Integer.valueOf(selectNotaPrioridade.getSelectionModel().getSelectedItem().toString()));
 
 		if (isCadastrarNovoStakeholder == true) {
 			controller.addNewStakeholder(stakeholder);
@@ -113,11 +120,39 @@ public class StakeholderFX implements Initializable {
 	}
 
 	@FXML
+	public void removerStakeholder() throws IOException {
+		if (listaStakeholders.getSelectionModel().getSelectedItem() == null)
+			AlertController.alertUsingWarningDialog("Selecione um stakeholder da lista");
+		else {
+			List<Projeto> listaProjetos = new ProjetoController().enviarListaProjetos();
+			List<Requisito> listaRequisitos = new RequisitoController().enviarListaRequisitos();
+
+			for (Projeto projeto : listaProjetos) {
+				if (projeto.getIdStakeholder() == listaStakeholders.getSelectionModel().getSelectedItem().getId()) {
+					AlertController.alertUsingWarningDialog("O Stakeholder esta associado a um projeto.");
+					return;
+				}
+			}
+
+			for (Requisito requisito : listaRequisitos) {
+				if (requisito.getIdStakeholder() == listaStakeholders.getSelectionModel().getSelectedItem().getId()) {
+					AlertController.alertUsingWarningDialog("O Stakeholder esta associado a um requisito.");
+					return;
+				}
+			}
+
+			controller.removerStakeholder(listaStakeholders.getSelectionModel().getSelectedItem());
+			AlertController.alertUsingSuccessDialog("Stakeholder removido com sucesso!");
+			carregarListaStakeholders();
+		}
+	}
+
+	@FXML
 	private void cadastrarNovoStakeholder(Event e) {
 		Stakeholder stakeholder = new Stakeholder();
 		stakeholder.setNome(nome.getText());
-		stakeholder
-				.setNotaPrioridade(Integer.valueOf(selectNotaPrioridade.getSelectionModel().getSelectedItem().toString()));
+		stakeholder.setNotaPrioridade(
+				Integer.valueOf(selectNotaPrioridade.getSelectionModel().getSelectedItem().toString()));
 		controller.addNewStakeholder(stakeholder);
 		carregarListaStakeholders();
 	}

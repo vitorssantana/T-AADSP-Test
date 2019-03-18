@@ -33,4 +33,8 @@ public class SprintController {
 	public void finalizarSprint(Sprint sprint) {
 		dao.finalizarSprint(sprint);
 	}
+	
+	public void removerSprint(Sprint sprint) {
+		dao.removerSprint(sprint);
+	}
 }

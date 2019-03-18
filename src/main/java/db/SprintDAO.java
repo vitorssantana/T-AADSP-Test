@@ -146,5 +146,24 @@ public class SprintDAO {
 		cell.setCellValue("Em Andamento");
 		xlsDAO.writeAndCloseXls();
 	}
+	
+	public void removerSprint(Sprint sprint) {
+		int count = 1;
+
+		while (true) {
+			if (abaSprint.getRow(count) == null) {
+				count++;
+			} else if ((int) abaSprint.getRow(count).getCell(0).getNumericCellValue() != sprint.getId()) {
+				count++;
+			} else {
+				break;
+			}
+		}
+
+		Row row = abaSprint.getRow(count);
+		abaSprint.removeRow(row);
+
+		xlsDAO.writeAndCloseXls();
+	}
 
 }

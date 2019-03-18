@@ -137,4 +137,23 @@ public class BugDAO {
 		xlsDAO.writeAndCloseXls();
 	}
 
+	public void removerBug(Bug bug) {
+		int count = 1;
+
+		while (true) {
+			if (abaBug.getRow(count) == null) {
+				count++;
+			} else if ((int) abaBug.getRow(count).getCell(0).getNumericCellValue() != bug.getId()) {
+				count++;
+			} else {
+				break;
+			}
+		}
+
+		Row row = abaBug.getRow(count);
+		abaBug.removeRow(row);
+
+		xlsDAO.writeAndCloseXls();
+	}
+
 }

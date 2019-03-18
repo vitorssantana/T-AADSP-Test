@@ -87,11 +87,10 @@ public class BugFX implements Initializable {
 			if (listaSprints.get(i).getStatus().equals("Em Andamento")) {
 				sprintAtual = listaSprints.get(i);
 				isEmAndamento = true;
-				
+
 				for (RequisitoSprint requisitoSprint : listaRequisitoSprint) {
 					if (requisitoSprint.getIdSprint().equals(listaSprints.get(i).getId())) {
 						listaRequisitoSprintAtual.add(requisitoSprint);
-						idRequisitoSprintAtual = requisitoSprint.getId();
 						listaIdRequisitos.add(requisitoSprint.getIdRequisito());
 					}
 				}
@@ -101,14 +100,15 @@ public class BugFX implements Initializable {
 					}
 				}
 			} else if (i == listaSprints.size() - 1 && isEmAndamento == false) {
-				AlertController.alertUsingErrorDialog("Não existe Sprint em andamento ou a sprint em andamento não tem requisito vinculado");
+				AlertController.alertUsingErrorDialog(
+						"Não existe Sprint em andamento ou a sprint em andamento não tem requisito vinculado");
 				selectRequisito.setDisable(true);
 			}
 		}
 	}
 
 	@FXML
-	public void desbloquearCamposRestantes() throws IOException {		
+	public void desbloquearCamposRestantes() throws IOException {
 		btnConfirmar.setDisable(false);
 		btnRemover.setDisable(false);
 		btnEditar.setDisable(false);
@@ -123,16 +123,26 @@ public class BugFX implements Initializable {
 	private void carregarListaBugs() throws IOException {
 		List<Bug> listaBugs = controller.enviarListaBug();
 		List<Bug> listaBugsDaSprint = new ArrayList<Bug>();
-		
-		for(Bug bug: listaBugs) {
-			for(RequisitoSprint requisitoSprint :listaRequisitoSprintAtual) {
-				if(bug.getIdRequisitoSprint() == requisitoSprint.getId() && requisitoSprint.getIdRequisito() == Integer.parseInt(selectRequisito.getSelectionModel().getSelectedItem().toString()
-						.substring(0, selectRequisito.getSelectionModel().getSelectedItem().toString().indexOf(" ")))) {
+
+		for (RequisitoSprint requisitoSprint : listaRequisitoSprintAtual) {
+			if (requisitoSprint.getIdSprint() == sprintAtual.getId() && requisitoSprint.getIdRequisito() == Integer
+					.parseInt(selectRequisito.getSelectionModel().getSelectedItem().toString().substring(0,
+							selectRequisito.getSelectionModel().getSelectedItem().toString().indexOf(" ")))) {
+				idRequisitoSprintAtual = requisitoSprint.getId();
+			}
+			
+		}
+
+		for (Bug bug : listaBugs) {
+			for (RequisitoSprint requisitoSprint : listaRequisitoSprintAtual) {
+				if (bug.getIdRequisitoSprint() == requisitoSprint.getId() && requisitoSprint.getIdRequisito() == Integer
+						.parseInt(selectRequisito.getSelectionModel().getSelectedItem().toString().substring(0,
+								selectRequisito.getSelectionModel().getSelectedItem().toString().indexOf(" ")))) {
 					listaBugsDaSprint.add(bug);
 				}
 			}
 		}
-		
+
 		setTableContent(listaBugsDaSprint);
 		if (listaBugsDaSprint.size() > 0) {
 			listaId.setCellValueFactory(new PropertyValueFactory<Bug, Integer>("id"));
@@ -141,6 +151,13 @@ public class BugFX implements Initializable {
 			listaIdDesenvolvedor.setCellValueFactory(new PropertyValueFactory<Bug, Integer>("idDesenvolvedor"));
 			listaNivelImpacto.setCellValueFactory(new PropertyValueFactory<Bug, String>("nivelImpacto"));
 		}
+	}
+
+	public void limparCamposTela() {
+		titulo.clear();
+		descricao.clear();
+		selectDesenvolvedor.getSelectionModel().clearSelection();
+		selectNivelImpacto.getSelectionModel().clearSelection();
 	}
 
 	private void carregarListaDesenvolvedor() throws IOException {
@@ -173,16 +190,28 @@ public class BugFX implements Initializable {
 			}
 
 			for (int i = 0; i < selectNivelImpacto.getItems().size(); i++) {
-				if (selectNivelImpacto.getItems().get(i).equals(listaBugs.getSelectionModel().getSelectedItem().getNivelImpacto()))
+				if (selectNivelImpacto.getItems().get(i)
+						.equals(listaBugs.getSelectionModel().getSelectedItem().getNivelImpacto()))
 					selectNivelImpacto.getSelectionModel().select((selectNivelImpacto.getItems().get(i)));
 			}
 
 			isCadastrarNovoBug = false;
 		}
 	}
-	
+
 	public void carregarNivelImpacto() {
 		selectNivelImpacto.getItems().addAll("Baixo", "Médio", "Alto");
+	}
+
+	@FXML
+	public void removerBug() throws IOException {
+		if (listaBugs.getSelectionModel().getSelectedItem() == null)
+			AlertController.alertUsingWarningDialog("Selecione um bug da lista");
+		else {
+			controller.removerBug(listaBugs.getSelectionModel().getSelectedItem());
+			AlertController.alertUsingSuccessDialog("Bug excluido com sucesso!");
+			carregarListaBugs();
+		}
 	}
 
 	@FXML
@@ -195,7 +224,7 @@ public class BugFX implements Initializable {
 		bug.setIdRequisitoSprint(idRequisitoSprintAtual);
 		bug.setIdDesenvolvedor(Integer.parseInt(selectDesenvolvedor.getSelectionModel().getSelectedItem().toString()
 				.substring(0, selectDesenvolvedor.getSelectionModel().getSelectedItem().toString().indexOf(" "))));
-		
+
 		if (isCadastrarNovoBug == true) {
 			controller.addNewBug(bug);
 			carregarListaBugs();
@@ -208,8 +237,9 @@ public class BugFX implements Initializable {
 			AlertController.alertUsingInformationDialog("Alteração feita com sucesso!");
 		}
 		isCadastrarNovoBug = true;
+		limparCamposTela();
 		carregarListaBugs();
-		
+
 	}
 
 }

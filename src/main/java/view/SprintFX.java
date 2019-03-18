@@ -210,12 +210,26 @@ public class SprintFX implements Initializable {
 		} else if (this.listaSprints.getSelectionModel().getSelectedItem().getStatus().equals("Pendente")) {
 			AlertController.alertUsingWarningDialog("A Sprint não está em andamento");
 		} else if (this.listaSprints.getSelectionModel().getSelectedItem().getStatus().equals("Em Andamento")) {
-			CalculoNotaDesenvolvedorUtils utils = new CalculoNotaDesenvolvedorUtils(this.listaSprints.getSelectionModel().getSelectedItem());
- 			utils.calcularNotaDesenvolvedor();
- 			controller = new SprintController();
- 			controller.finalizarSprint(this.listaSprints.getSelectionModel().getSelectedItem());
-			carregarListaSprints();
+			CalculoNotaDesenvolvedorUtils utils = new CalculoNotaDesenvolvedorUtils(
+					this.listaSprints.getSelectionModel().getSelectedItem());
+			utils.calcularNotaDesenvolvedor();
+			controller = new SprintController();
+			controller.finalizarSprint(this.listaSprints.getSelectionModel().getSelectedItem());
 			AlertController.alertUsingSuccessDialog("Sprint Finalizada com sucesso!");
+			carregarListaSprints();
+		}
+	}
+
+	@FXML
+	public void removerSprint() {
+		if (this.listaSprints.getSelectionModel().getSelectedItem() == null) {
+			AlertController.alertUsingWarningDialog("Selecione uma sprint da lista");
+		} else if (this.listaSprints.getSelectionModel().getSelectedItem().getStatus().equals("Em Andamento")) {
+			AlertController.alertUsingWarningDialog("Não é possivel remover uma Sprint en Andamento");
+		} else {
+			controller.removerSprint(sprint);
+			AlertController.alertUsingSuccessDialog("Sprint removida com sucesso!");
+			carregarListaSprints();
 		}
 	}
 

@@ -29,5 +29,7 @@ public class BugController {
 		dao.editarBug(bug);
 	}
 
-
+	public void removerBug(Bug bug) {
+		dao.removerBug(bug);
+	}
 }

@@ -70,7 +70,6 @@ public class StakeholderDAO {
 	}
 
 	public void addNewStakeholder(Stakeholder stakeholder) {
-		Iterator<Row> iterator = abaStakeholder.iterator();
 		int count = 0;
 
 		while (abaStakeholder.getRow(count) != null) {
@@ -90,7 +89,7 @@ public class StakeholderDAO {
 
 		xlsDAO.writeAndCloseXls();
 	}
-	
+
 	public void editarDadosStakeholder(Stakeholder stakeholder) {
 		int count = 1;
 		while ((int) abaStakeholder.getRow(count).getCell(0).getNumericCellValue() != stakeholder.getId()) {
@@ -107,5 +106,24 @@ public class StakeholderDAO {
 
 		xlsDAO.writeAndCloseXls();
 
+	}
+
+	public void removerStakeholder(Stakeholder stakeholder) {
+		int count = 1;
+
+		while (true) {
+			if (abaStakeholder.getRow(count) == null) {
+				count++;
+			} else if ((int) abaStakeholder.getRow(count).getCell(0).getNumericCellValue() != stakeholder.getId()) {
+				count++;
+			} else {
+				break;
+			}
+		}
+
+		Row row = abaStakeholder.getRow(count);
+		abaStakeholder.removeRow(row);
+
+		xlsDAO.writeAndCloseXls();
 	}
 }
