@@ -25,5 +25,9 @@ public class PlanoTesteController {
 	public void editarTeste(PlanoTeste planoTeste) {
 		dao.editarDadosTeste(planoTeste);
 	}
+	
+	public void removerCasoTeste(PlanoTeste planoTeste) {
+		dao.removerCasoTeste(planoTeste);
+	}
 
 }

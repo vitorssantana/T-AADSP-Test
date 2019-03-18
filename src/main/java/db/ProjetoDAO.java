@@ -135,8 +135,14 @@ public class ProjetoDAO {
 
 	public void removerProjeto(Projeto projeto) {
 		int count = 1;
-		while ((int) abaProjeto.getRow(count).getCell(0).getNumericCellValue() != projeto.getId()) {
-			count++;
+		while (true) {
+			if (abaProjeto.getRow(count) == null) {
+				count++;
+			} else if ((int) abaProjeto.getRow(count).getCell(0).getNumericCellValue() != projeto.getId()) {
+				count++;
+			} else {
+				break;
+			}
 		}
 		Row row = abaProjeto.getRow(count);
 		abaProjeto.removeRow(row);

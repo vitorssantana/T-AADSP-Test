@@ -103,17 +103,35 @@ public class DesenvolvedorDAO {
 		}
 
 		Row row = abaDesenvolvedor.getRow(count);
-		
+
 		Cell cell = row.getCell(1);
 		cell.setCellValue(desenvolvedor.getNome());
-		
-		
+
 		cell = row.createCell(2);
 		cell.setCellValue(desenvolvedor.getNivel());
-		
+
 		cell = row.createCell(3);
 		cell.setCellValue(desenvolvedor.getNota());
-		
+
+		xlsDAO.writeAndCloseXls();
+	}
+
+	public void removerDesenvolvedor(Desenvolvedor desenvolvedor) {
+		int count = 1;
+
+		while (true) {
+			if (abaDesenvolvedor.getRow(count) == null) {
+				count++;
+			} else if ((int) abaDesenvolvedor.getRow(count).getCell(0).getNumericCellValue() != desenvolvedor.getId()) {
+				count++;
+			} else {
+				break;
+			}
+		}
+
+		Row row = abaDesenvolvedor.getRow(count);
+		abaDesenvolvedor.removeRow(row);
+
 		xlsDAO.writeAndCloseXls();
 	}
 

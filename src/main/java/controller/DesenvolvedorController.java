@@ -5,7 +5,6 @@ import java.util.List;
 
 import db.DesenvolvedorDAO;
 import model.Desenvolvedor;
-import model.Projeto;
 
 public class DesenvolvedorController {
 
@@ -26,5 +25,9 @@ public class DesenvolvedorController {
 	public void editarDesenvolvedor(Desenvolvedor desenvolvedor) {
 		dao.editarDadosDesenvolvedor(desenvolvedor);
 	}
-	
+
+	public void removerDesenvolvedor(Desenvolvedor desenvolvedor) {
+		dao.removerDesenvolvedor(desenvolvedor);
+	}
+
 }

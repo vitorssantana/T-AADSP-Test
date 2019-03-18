@@ -6,6 +6,10 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import controller.DesenvolvedorController;
+import controller.DesenvolvedorRequisitoController;
+import controller.DesenvolvedorRequisitoSprintController;
+import controller.RequisitoSprintController;
+import controller.SprintController;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,6 +20,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Desenvolvedor;
+import model.DesenvolvedorRequisitoSprint;
+import model.RequisitoSprint;
+import model.Sprint;
 import utils.AlertController;
 import model.Desenvolvedor;
 
@@ -38,7 +45,7 @@ public class DesenvolvedorFX implements Initializable {
 	@FXML
 	private TableView<Desenvolvedor> listaDesenvolvedores;
 	private DesenvolvedorController controller;
-	
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		try {
@@ -53,6 +60,8 @@ public class DesenvolvedorFX implements Initializable {
 
 	@FXML
 	public void limparCamposTela() {
+		nome.clear();
+		selectNivel.getSelectionModel().clearSelection();
 	}
 
 	@FXML
@@ -89,8 +98,7 @@ public class DesenvolvedorFX implements Initializable {
 			desenvolvedor.setId(listaDesenvolvedores.getSelectionModel().getSelectedItem().getId());
 			controller.editarDesenvolvedor(desenvolvedor);
 			carregarListaDesenvolvedors();
-			AlertController.alertUsingInformationDialog("Alteação feita com sucesso!");
-
+			AlertController.alertUsingInformationDialog("Alteração feita com sucesso!");
 		}
 
 		limparCamposTela();
@@ -104,6 +112,39 @@ public class DesenvolvedorFX implements Initializable {
 			listaNome.setCellValueFactory(new PropertyValueFactory<Desenvolvedor, String>("nome"));
 			listaNivel.setCellValueFactory(new PropertyValueFactory<Desenvolvedor, Integer>("nivel"));
 		}
+	}
+
+	@FXML
+	private void removerDesenvolvedor() throws IOException {
+		if (listaDesenvolvedores.getSelectionModel().getSelectedItem() == null)
+			AlertController.alertUsingWarningDialog("Selecione um desenvolvedor da lista");
+		else {
+			// verificar se existe sprint aberta
+			// se existir sprint aberta, ver se o desenvolvedor selecionado esta sendo usado
+			List<Sprint> listaSprint = new SprintController().enviarListaSprint();
+			for (int i = 0; i < listaSprint.size(); i++) {
+				if(listaSprint.get(i).getStatus().equals("Em Andamento")) {
+					List<RequisitoSprint> requisitoSprint = new RequisitoSprintController().retornarListaRequisitoSprint();
+					for(int j =0; j<requisitoSprint.size(); j ++) {
+						if(requisitoSprint.get(j).getIdSprint() == listaSprint.get(i).getId()) {
+							List<DesenvolvedorRequisitoSprint> listaDevReqSprint = new DesenvolvedorRequisitoSprintController().retornarListaDesenvolvedorRequisitoSprint();
+							for(int k=0; k<listaDevReqSprint.size(); k++) {
+								if(listaDevReqSprint.get(k).getIdRequisitoSprint() == requisitoSprint.get(j).getId() && listaDevReqSprint.get(k).getIdDesenvolvedor() == listaDesenvolvedores.getSelectionModel().getSelectedItem().getId()) {
+									AlertController.alertUsingWarningDialog("O desenvolvedor atualmente esta sendo utilizado na sprint atual");
+									return;
+								}
+							}
+						}
+					}
+				}  if(i == listaSprint.size()-1) {
+					controller.removerDesenvolvedor(listaDesenvolvedores.getSelectionModel().getSelectedItem());
+					AlertController.alertUsingSuccessDialog("Desenvolvedor deletado com sucesso!");
+					carregarListaDesenvolvedors();
+					return;
+				}
+			}
+		}
+
 	}
 
 	private void carregarListaPrioridade() {

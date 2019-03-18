@@ -128,5 +128,23 @@ public class RequisitoDAO {
 
 		xlsDAO.writeAndCloseXls();
 	}
+	
+	public void removerRequisito(Requisito requisito) {
+		int count = 1;
+		while (true) {
+			if (abaRequisito.getRow(count) == null) {
+				count++;
+			} else if ((int) abaRequisito.getRow(count).getCell(0).getNumericCellValue() != requisito.getId()) {
+				count++;
+			} else {
+				break;
+			}
+		}
+
+		Row row = abaRequisito.getRow(count);
+		abaRequisito.removeRow(row);
+		
+		xlsDAO.writeAndCloseXls();
+	}
 
 }

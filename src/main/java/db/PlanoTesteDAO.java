@@ -118,4 +118,24 @@ public class PlanoTesteDAO {
 		xlsDAO.writeAndCloseXls();
 
 	}
+
+	public void removerCasoTeste(PlanoTeste planoTeste) {
+		int count = 1;
+
+		while (true) {
+			if (abaPlanoTeste.getRow(count) == null) {
+				count++;
+			} else if ((int) abaPlanoTeste.getRow(count).getCell(0).getNumericCellValue() != planoTeste.getId()) {
+				count++;
+			} else {
+				break;
+			}
+		}
+
+		Row row = abaPlanoTeste.getRow(count);
+		abaPlanoTeste.removeRow(row);
+
+		xlsDAO.writeAndCloseXls();
+	}
+
 }

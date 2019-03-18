@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import controller.PlanoTesteController;
 import controller.ProjetoController;
 import controller.RequisitoController;
 import controller.StakeholderController;
@@ -16,6 +17,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import model.PlanoTeste;
 import model.Projeto;
 import model.Requisito;
 import model.Stakeholder;
@@ -63,7 +65,10 @@ public class RequisitoFX implements Initializable {
 
 	@FXML
 	private void limparCamposTela() {
-		// TODO
+		selectProjeto.getSelectionModel().clearSelection();
+		selectStakeholder.getSelectionModel().clearSelection();
+		selectNotaPrioridade.getSelectionModel().clearSelection();
+		titulo.clear();
 	}
 
 	public void carregarListaRequisitos() {
@@ -152,6 +157,28 @@ public class RequisitoFX implements Initializable {
 			}
 
 			isCadastrarNovoRequisito = false;
+		}
+
+	}
+
+	@FXML
+	private void excluirRequisito() throws IOException {
+		// Verificar se existe plano de teste vinculado ao requisito
+		// Se existe, avise e nao exclua
+		// Se nao existe, exclua
+		if (listaRequisitos.getSelectionModel().getSelectedItem() == null)
+			AlertController.alertUsingWarningDialog("Selecione um requisito da lista");
+		else {
+			List<PlanoTeste> listaPlanoTestes = new PlanoTesteController().enviarListaPlanoTeste();
+			for (int i = 0; i < listaPlanoTestes.size(); i++) {
+				if (listaPlanoTestes.get(i).getIdRequisito() == listaRequisitos.getSelectionModel().getSelectedItem().getId()) {
+					AlertController.alertUsingWarningDialog("Existe caso de teste vinculado ao requisito.");
+				} else if (i == listaPlanoTestes.size() - 1) {
+					controller.removerRequisito(listaRequisitos.getSelectionModel().getSelectedItem());
+					AlertController.alertUsingSuccessDialog("Requisito excluido com sucesso!");
+					carregarListaRequisitos();
+				}
+			}
 		}
 
 	}

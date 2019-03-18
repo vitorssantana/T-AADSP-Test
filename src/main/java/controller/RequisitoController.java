@@ -36,4 +36,8 @@ public class RequisitoController {
 		}
 		return false;
 	}
+	
+	public void removerRequisito(Requisito requisito) {
+		dao.removerRequisito(requisito);
+	}
 }

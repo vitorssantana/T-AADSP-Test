@@ -8,8 +8,12 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXComboBox;
 
+import controller.DesenvolvedorRequisitoSprintController;
 import controller.PlanoTesteController;
 import controller.RequisitoController;
+import controller.RequisitoSprintController;
+import controller.SprintController;
+import controller.StatusCasosTesteController;
 import controller.RequisitoController;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -21,9 +25,13 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import model.DesenvolvedorRequisitoSprint;
 import model.PlanoTeste;
 import model.PlanoTeste;
 import model.Requisito;
+import model.RequisitoSprint;
+import model.Sprint;
+import model.StatusCasosTeste;
 import utils.AlertController;
 import model.PlanoTeste;
 
@@ -146,6 +154,8 @@ public class PlanoTesteFX implements Initializable {
 
 	@FXML
 	public void limparCamposTela() {
+		descricao.clear();
+		selectTipoTeste.getSelectionModel().clearSelection();
 	}
 
 	public void carregarListaPlanoTestes() {
@@ -161,6 +171,44 @@ public class PlanoTesteFX implements Initializable {
 			listaDescricao.setCellValueFactory(new PropertyValueFactory<PlanoTeste, String>("descricao"));
 			listaTipoTeste.setCellValueFactory(new PropertyValueFactory<PlanoTeste, String>("tipoTeste"));
 		}
+	}
+
+	@FXML
+	private void removerPlanoTeste() throws IOException {
+		if (listaTestes.getSelectionModel().getSelectedItem() == null)
+			AlertController.alertUsingWarningDialog("Selecione um caso de teste da lista");
+		else {
+			List<Sprint> listaSprint = new SprintController().enviarListaSprint();
+			for (int i = 0; i < listaSprint.size(); i++) {
+				if (listaSprint.get(i).getStatus().equals("Em Andamento")) {
+					List<RequisitoSprint> requisitoSprint = new RequisitoSprintController()
+							.retornarListaRequisitoSprint();
+					for (int j = 0; j < requisitoSprint.size(); j++) {
+						if (requisitoSprint.get(j).getIdSprint() == listaSprint.get(i).getId()) {
+							List<StatusCasosTeste> listaStatusTesteSprintAtual = new StatusCasosTesteController()
+									.retornarListaStatusCasosTeste();
+							for (int k = 0; k < listaStatusTesteSprintAtual.size(); k++) {
+								if (listaStatusTesteSprintAtual.get(k).getIdRequisitoSprint() == requisitoSprint.get(j)
+										.getId()
+										&& listaStatusTesteSprintAtual.get(k).getIdCasoTeste() == listaTestes
+												.getSelectionModel().getSelectedItem().getId()) {
+									AlertController.alertUsingWarningDialog(
+											"O caso de teste atualmente esta sendo utilizado na sprint atual");
+									return;
+								}
+							}
+						}
+					}
+				}
+				if (i == listaSprint.size() - 1) {
+					controller.removerCasoTeste(listaTestes.getSelectionModel().getSelectedItem());
+					AlertController.alertUsingSuccessDialog("Caso de teste deletado com sucesso!");
+					carregarListaPlanoTestes();
+					return;
+				}
+			}
+		}
+
 	}
 
 	private void setTableContent(List<PlanoTeste> listaPlanoTeste) {
