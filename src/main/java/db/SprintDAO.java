@@ -146,7 +146,7 @@ public class SprintDAO {
 		cell.setCellValue("Em Andamento");
 		xlsDAO.writeAndCloseXls();
 	}
-	
+
 	public void removerSprint(Sprint sprint) {
 		int count = 1;
 

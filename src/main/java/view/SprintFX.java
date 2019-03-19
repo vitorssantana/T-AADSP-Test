@@ -134,7 +134,9 @@ public class SprintFX implements Initializable {
 
 	@FXML
 	public void limparCamposTela() {
-
+		nome.clear();
+		dataInicio.clear();
+		dataFim.clear();
 	}
 
 	@FXML
@@ -225,9 +227,12 @@ public class SprintFX implements Initializable {
 		if (this.listaSprints.getSelectionModel().getSelectedItem() == null) {
 			AlertController.alertUsingWarningDialog("Selecione uma sprint da lista");
 		} else if (this.listaSprints.getSelectionModel().getSelectedItem().getStatus().equals("Em Andamento")) {
-			AlertController.alertUsingWarningDialog("Não é possivel remover uma Sprint en Andamento");
-		} else {
-			controller.removerSprint(sprint);
+			AlertController.alertUsingWarningDialog("Nao e possivel remover uma Sprint en Andamento");
+		} else if(this.listaSprints.getSelectionModel().getSelectedItem().getStatus().equals("Finalizada")){
+			AlertController.alertUsingWarningDialog("Nao e possivel remover uma Sprint que já foi finalizada");
+		} 
+		else{
+			controller.removerSprint(this.listaSprints.getSelectionModel().getSelectedItem());
 			AlertController.alertUsingSuccessDialog("Sprint removida com sucesso!");
 			carregarListaSprints();
 		}
