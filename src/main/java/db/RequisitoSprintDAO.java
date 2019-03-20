@@ -124,5 +124,19 @@ public class RequisitoSprintDAO {
 	}
 
 	public void removeRequisitoSprint(RequisitoSprint requisitoSprint) {
+		int count = 1;
+		while (true) {
+			if (abaRequisitoSprint.getRow(count) == null) {
+				count++;
+			} else if ((int) abaRequisitoSprint.getRow(count).getCell(0).getNumericCellValue() != requisitoSprint.getId()) {
+				count++;
+			} else {
+				break;
+			}
+		}
+		Row row = abaRequisitoSprint.getRow(count);
+		abaRequisitoSprint.removeRow(row);
+		
+		xlsDAO.writeAndCloseXls();
 	}
 }

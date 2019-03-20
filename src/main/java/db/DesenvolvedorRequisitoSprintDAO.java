@@ -58,8 +58,8 @@ public class DesenvolvedorRequisitoSprintDAO {
 						break;
 
 					}
-
 				}
+				
 				listaDesenvolvedorRequisitoSprintes.add(desenvolvedorRequisitoSprint);
 			}
 		}
@@ -90,6 +90,25 @@ public class DesenvolvedorRequisitoSprintDAO {
 	}
 
 	public void removeDesenvolvedorRequisitoSprint(DesenvolvedorRequisitoSprint desenvolvedorRequisitoSprint) {
+		int count = 1;
+
+		while (true) {
+			if (abaDesenvolvedorRequisitoSprint.getRow(count) == null) {
+				count++;
+			} else if ((int) abaDesenvolvedorRequisitoSprint.getRow(count).getCell(0)
+					.getNumericCellValue() != desenvolvedorRequisitoSprint.getIdRequisitoSprint()
+					&& (int) abaDesenvolvedorRequisitoSprint.getRow(count).getCell(1)
+							.getNumericCellValue() != desenvolvedorRequisitoSprint.getIdDesenvolvedor()) {
+				count++;
+			} else {
+				break;
+			}
+		}
+
+		Row row = abaDesenvolvedorRequisitoSprint.getRow(count);
+		abaDesenvolvedorRequisitoSprint.removeRow(row);
+
+		xlsDAO.writeAndCloseXls();
 	}
 
 }

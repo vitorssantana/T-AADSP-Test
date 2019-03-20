@@ -50,7 +50,7 @@
                         <FontAwesomeIcon glyphStyle="-fx-fill:#fff" iconName="EDIT" size="1.5em" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton buttonType="RAISED" layoutX="410.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#remover" prefHeight="45.0" prefWidth="110.0" ripplerFill="WHITE" style="-fx-background-color: #E50404; -fx-background-radius: 0px;" text="Remover" textFill="WHITE">
+                  <JFXButton buttonType="RAISED" layoutX="410.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#removerDevReqSprint" prefHeight="45.0" prefWidth="110.0" ripplerFill="WHITE" style="-fx-background-color: #E50404; -fx-background-radius: 0px;" text="Remover" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

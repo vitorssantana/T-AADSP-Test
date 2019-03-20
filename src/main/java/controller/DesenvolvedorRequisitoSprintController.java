@@ -22,4 +22,8 @@ public class DesenvolvedorRequisitoSprintController {
 		dao.addnewDesenvolvedorRequisitoSprint(drs);
 	}
 
+	public void removerDevReqSprint(DesenvolvedorRequisitoSprint drs) {
+		dao.removeDesenvolvedorRequisitoSprint(drs);
+	}
+
 }

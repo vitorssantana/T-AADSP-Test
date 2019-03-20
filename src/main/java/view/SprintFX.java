@@ -141,8 +141,10 @@ public class SprintFX implements Initializable {
 
 	@FXML
 	public void exibirPopUpOpcoesSprint() throws IOException {
+		if (this.listaSprints.getSelectionModel().getSelectedItem() == null) {
+			AlertController.alertUsingWarningDialog("Selecione uma sprint da lista");
 
-		if (listaSprints.getSelectionModel().getSelectedItem().getStatus().equals("Finalizada")
+		} else if (listaSprints.getSelectionModel().getSelectedItem().getStatus().equals("Finalizada")
 				|| listaSprints.getSelectionModel().getSelectedItem().getStatus().equals("Pendente")) {
 			AlertController.alertUsingInformationDialog("Essa sprint não foi iniciada ou já foi finalizada");
 			return;
@@ -228,10 +230,9 @@ public class SprintFX implements Initializable {
 			AlertController.alertUsingWarningDialog("Selecione uma sprint da lista");
 		} else if (this.listaSprints.getSelectionModel().getSelectedItem().getStatus().equals("Em Andamento")) {
 			AlertController.alertUsingWarningDialog("Nao e possivel remover uma Sprint en Andamento");
-		} else if(this.listaSprints.getSelectionModel().getSelectedItem().getStatus().equals("Finalizada")){
+		} else if (this.listaSprints.getSelectionModel().getSelectedItem().getStatus().equals("Finalizada")) {
 			AlertController.alertUsingWarningDialog("Nao e possivel remover uma Sprint que já foi finalizada");
-		} 
-		else{
+		} else {
 			controller.removerSprint(this.listaSprints.getSelectionModel().getSelectedItem());
 			AlertController.alertUsingSuccessDialog("Sprint removida com sucesso!");
 			carregarListaSprints();

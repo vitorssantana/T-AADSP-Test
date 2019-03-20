@@ -30,47 +30,46 @@ public class SprintDAO {
 		Iterator<Row> iterator = abaSprint.iterator();
 
 		Row nextRow;
-		if (abaSprint.getRow(1) != null) {
-			while (iterator.hasNext()) {
+
+		while (iterator.hasNext()) {
+			nextRow = iterator.next();
+			if (nextRow.getRowNum() == 0)
 				nextRow = iterator.next();
-				if (nextRow.getRowNum() == 0)
-					nextRow = iterator.next();
 
-				Iterator<Cell> cellIterator = nextRow.cellIterator();
-				cellIterator = nextRow.cellIterator();
-				Sprint sprint = new Sprint();
+			Iterator<Cell> cellIterator = nextRow.cellIterator();
+			cellIterator = nextRow.cellIterator();
+			Sprint sprint = new Sprint();
 
-				while (cellIterator.hasNext()) {
-					Cell nextCell = cellIterator.next();
-					int columnIndex = nextCell.getColumnIndex();
+			while (cellIterator.hasNext()) {
+				Cell nextCell = cellIterator.next();
+				int columnIndex = nextCell.getColumnIndex();
 
-					switch (columnIndex) {
+				switch (columnIndex) {
 
-					case 0:
-						sprint.setId((int) nextCell.getNumericCellValue());
-						break;
+				case 0:
+					sprint.setId((int) nextCell.getNumericCellValue());
+					break;
 
-					case 1:
-						sprint.setNome(nextCell.getStringCellValue());
-						break;
+				case 1:
+					sprint.setNome(nextCell.getStringCellValue());
+					break;
 
-					case 2:
-						sprint.setDataInicio(nextCell.getStringCellValue());
-						break;
+				case 2:
+					sprint.setDataInicio(nextCell.getStringCellValue());
+					break;
 
-					case 3:
-						sprint.setDataFim(nextCell.getStringCellValue());
-						break;
+				case 3:
+					sprint.setDataFim(nextCell.getStringCellValue());
+					break;
 
-					case 4:
-						sprint.setStatus(nextCell.getStringCellValue());
-						break;
-
-					}
+				case 4:
+					sprint.setStatus(nextCell.getStringCellValue());
+					break;
 
 				}
-				listaSprints.add(sprint);
+
 			}
+			listaSprints.add(sprint);
 		}
 
 		return listaSprints;

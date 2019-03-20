@@ -50,7 +50,7 @@
                         <FontAwesomeIcon glyphStyle="-fx-fill:#fff" iconName="EDIT" size="1.5em" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="btnRemover" buttonType="RAISED" disable="true" layoutX="442.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="110.0" ripplerFill="WHITE" style="-fx-background-color: #E50404; -fx-background-radius: 0px;" text="Remover" textFill="WHITE">
+                  <JFXButton fx:id="btnRemover" buttonType="RAISED" disable="true" layoutX="442.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#removerVinculoRequisitoSprint" prefHeight="45.0" prefWidth="110.0" ripplerFill="WHITE" style="-fx-background-color: #E50404; -fx-background-radius: 0px;" text="Remover" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -59,6 +59,17 @@
                      </font>
                      <graphic>
                         <FontAwesomeIcon glyphStyle="-fx-fill:#fff" iconName="MINUS" size="1.5em" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="btnRemover1" buttonType="RAISED" layoutX="314.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#voltar" prefHeight="45.0" prefWidth="110.0" ripplerFill="WHITE" style="-fx-background-color: #eead2d; -fx-background-radius: 0px;" text="Voltar" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="Calibri Light" size="14.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIcon glyphStyle="-fx-fill:#fff" iconName="MINUS" size="1.5em" text="&lt;&lt;" />
                      </graphic>
                   </JFXButton>
                </children>

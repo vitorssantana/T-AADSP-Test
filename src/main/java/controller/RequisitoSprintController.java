@@ -18,16 +18,15 @@ public class RequisitoSprintController {
 		return dao.retornarListaRequisitoSprint();
 	}
 
-
 	public void addNewRequisitoSprint(RequisitoSprint requisitoSprint) {
 		dao.addnewRequisitoSprint(requisitoSprint);
 	}
 
-	public void removeRequisitoSprint(RequisitoSprint requisitoSprint) {
-		dao.removeRequisitoSprint(requisitoSprint);
-	}
-	
 	public void editarRequisitoSprint(RequisitoSprint requisitoSprint) {
 		dao.editarDadosRequisitoSprint(requisitoSprint);
+	}
+
+	public void removerRequisitoSprint(RequisitoSprint requisitoSprint) {
+		dao.removeRequisitoSprint(requisitoSprint);
 	}
 }

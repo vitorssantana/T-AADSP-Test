@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import controller.DesenvolvedorRequisitoController;
+import controller.DesenvolvedorRequisitoSprintController;
 import controller.RequisitoController;
 import controller.RequisitoSprintController;
 import javafx.fxml.FXML;
@@ -15,6 +17,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import model.DesenvolvedorRequisitoSprint;
 import model.Requisito;
 import model.RequisitoSprint;
 import utils.AlertController;
@@ -57,7 +60,7 @@ public class RequisitoSprintFX implements Initializable {
 	public void carregarListaRequisitoSprint() {
 		List<RequisitoSprint> listaRequisitoSprint = controller.retornarListaRequisitoSprint();
 		List<RequisitoSprint> listaRequisitoSprintJaAdicionados = new ArrayList<RequisitoSprint>();
-		
+
 		for (int i = 0; i < listaRequisitoSprint.size(); i++) {
 			if (listaRequisitoSprint.get(i).getIdSprint() == SprintFX.getInstance().getSprintSelecionada().getId())
 				listaRequisitoSprintJaAdicionados.add((listaRequisitoSprint.get(i)));
@@ -87,7 +90,7 @@ public class RequisitoSprintFX implements Initializable {
 	@FXML
 	public void ativarCamposRestantes() {
 		selectImpactoAlteracoes.setDisable(false);
-		
+
 		listaRequisitoSprint.setDisable(false);
 		btnConfirmar.setDisable(false);
 
@@ -173,6 +176,30 @@ public class RequisitoSprintFX implements Initializable {
 
 		isVincularNovoRequisitoSprint = true;
 		limparCamposTela();
+	}
+
+	@FXML
+	public void removerVinculoRequisitoSprint() throws IOException {
+		List<DesenvolvedorRequisitoSprint> listaDevReqSprint = new DesenvolvedorRequisitoSprintController()
+				.retornarListaDesenvolvedorRequisitoSprint();
+		for (int i = 0; i < listaDevReqSprint.size(); i++) {
+			if (listaDevReqSprint.get(i).getIdRequisitoSprint() == this.listaRequisitoSprint.getSelectionModel()
+					.getSelectedItem().getId()) {
+				AlertController.alertUsingWarningDialog(
+						"Existe desenvolvedor vinculado a esse requisito. Remova a associação e tente novamente");
+				return;
+			} else if (i == listaDevReqSprint.size() - 1) {
+				controller.removerRequisitoSprint(this.listaRequisitoSprint.getSelectionModel().getSelectedItem());
+				AlertController.alertUsingSuccessDialog("Vinculo excluido com sucesso!");
+				carregarListaRequisitoSprint();
+			}
+		}
+
+	}
+	
+	@FXML
+	public void voltar() throws IOException {
+		DashboardFX.getInstance().acessarTelaSprints();
 	}
 
 	public RequisitoSprint getRequisitoSprintSelecionada() {

@@ -77,11 +77,6 @@ public class DesenvolvedorRequisitoSprintFX implements Initializable {
 	}
 
 	@FXML
-	public void remover() {
-
-	}
-
-	@FXML
 	public void voltar() throws IOException {
 		DashboardFX.getInstance().acessarTelaVincularRequisitoSprint();
 	}
@@ -118,6 +113,8 @@ public class DesenvolvedorRequisitoSprintFX implements Initializable {
 							selectDesenvolvedor.getSelectionModel().getSelectedItem().toString().indexOf(" ")))) {
 				AlertController.alertUsingWarningDialog("O desenvolvedor já foi vinculado");
 				return;
+			} else if (!iterator.hasNext()) {
+				
 			}
 		}
 
@@ -133,6 +130,18 @@ public class DesenvolvedorRequisitoSprintFX implements Initializable {
 
 	public boolean existeDesenvolvedorNaLista() {
 		return true;
+	}
+
+	@FXML
+	public void removerDevReqSprint() {
+		if (listaDesenvolvedorRequisitoSprint.getSelectionModel().getSelectedItem() == null) {
+			AlertController.alertUsingWarningDialog("Selecione um Desenvolvedor");
+			return;
+		} else {
+			controller.removerDevReqSprint(listaDesenvolvedorRequisitoSprint.getSelectionModel().getSelectedItem());
+			AlertController.alertUsingSuccessDialog("Vinculo Removido com Sucesso!");
+			carregarListaDesenvolvedorRequisitoSprint();
+		}
 	}
 
 	public void carregarListaDesenvolvedor() throws IOException {
