@@ -29,44 +29,43 @@ public class DesenvolvedorDAO {
 
 		List<Desenvolvedor> listaDesenvolvedores = new ArrayList<Desenvolvedor>();
 		Iterator<Row> iterator = abaDesenvolvedor.iterator();
-
+		iterator.next();
 		Row nextRow;
-		if (abaDesenvolvedor.getRow(1) != null) {
-			while (iterator.hasNext()) {
-				nextRow = iterator.next();
-				if (nextRow.getRowNum() == 0)
-					nextRow = iterator.next();
 
-				Iterator<Cell> cellIterator = nextRow.cellIterator();
-				cellIterator = nextRow.cellIterator();
-				Desenvolvedor desenvolvedor = new Desenvolvedor();
+		while (iterator.hasNext()) {
+			nextRow = iterator.next();
+//			if (nextRow.getRowNum() == 0)
+//				nextRow = iterator.next();
 
-				while (cellIterator.hasNext()) {
-					Cell nextCell = cellIterator.next();
-					int columnIndex = nextCell.getColumnIndex();
+			Iterator<Cell> cellIterator = nextRow.cellIterator();
+			cellIterator = nextRow.cellIterator();
+			Desenvolvedor desenvolvedor = new Desenvolvedor();
 
-					switch (columnIndex) {
+			while (cellIterator.hasNext()) {
+				Cell nextCell = cellIterator.next();
+				int columnIndex = nextCell.getColumnIndex();
 
-					case 0:
-						desenvolvedor.setId((int) nextCell.getNumericCellValue());
-						break;
+				switch (columnIndex) {
 
-					case 1:
-						desenvolvedor.setNome(nextCell.getStringCellValue());
-						break;
+				case 0:
+					desenvolvedor.setId((int) nextCell.getNumericCellValue());
+					break;
 
-					case 2:
-						desenvolvedor.setNivel(nextCell.getStringCellValue());
-						break;
+				case 1:
+					desenvolvedor.setNome(nextCell.getStringCellValue());
+					break;
 
-					case 3:
-						desenvolvedor.setNota(Double.valueOf(nextCell.getNumericCellValue()));
+				case 2:
+					desenvolvedor.setNivel(nextCell.getStringCellValue());
+					break;
 
-					}
+				case 3:
+					desenvolvedor.setNota(Double.valueOf(nextCell.getNumericCellValue()));
 
 				}
-				listaDesenvolvedores.add(desenvolvedor);
+
 			}
+			listaDesenvolvedores.add(desenvolvedor);
 		}
 
 		return listaDesenvolvedores;
@@ -110,8 +109,7 @@ public class DesenvolvedorDAO {
 		cell = row.createCell(2);
 		cell.setCellValue(desenvolvedor.getNivel());
 
-		cell = row.createCell(3);
-		cell.setCellValue(desenvolvedor.getNota());
+
 
 		xlsDAO.writeAndCloseXls();
 	}

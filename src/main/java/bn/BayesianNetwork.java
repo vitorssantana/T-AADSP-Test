@@ -24,6 +24,8 @@ public class BayesianNetwork {
 	private BayesNode custoProjeto;
 	private BayesNode deadlineProjeto;
 	private BayesNode prioridadeDoRequisito;
+	private BayesNode notaPrioridadeRequisito;
+	private BayesNode predicaoFinalRequisito;
 
 	private BayesNode prioridadeDeTesteDoRequisito;
 
@@ -34,18 +36,21 @@ public class BayesianNetwork {
 		iniciarNoNivelHierarquiaRequisito();
 		iniciarNoPrioridadeDoRequisito();
 		iniciarNoPrioridadeTesteDoRequisito();
+		iniciarNoNotaPrioridadeReuqisito();
+		predicaoFinalRequisito();
 	}
 
 	public static void main(String[] args) {
 		BayesianNetwork bn = new BayesianNetwork();
 
 		System.out.print(bn.realizarPredicao("BaixaProporcao", "MuitoConfiavel", "CoberturaAlta", "Alta", "Alta",
-				"Alto", "Medio").length);
+				"Alto", "Medio", "Media").length);
 	}
 
 	public double[] realizarPredicao(String alteracoesRequisito, String nivelDesenvolvedores,
 			String porctCobertTestesAnterior, String nivelImporStakeholderProjeto,
-			String nivelImportanciaStakeholderRequisito, String custoProjeto, String deadlineProjeto) {
+			String nivelImportanciaStakeholderRequisito, String custoProjeto, String deadlineProjeto,
+			String notaPrioridadeRequisito) {
 
 		IBayesInferer inferer = new JunctionTreeAlgorithm();
 		inferer.setNetwork(rede);
@@ -58,9 +63,10 @@ public class BayesianNetwork {
 		evidence.put(nivelImportStakeholderRequisito, nivelImportanciaStakeholderRequisito);
 		evidence.put(this.custoProjeto, custoProjeto);
 		evidence.put(this.deadlineProjeto, deadlineProjeto);
+		evidence.put(this.notaPrioridadeRequisito, notaPrioridadeRequisito);
 
 		inferer.setEvidence(evidence);
-		double[] beliefsC = inferer.getBeliefs(prioridadeDeTesteDoRequisito);
+		double[] beliefsC = inferer.getBeliefs(predicaoFinalRequisito);
 
 		return beliefsC;
 	}
@@ -195,6 +201,36 @@ public class BayesianNetwork {
 		prioridadeDeTesteDoRequisito.setParents(Arrays.asList(prioridadeDoRequisito, riscoDeBugRequisito));
 
 		prioridadeDeTesteDoRequisito.setProbabilities(//
+				1, 0.0, 0.0, //
+				0.7, 0.25, 0.05, //
+				0.5, 0.25, 0.25, //
+				0.7, 0.25, 0.05, //
+				0.3, 0.4, 0.3, //
+				0.1, 0.45, 0.45, //
+				0.5, 0.25, 0.25, //
+				0.1, 0.45, 0.45, //
+				0.0, 0.05, 0.95//
+		);
+	}
+
+	private void iniciarNoNotaPrioridadeReuqisito() {
+
+		// TODO
+		notaPrioridadeRequisito = rede.createNode("notaPrioridadeRequisito");
+		notaPrioridadeRequisito.addOutcomes("Alta", "Media", "Baixa");
+
+		notaPrioridadeRequisito.setProbabilities(//
+				0.33, 0.33, 0.33// deadlineProjeto.setProbabilities);
+		);
+	}
+
+	private void predicaoFinalRequisito() {
+		predicaoFinalRequisito = rede.createNode("predicaoFinalRequisito");
+		predicaoFinalRequisito.addOutcomes("Alta", "Media", "Baixa");
+
+		predicaoFinalRequisito.setParents(Arrays.asList(notaPrioridadeRequisito, prioridadeDeTesteDoRequisito));
+
+		predicaoFinalRequisito.setProbabilities(//
 				1, 0.0, 0.0, //
 				0.7, 0.25, 0.05, //
 				0.5, 0.25, 0.25, //

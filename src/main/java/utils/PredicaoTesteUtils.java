@@ -40,7 +40,7 @@ public class PredicaoTesteUtils {
 	private DesenvolvedorRequisitoSprint desenvolvedorRequisitoSprint;
 	private Requisito requisito;
 	String alteracoesRequisito, nivelDesenvolvedores, porctCobertTestesAnterior, nivelImporStakeholderProjeto,
-			nivelImportanciaStakeholderRequisito, custoProjeto, deadlineProjeto;
+			nivelImportanciaStakeholderRequisito, custoProjeto, deadlineProjeto, notaPrioridadeRequisito;
 
 	public PredicaoTesteUtils(Sprint sprint, Requisito requisito) throws IOException, ParseException {
 		this.sprint = sprint;
@@ -53,6 +53,7 @@ public class PredicaoTesteUtils {
 		definirEntradaNoNivelImportanciaStakeholderRequisito();
 		definirEntradaNoCustoProjeto();
 		definirEntradaNoDeadlineProjeto();
+		definirEntradaNoNotaPrioridadeRequisito();
 	}
 
 	public void definirEntradaNoAlteracoesRequisito() throws IOException {
@@ -116,9 +117,6 @@ public class PredicaoTesteUtils {
 			porctCobertTestesAnterior = "CoberturaMinima";
 			return;
 		}
-
-		// verificar se requisito tem caso de teste vinculado
-		// se nao, sete coberturaminina
 
 		List<StatusCasosTeste> listaStatusCasosTestes = new StatusCasosTesteController()
 				.retornarListaStatusCasosTeste();
@@ -262,11 +260,21 @@ public class PredicaoTesteUtils {
 			deadlineProjeto = "Longo";
 		}
 	}
+	
+	public void definirEntradaNoNotaPrioridadeRequisito() {
+		if(requisito.getNotaPrioridade()<5.0) {
+			notaPrioridadeRequisito = "Baixa";
+		} else if(requisito.getNotaPrioridade()>=5.0 && requisito.getNotaPrioridade()<8.0) {
+			notaPrioridadeRequisito = "Media";
+		} else {
+			notaPrioridadeRequisito = "Alta";
+		}
+	}
 
 	public double[] retornarListaProbabilidade() {
 		bn = new BayesianNetwork();
 		return bn.realizarPredicao(alteracoesRequisito, nivelDesenvolvedores, porctCobertTestesAnterior,
-				nivelImporStakeholderProjeto, nivelImportanciaStakeholderRequisito, custoProjeto, deadlineProjeto);
+				nivelImporStakeholderProjeto, nivelImportanciaStakeholderRequisito, custoProjeto, deadlineProjeto,notaPrioridadeRequisito);
 	}
 
 }

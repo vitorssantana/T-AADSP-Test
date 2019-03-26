@@ -62,61 +62,60 @@ public class PredicaoTesteDAO {
 	public List<PredicaoTeste> retornarListaPredicoesTeste() {
 		List<PredicaoTeste> listaPredicaoTeste = new ArrayList<PredicaoTeste>();
 		Iterator<Row> iterator = abaPredicaoTeste.iterator();
-
+		iterator.next();
 		Row nextRow;
-		if (abaPredicaoTeste.getRow(1) != null) {
-			while (iterator.hasNext()) {
-				nextRow = iterator.next();
-				if (nextRow.getRowNum() == 0)
-					nextRow = iterator.next();
 
-				Iterator<Cell> cellIterator = nextRow.cellIterator();
-				cellIterator = nextRow.cellIterator();
-				PredicaoTeste predicaoteste = new PredicaoTeste();
+		while (iterator.hasNext()) {
+			nextRow = iterator.next();
+//			if (nextRow.getRowNum() == 0)
+//				nextRow = iterator.next();
 
-				while (cellIterator.hasNext()) {
-					Cell nextCell = cellIterator.next();
-					int columnIndex = nextCell.getColumnIndex();
+			Iterator<Cell> cellIterator = nextRow.cellIterator();
+			cellIterator = nextRow.cellIterator();
+			PredicaoTeste predicaoteste = new PredicaoTeste();
 
-					switch (columnIndex) {
+			while (cellIterator.hasNext()) {
+				Cell nextCell = cellIterator.next();
+				int columnIndex = nextCell.getColumnIndex();
 
-					case 0:
-						predicaoteste.setIdSprint((int) nextCell.getNumericCellValue());
-						break;
+				switch (columnIndex) {
 
-					case 1:
-						predicaoteste.setIdRequisito((int) nextCell.getNumericCellValue());
-						break;
+				case 0:
+					predicaoteste.setIdSprint((int) nextCell.getNumericCellValue());
+					break;
 
-					case 2:
-						predicaoteste.setIdProjeto((int) nextCell.getNumericCellValue());
-						break;
+				case 1:
+					predicaoteste.setIdRequisito((int) nextCell.getNumericCellValue());
+					break;
 
-					case 3:
-						predicaoteste.setNomeRequisito(nextCell.getStringCellValue());
-						break;
+				case 2:
+					predicaoteste.setIdProjeto((int) nextCell.getNumericCellValue());
+					break;
 
-					case 4:
-						predicaoteste.setNomeProjeto(nextCell.getStringCellValue());
-						break;	
-						
-					case 5:
-						predicaoteste.setProbabilidadeAlta((double)nextCell.getNumericCellValue());
-						break;
+				case 3:
+					predicaoteste.setNomeRequisito(nextCell.getStringCellValue());
+					break;
 
-					case 6:
-						predicaoteste.setProbabilidadeMedia((double)nextCell.getNumericCellValue());
-						break;
+				case 4:
+					predicaoteste.setNomeProjeto(nextCell.getStringCellValue());
+					break;
 
-					case 7:
-						predicaoteste.setProbabilidadeBaixa((double) nextCell.getNumericCellValue());
-						break;
+				case 5:
+					predicaoteste.setProbabilidadeAlta((double) nextCell.getNumericCellValue());
+					break;
 
-					}
+				case 6:
+					predicaoteste.setProbabilidadeMedia((double) nextCell.getNumericCellValue());
+					break;
+
+				case 7:
+					predicaoteste.setProbabilidadeBaixa((double) nextCell.getNumericCellValue());
+					break;
 
 				}
-				listaPredicaoTeste.add(predicaoteste);
+
 			}
+			listaPredicaoTeste.add(predicaoteste);
 		}
 
 		return listaPredicaoTeste;

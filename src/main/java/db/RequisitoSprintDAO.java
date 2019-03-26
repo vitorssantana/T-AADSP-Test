@@ -28,47 +28,46 @@ public class RequisitoSprintDAO {
 	public List<RequisitoSprint> retornarListaRequisitoSprint() {
 		List<RequisitoSprint> listaRequisitoSprintes = new ArrayList<RequisitoSprint>();
 		Iterator<Row> iterator = abaRequisitoSprint.iterator();
-
+		iterator.next();
 		Row nextRow;
-		if (abaRequisitoSprint.getRow(1) != null) {
-			while (iterator.hasNext()) {
-				nextRow = iterator.next();
-				if (nextRow.getRowNum() == 0)
-					nextRow = iterator.next();
 
-				Iterator<Cell> cellIterator = nextRow.cellIterator();
-				cellIterator = nextRow.cellIterator();
-				RequisitoSprint requisitoSprint = new RequisitoSprint();
+		while (iterator.hasNext()) {
+			nextRow = iterator.next();
+//			if (nextRow.getRowNum() == 0)
+//				nextRow = iterator.next();
 
-				while (cellIterator.hasNext()) {
-					Cell nextCell = cellIterator.next();
-					int columnIndex = nextCell.getColumnIndex();
+			Iterator<Cell> cellIterator = nextRow.cellIterator();
+			cellIterator = nextRow.cellIterator();
+			RequisitoSprint requisitoSprint = new RequisitoSprint();
 
-					switch (columnIndex) {
+			while (cellIterator.hasNext()) {
+				Cell nextCell = cellIterator.next();
+				int columnIndex = nextCell.getColumnIndex();
 
-					case 0:
-						requisitoSprint.setId((int) nextCell.getNumericCellValue());
-						break;
+				switch (columnIndex) {
 
-					case 1:
-						requisitoSprint.setIdRequisito((int) nextCell.getNumericCellValue());
-						break;
+				case 0:
+					requisitoSprint.setId((int) nextCell.getNumericCellValue());
+					break;
 
-					case 2:
-						requisitoSprint.setIdSprint((int) nextCell.getNumericCellValue());
-						break;
+				case 1:
+					requisitoSprint.setIdRequisito((int) nextCell.getNumericCellValue());
+					break;
 
-					case 3:
-						requisitoSprint.setVinculouDesenvolvedor(Boolean.getBoolean(nextCell.getStringCellValue()));
-						break;
-					case 4:
-						requisitoSprint.setNivelImpactoAlteracoes(nextCell.getStringCellValue());
+				case 2:
+					requisitoSprint.setIdSprint((int) nextCell.getNumericCellValue());
+					break;
 
-					}
+				case 3:
+					requisitoSprint.setVinculouDesenvolvedor(Boolean.getBoolean(nextCell.getStringCellValue()));
+					break;
+				case 4:
+					requisitoSprint.setNivelImpactoAlteracoes(nextCell.getStringCellValue());
 
 				}
-				listaRequisitoSprintes.add(requisitoSprint);
+
 			}
+			listaRequisitoSprintes.add(requisitoSprint);
 		}
 
 		return listaRequisitoSprintes;
@@ -115,7 +114,7 @@ public class RequisitoSprintDAO {
 
 		cell = row.createCell(2);
 		cell.setCellValue(requisitoSprint.getIdSprint());
-		
+
 		cell = row.createCell(4);
 		cell.setCellValue(String.valueOf(requisitoSprint.getNivelImpactoAlteracoes()));
 
@@ -128,7 +127,8 @@ public class RequisitoSprintDAO {
 		while (true) {
 			if (abaRequisitoSprint.getRow(count) == null) {
 				count++;
-			} else if ((int) abaRequisitoSprint.getRow(count).getCell(0).getNumericCellValue() != requisitoSprint.getId()) {
+			} else if ((int) abaRequisitoSprint.getRow(count).getCell(0).getNumericCellValue() != requisitoSprint
+					.getId()) {
 				count++;
 			} else {
 				break;
@@ -136,7 +136,7 @@ public class RequisitoSprintDAO {
 		}
 		Row row = abaRequisitoSprint.getRow(count);
 		abaRequisitoSprint.removeRow(row);
-		
+
 		xlsDAO.writeAndCloseXls();
 	}
 }

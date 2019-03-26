@@ -30,45 +30,44 @@ public class PlanoTesteDAO {
 
 		List<PlanoTeste> listaPlanoTestes = new ArrayList<PlanoTeste>();
 		Iterator<Row> iterator = abaPlanoTeste.iterator();
-
+		iterator.next();
 		Row nextRow;
-		if (abaPlanoTeste.getRow(1) != null) {
-			while (iterator.hasNext()) {
-				nextRow = iterator.next();
-				if (nextRow.getRowNum() == 0)
-					nextRow = iterator.next();
 
-				Iterator<Cell> cellIterator = nextRow.cellIterator();
-				cellIterator = nextRow.cellIterator();
-				PlanoTeste planoTeste = new PlanoTeste();
+		while (iterator.hasNext()) {
+			nextRow = iterator.next();
+//			if (nextRow.getRowNum() == 0)
+//				nextRow = iterator.next();
 
-				while (cellIterator.hasNext()) {
-					Cell nextCell = cellIterator.next();
-					int columnIndex = nextCell.getColumnIndex();
+			Iterator<Cell> cellIterator = nextRow.cellIterator();
+			cellIterator = nextRow.cellIterator();
+			PlanoTeste planoTeste = new PlanoTeste();
 
-					switch (columnIndex) {
+			while (cellIterator.hasNext()) {
+				Cell nextCell = cellIterator.next();
+				int columnIndex = nextCell.getColumnIndex();
 
-					case 0:
-						planoTeste.setId((int) nextCell.getNumericCellValue());
-						break;
+				switch (columnIndex) {
 
-					case 1:
-						planoTeste.setDescricao(nextCell.getStringCellValue());
-						break;
+				case 0:
+					planoTeste.setId((int) nextCell.getNumericCellValue());
+					break;
 
-					case 2:
-						planoTeste.setTipoTeste(nextCell.getStringCellValue());
-						break;
+				case 1:
+					planoTeste.setDescricao(nextCell.getStringCellValue());
+					break;
 
-					case 3:
-						planoTeste.setIdRequisito((int) nextCell.getNumericCellValue());
-						break;
+				case 2:
+					planoTeste.setTipoTeste(nextCell.getStringCellValue());
+					break;
 
-					}
+				case 3:
+					planoTeste.setIdRequisito((int) nextCell.getNumericCellValue());
+					break;
 
 				}
-				listaPlanoTestes.add(planoTeste);
+
 			}
+			listaPlanoTestes.add(planoTeste);
 		}
 
 		return listaPlanoTestes;

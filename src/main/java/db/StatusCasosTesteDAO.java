@@ -28,41 +28,40 @@ public class StatusCasosTesteDAO {
 
 		List<StatusCasosTeste> listaStatusCasosTestes = new ArrayList<StatusCasosTeste>();
 		Iterator<Row> iterator = abaStatusCasosTeste.iterator();
-
+		iterator.next();
 		Row nextRow;
-		if (abaStatusCasosTeste.getRow(1) != null) {
-			while (iterator.hasNext()) {
-				nextRow = iterator.next();
-				if (nextRow.getRowNum() == 0)
-					nextRow = iterator.next();
 
-				Iterator<Cell> cellIterator = nextRow.cellIterator();
-				cellIterator = nextRow.cellIterator();
-				StatusCasosTeste statusCasosTeste = new StatusCasosTeste();
+		while (iterator.hasNext()) {
+			nextRow = iterator.next();
+//			if (nextRow.getRowNum() == 0)
+//				nextRow = iterator.next();
 
-				while (cellIterator.hasNext()) {
-					Cell nextCell = cellIterator.next();
-					int columnIndex = nextCell.getColumnIndex();
+			Iterator<Cell> cellIterator = nextRow.cellIterator();
+			cellIterator = nextRow.cellIterator();
+			StatusCasosTeste statusCasosTeste = new StatusCasosTeste();
 
-					switch (columnIndex) {
+			while (cellIterator.hasNext()) {
+				Cell nextCell = cellIterator.next();
+				int columnIndex = nextCell.getColumnIndex();
 
-					case 0:
-						statusCasosTeste.setIdRequisitoSprint((int) nextCell.getNumericCellValue());
-						break;
+				switch (columnIndex) {
 
-					case 1:
-						statusCasosTeste.setIdCasoTeste((int) nextCell.getNumericCellValue());
-						break;
+				case 0:
+					statusCasosTeste.setIdRequisitoSprint((int) nextCell.getNumericCellValue());
+					break;
 
-					case 2:
-						statusCasosTeste.setStatus(nextCell.getStringCellValue());
-						break;
+				case 1:
+					statusCasosTeste.setIdCasoTeste((int) nextCell.getNumericCellValue());
+					break;
 
-					}
+				case 2:
+					statusCasosTeste.setStatus(nextCell.getStringCellValue());
+					break;
 
 				}
-				listaStatusCasosTestes.add(statusCasosTeste);
+
 			}
+			listaStatusCasosTestes.add(statusCasosTeste);
 		}
 
 		return listaStatusCasosTestes;
@@ -91,7 +90,10 @@ public class StatusCasosTesteDAO {
 
 	public void editarNewStatusCasosTeste(StatusCasosTeste statusCasosTeste) {
 		int count = 1;
-		while ((int) abaStatusCasosTeste.getRow(count).getCell(0).getNumericCellValue() != statusCasosTeste.getIdRequisitoSprint() || (int) abaStatusCasosTeste.getRow(count).getCell(1).getNumericCellValue() != statusCasosTeste.getIdCasoTeste()) {
+		while ((int) abaStatusCasosTeste.getRow(count).getCell(0).getNumericCellValue() != statusCasosTeste
+				.getIdRequisitoSprint()
+				|| (int) abaStatusCasosTeste.getRow(count).getCell(1).getNumericCellValue() != statusCasosTeste
+						.getIdCasoTeste()) {
 			count++;
 		}
 

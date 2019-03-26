@@ -28,13 +28,13 @@ public class SprintDAO {
 
 		List<Sprint> listaSprints = new ArrayList<Sprint>();
 		Iterator<Row> iterator = abaSprint.iterator();
-
+		iterator.next();
 		Row nextRow;
 
 		while (iterator.hasNext()) {
 			nextRow = iterator.next();
-			if (nextRow.getRowNum() == 0)
-				nextRow = iterator.next();
+//			if (nextRow.getRowNum() == 0)
+//				nextRow = iterator.next();
 
 			Iterator<Cell> cellIterator = nextRow.cellIterator();
 			cellIterator = nextRow.cellIterator();

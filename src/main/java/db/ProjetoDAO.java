@@ -33,48 +33,48 @@ public class ProjetoDAO {
 		List<Projeto> listaProjetos = new ArrayList<Projeto>();
 		Iterator<Row> iterator = abaProjeto.iterator();
 
+		iterator.next();
 		Row nextRow;
-		if (abaProjeto.getRow(1) != null) {
-			while (iterator.hasNext()) {
-				nextRow = iterator.next();
-				if (nextRow.getRowNum() == 0)
-					nextRow = iterator.next();
 
-				Iterator<Cell> cellIterator = nextRow.cellIterator();
-				cellIterator = nextRow.cellIterator();
-				Projeto projeto = new Projeto();
+		while (iterator.hasNext()) {
+			nextRow = iterator.next();
+//			if (nextRow.getRowNum() == 0)
+//				nextRow = iterator.next();
 
-				while (cellIterator.hasNext()) {
-					Cell nextCell = cellIterator.next();
-					int columnIndex = nextCell.getColumnIndex();
+			Iterator<Cell> cellIterator = nextRow.cellIterator();
+			cellIterator = nextRow.cellIterator();
+			Projeto projeto = new Projeto();
 
-					switch (columnIndex) {
+			while (cellIterator.hasNext()) {
+				Cell nextCell = cellIterator.next();
+				int columnIndex = nextCell.getColumnIndex();
 
-					case 0:
-						projeto.setId((int) nextCell.getNumericCellValue());
-						break;
+				switch (columnIndex) {
 
-					case 1:
-						projeto.setNome(nextCell.getStringCellValue());
-						break;
+				case 0:
+					projeto.setId((int) nextCell.getNumericCellValue());
+					break;
 
-					case 2:
-						projeto.setIdStakeholder((int) nextCell.getNumericCellValue());
-						break;
+				case 1:
+					projeto.setNome(nextCell.getStringCellValue());
+					break;
 
-					case 3:
-						projeto.setCusto(nextCell.getNumericCellValue());
-						break;
+				case 2:
+					projeto.setIdStakeholder((int) nextCell.getNumericCellValue());
+					break;
 
-					case 4:
-						projeto.setPrazoEntrega(nextCell.getStringCellValue());
-						break;
+				case 3:
+					projeto.setCusto(nextCell.getNumericCellValue());
+					break;
 
-					}
+				case 4:
+					projeto.setPrazoEntrega(nextCell.getStringCellValue());
+					break;
 
 				}
-				listaProjetos.add(projeto);
+
 			}
+			listaProjetos.add(projeto);
 		}
 
 		return listaProjetos;
@@ -83,17 +83,15 @@ public class ProjetoDAO {
 
 	public void addNewProjeto(Projeto projeto) {
 
-		Iterator<Row> iterator = abaProjeto.iterator();
-		int count = 0;
+		int count = 1;
 
 		while (abaProjeto.getRow(count) != null) {
 			count++;
 		}
 		Row row = abaProjeto.createRow(count);
-		Row row1 = abaProjeto.getRow(count-1);
 
 		Cell cell = row.createCell(0);
-		cell.setCellValue(((int)row1.getCell(0).getNumericCellValue()) + 1);
+		cell.setCellValue(count);
 
 		cell = row.createCell(1);
 		cell.setCellValue(projeto.getNome());
@@ -115,9 +113,9 @@ public class ProjetoDAO {
 		while ((int) abaProjeto.getRow(count).getCell(0).getNumericCellValue() != projeto.getId()) {
 			count++;
 		}
-		
+
 		Row row = abaProjeto.getRow(count);
-		
+
 		Cell cell = row.getCell(1);
 		cell.setCellValue(projeto.getNome());
 
@@ -146,7 +144,7 @@ public class ProjetoDAO {
 		}
 		Row row = abaProjeto.getRow(count);
 		abaProjeto.removeRow(row);
-		
+
 		xlsDAO.writeAndCloseXls();
 	}
 

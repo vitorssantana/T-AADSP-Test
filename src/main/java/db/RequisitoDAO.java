@@ -29,49 +29,48 @@ public class RequisitoDAO {
 
 		List<Requisito> listaRequisitos = new ArrayList<Requisito>();
 		Iterator<Row> iterator = abaRequisito.iterator();
-
+		iterator.next();
 		Row nextRow;
-		if (abaRequisito.getRow(1) != null) {
-			while (iterator.hasNext()) {
-				nextRow = iterator.next();
-				if (nextRow.getRowNum() == 0)
-					nextRow = iterator.next();
 
-				Iterator<Cell> cellIterator = nextRow.cellIterator();
-				cellIterator = nextRow.cellIterator();
-				Requisito requisito = new Requisito();
+		while (iterator.hasNext()) {
+			nextRow = iterator.next();
+//			if (nextRow.getRowNum() == 0)
+//				nextRow = iterator.next();
 
-				while (cellIterator.hasNext()) {
-					Cell nextCell = cellIterator.next();
-					int columnIndex = nextCell.getColumnIndex();
+			Iterator<Cell> cellIterator = nextRow.cellIterator();
+			cellIterator = nextRow.cellIterator();
+			Requisito requisito = new Requisito();
 
-					switch (columnIndex) {
+			while (cellIterator.hasNext()) {
+				Cell nextCell = cellIterator.next();
+				int columnIndex = nextCell.getColumnIndex();
 
-					case 0:
-						requisito.setId((int) nextCell.getNumericCellValue());
-						break;
+				switch (columnIndex) {
 
-					case 1:
-						requisito.setTitulo(nextCell.getStringCellValue());
-						break;
+				case 0:
+					requisito.setId((int) nextCell.getNumericCellValue());
+					break;
 
-					case 2:
-						requisito.setIdProjeto((int) nextCell.getNumericCellValue());
-						break;
+				case 1:
+					requisito.setTitulo(nextCell.getStringCellValue());
+					break;
 
-					case 3:
-						requisito.setNotaPrioridade((int) nextCell.getNumericCellValue());
-						break;
+				case 2:
+					requisito.setIdProjeto((int) nextCell.getNumericCellValue());
+					break;
 
-					case 4:
-						requisito.setIdStakeholder((int) nextCell.getNumericCellValue());
-						break;
+				case 3:
+					requisito.setNotaPrioridade((int) nextCell.getNumericCellValue());
+					break;
 
-					}
+				case 4:
+					requisito.setIdStakeholder((int) nextCell.getNumericCellValue());
+					break;
 
 				}
-				listaRequisitos.add(requisito);
+
 			}
+			listaRequisitos.add(requisito);
 		}
 
 		return listaRequisitos;
@@ -128,7 +127,7 @@ public class RequisitoDAO {
 
 		xlsDAO.writeAndCloseXls();
 	}
-	
+
 	public void removerRequisito(Requisito requisito) {
 		int count = 1;
 		while (true) {
@@ -143,7 +142,7 @@ public class RequisitoDAO {
 
 		Row row = abaRequisito.getRow(count);
 		abaRequisito.removeRow(row);
-		
+
 		xlsDAO.writeAndCloseXls();
 	}
 

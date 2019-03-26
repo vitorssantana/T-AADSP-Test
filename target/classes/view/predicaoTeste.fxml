@@ -85,7 +85,7 @@
                   <Insets top="15.0" />
                </padding>
             </HBox>
-            <TableView fx:id="listaPredicaoTestes" disable="true" fixedCellSize="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.79" prefHeight="339.0" prefWidth="628.0" snapToPixel="false" style="-fx-padding: #393e4a;" VBox.vgrow="ALWAYS">
+            <TableView fx:id="listaPredicaoTestes" fixedCellSize="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.79" prefHeight="339.0" prefWidth="628.0" snapToPixel="false" style="-fx-padding: #393e4a;" VBox.vgrow="ALWAYS">
               <columns>
                   <TableColumn fx:id="listaNomeRequisito" editable="false" prefWidth="87.0" text="NOME REQUISITO" />
                   <TableColumn fx:id="listaNomeProjeto" editable="false" prefWidth="331.0" text="NOME PROJETO" />

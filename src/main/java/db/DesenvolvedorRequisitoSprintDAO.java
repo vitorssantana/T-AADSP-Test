@@ -27,41 +27,40 @@ public class DesenvolvedorRequisitoSprintDAO {
 	public List<DesenvolvedorRequisitoSprint> retornarListaDesenvolvedorRequisitoSprint() {
 		List<DesenvolvedorRequisitoSprint> listaDesenvolvedorRequisitoSprintes = new ArrayList<DesenvolvedorRequisitoSprint>();
 		Iterator<Row> iterator = abaDesenvolvedorRequisitoSprint.iterator();
-
+		iterator.next();
 		Row nextRow;
-		if (abaDesenvolvedorRequisitoSprint.getRow(1) != null) {
-			while (iterator.hasNext()) {
-				nextRow = iterator.next();
-				if (nextRow.getRowNum() == 0)
-					nextRow = iterator.next();
 
-				Iterator<Cell> cellIterator = nextRow.cellIterator();
-				cellIterator = nextRow.cellIterator();
-				DesenvolvedorRequisitoSprint desenvolvedorRequisitoSprint = new DesenvolvedorRequisitoSprint();
+		while (iterator.hasNext()) {
+			nextRow = iterator.next();
+//			if (nextRow.getRowNum() == 0)
+//				nextRow = iterator.next();
 
-				while (cellIterator.hasNext()) {
-					Cell nextCell = cellIterator.next();
-					int columnIndex = nextCell.getColumnIndex();
+			Iterator<Cell> cellIterator = nextRow.cellIterator();
+			cellIterator = nextRow.cellIterator();
+			DesenvolvedorRequisitoSprint desenvolvedorRequisitoSprint = new DesenvolvedorRequisitoSprint();
 
-					switch (columnIndex) {
+			while (cellIterator.hasNext()) {
+				Cell nextCell = cellIterator.next();
+				int columnIndex = nextCell.getColumnIndex();
 
-					case 0:
-						desenvolvedorRequisitoSprint.setIdRequisitoSprint((int) nextCell.getNumericCellValue());
-						break;
+				switch (columnIndex) {
 
-					case 1:
-						desenvolvedorRequisitoSprint.setIdDesenvolvedor((int) nextCell.getNumericCellValue());
-						break;
+				case 0:
+					desenvolvedorRequisitoSprint.setIdRequisitoSprint((int) nextCell.getNumericCellValue());
+					break;
 
-					case 2:
-						desenvolvedorRequisitoSprint.setNivelParticipacao((int) nextCell.getNumericCellValue());
-						break;
+				case 1:
+					desenvolvedorRequisitoSprint.setIdDesenvolvedor((int) nextCell.getNumericCellValue());
+					break;
 
-					}
+				case 2:
+					desenvolvedorRequisitoSprint.setNivelParticipacao((int) nextCell.getNumericCellValue());
+					break;
+
 				}
-				
-				listaDesenvolvedorRequisitoSprintes.add(desenvolvedorRequisitoSprint);
 			}
+
+			listaDesenvolvedorRequisitoSprintes.add(desenvolvedorRequisitoSprint);
 		}
 
 		return listaDesenvolvedorRequisitoSprintes;

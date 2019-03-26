@@ -29,41 +29,40 @@ public class StakeholderDAO {
 
 		List<Stakeholder> listaStakeholders = new ArrayList<Stakeholder>();
 		Iterator<Row> iterator = abaStakeholder.iterator();
-
+		iterator.next();
 		Row nextRow;
-		if (abaStakeholder.getRow(1) != null) {
-			while (iterator.hasNext()) {
-				nextRow = iterator.next();
-				if (nextRow.getRowNum() == 0)
-					nextRow = iterator.next();
 
-				Iterator<Cell> cellIterator = nextRow.cellIterator();
-				cellIterator = nextRow.cellIterator();
-				Stakeholder stakeholder = new Stakeholder();
+		while (iterator.hasNext()) {
+			nextRow = iterator.next();
+//			if (nextRow.getRowNum() == 0)
+//				nextRow = iterator.next();
 
-				while (cellIterator.hasNext()) {
-					Cell nextCell = cellIterator.next();
-					int columnIndex = nextCell.getColumnIndex();
+			Iterator<Cell> cellIterator = nextRow.cellIterator();
+			cellIterator = nextRow.cellIterator();
+			Stakeholder stakeholder = new Stakeholder();
 
-					switch (columnIndex) {
+			while (cellIterator.hasNext()) {
+				Cell nextCell = cellIterator.next();
+				int columnIndex = nextCell.getColumnIndex();
 
-					case 0:
-						stakeholder.setId((int) nextCell.getNumericCellValue());
-						break;
+				switch (columnIndex) {
 
-					case 1:
-						stakeholder.setNome(nextCell.getStringCellValue());
-						break;
+				case 0:
+					stakeholder.setId((int) nextCell.getNumericCellValue());
+					break;
 
-					case 2:
-						stakeholder.setNotaPrioridade((int) nextCell.getNumericCellValue());
-						break;
+				case 1:
+					stakeholder.setNome(nextCell.getStringCellValue());
+					break;
 
-					}
+				case 2:
+					stakeholder.setNotaPrioridade((int) nextCell.getNumericCellValue());
+					break;
 
 				}
-				listaStakeholders.add(stakeholder);
+
 			}
+			listaStakeholders.add(stakeholder);
 		}
 
 		return listaStakeholders;

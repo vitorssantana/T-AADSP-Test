@@ -29,52 +29,51 @@ public class BugDAO {
 
 		List<Bug> listaBugs = new ArrayList<Bug>();
 		Iterator<Row> iterator = abaBug.iterator();
-
+		iterator.next();
 		Row nextRow;
-		if (abaBug.getRow(1) != null) {
-			while (iterator.hasNext()) {
-				nextRow = iterator.next();
-				if (nextRow.getRowNum() == 0)
-					nextRow = iterator.next();
 
-				Iterator<Cell> cellIterator = nextRow.cellIterator();
-				cellIterator = nextRow.cellIterator();
-				Bug bug = new Bug();
+		while (iterator.hasNext()) {
+			nextRow = iterator.next();
+//			if (nextRow.getRowNum() == 0)
+//				nextRow = iterator.next();
 
-				while (cellIterator.hasNext()) {
-					Cell nextCell = cellIterator.next();
-					int columnIndex = nextCell.getColumnIndex();
+			Iterator<Cell> cellIterator = nextRow.cellIterator();
+			cellIterator = nextRow.cellIterator();
+			Bug bug = new Bug();
 
-					switch (columnIndex) {
+			while (cellIterator.hasNext()) {
+				Cell nextCell = cellIterator.next();
+				int columnIndex = nextCell.getColumnIndex();
 
-					case 0:
-						bug.setId((int) nextCell.getNumericCellValue());
-						break;
+				switch (columnIndex) {
 
-					case 1:
-						bug.setTitulo(nextCell.getStringCellValue());
-						break;
+				case 0:
+					bug.setId((int) nextCell.getNumericCellValue());
+					break;
 
-					case 2:
-						bug.setDescricao(nextCell.getStringCellValue());
-						break;
+				case 1:
+					bug.setTitulo(nextCell.getStringCellValue());
+					break;
 
-					case 3:
-						bug.setIdDesenvolvedor((int) nextCell.getNumericCellValue());
-						break;
+				case 2:
+					bug.setDescricao(nextCell.getStringCellValue());
+					break;
 
-					case 4:
-						bug.setNivelImpacto(nextCell.getStringCellValue());
-						break;
+				case 3:
+					bug.setIdDesenvolvedor((int) nextCell.getNumericCellValue());
+					break;
 
-					case 5:
-						bug.setIdRequisitoSprint((int) nextCell.getNumericCellValue());
-						break;
-					}
+				case 4:
+					bug.setNivelImpacto(nextCell.getStringCellValue());
+					break;
 
+				case 5:
+					bug.setIdRequisitoSprint((int) nextCell.getNumericCellValue());
+					break;
 				}
-				listaBugs.add(bug);
+
 			}
+			listaBugs.add(bug);
 		}
 
 		return listaBugs;
