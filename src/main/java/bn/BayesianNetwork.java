@@ -86,17 +86,15 @@ public class BayesianNetwork {
 		chanceImpactoRequisito.setParents(Arrays.asList(mediaNivelDesenvolvedor, alteracoesRequisito));
 
 		chanceImpactoRequisito.setProbabilities(//
-				0.85, 0.1, 0.05, // PoucoConfiavel + AltaProporcao
-				0.2, 0.45, 0.35, // PoucoConfiavel + Media Proporcao
-				0.3, 0.35, 0.35, // PoucoConfiavel + Baixa Proporcao
-
-				0.5, 0.4, 0.1, // Confiavel + AltaProporcao
-				0.3, 0.4, 0.3, // Confiavel + Media Proporcao
-				0.1, 0.35, 0.55, // Confiavel + Baixa Proporcao
-
-				0.4, 0.35, 0.25, // MuitoConfiavel + AltaProporcao
-				0.15, 0.15, 0.7, // MuitoConfiavel + Media Proporcao
-				0.05, 0.1, 0.85 // MuitoConfiavel + Baixa Proporcao
+				0.9, 0.07, 0.03, //
+				0.6, 0.3, 0.1, //
+				0.25, 0.4, 0.35, //
+				0.7, 0.3, 0.1, //
+				0.37, 0.50, 0.13, //
+				0.15, 0.25, 0.6, //
+				0.6, 0.3, 0.1, //
+				0.1, 0.4, 0.5, //
+				0.1, 0.15, 0.75//
 		);
 	}
 
@@ -110,17 +108,15 @@ public class BayesianNetwork {
 		riscoDeBugRequisito.setParents(Arrays.asList(porctCoberturaTestesAnteriores, chanceImpactoRequisito));
 
 		riscoDeBugRequisito.setProbabilities(//
-				0.85, 0.1, 0.05, // CoberturaMinina + AltoImpacto
-				0.7, 0.2, 0.1, // CoberturaMinina + MedioImpacto
-				0.4, 0.35, 0.25, // CoberturaMinina + BaixoImpacto
-
-				0.7, 0.25, 0.05, // CoberturaMedia + AltoImpacto
-				0.25, 0.5, 0.25, // CoberturaMedia + MedioImpacto
-				0.1, 0.1, 0.8, // CoberturaMedia + BaixoImpacto
-
-				0.6, 0.3, 0.1, // Cobertura Alta + AltoImpacto
-				0.4, 0.35, 0.25, // Cobertura Alta + MedioImpacto
-				0.05, 0.2, 0.75 // Cobertura Alta + BaixoImpacto
+				0.85, 0.10, 0.05, //
+				0.50, 0.45, 0.05, //
+				0.40, 0.45, 0.15, //
+				0.73, 0.22, 0.05, //
+				0.35, 0.50, 0.15, //
+				0.05, 0.40, 0.55, //
+				0.65, 0.25, 0.10, //
+				0.30, 0.35, 0.35, //
+				0.05, 0.10, 0.85//
 		);
 	}
 
@@ -138,15 +134,15 @@ public class BayesianNetwork {
 		nivelHierarquiaRequisito.setParents(Arrays.asList(nivelImportStakeholderProjeto, nivelHierarquiaRequisito));
 
 		nivelHierarquiaRequisito.setProbabilities(//
-				0.85, 0.1, 0.05, // Alta e Alta
-				0.55, 0.3, 0.15, // Alta e Media
-				0.15, 0.25, 0.6, // Alta e Baixa
-				0.55, 0.3, 0.15, // Media e Alta
-				0.25, 0.5, 0.25, // Media e Media
-				0.05, 0.4, 0.55, // Media e Baixa
-				0.15, 0.25, 0.6, // Baixa e Alta
-				0.1, 0.2, 0.7, // Baixa e Media
-				0.05, 0.1, 0.85// Baixa e Baixa
+				0.85, 0.15, 0.00, //
+				0.55, 0.30, 0.15, //
+				0.30, 0.40, 0.30, //
+				0.55, 0.30, 0.15, //
+				0.23, 0.50, 0.27, //
+				0.05, 0.40, 0.55, //
+				0.35, 0.40, 0.25, //
+				0.05, 0.40, 0.55, //
+				0.00, 0.15, 0.85//
 		);
 	}
 
@@ -165,33 +161,34 @@ public class BayesianNetwork {
 		prioridadeDoRequisito.setParents(Arrays.asList(deadlineProjeto, custoProjeto, nivelHierarquiaRequisito));
 
 		prioridadeDoRequisito.setProbabilities(//
-				0.95, 0.05, 0.0, // Curto e Altoe Alto
-				0.95, 0.1, 0.05, // Curto e Alto
-				0.7, 0.2, 0.1, // Curto e Alto
-				0.6, 0.3, 0.1, // Curto e Medio
-				0.5, 0.45, 0.05, // Curto e Medio
-				0.35, 0.35, 0.3, // Curto e Medio
-				0.5, 0.45, 0.05, // Curto
-				0.3, 0.4, 0.3, // Curto
-				0.35, 0.15, 0.5, // Curto
-				0.6, 0.35, 0.5, //
-				0.4, 0.55, 0.1, //
+				0.95, 0.05, 0.00, //
+				0.85, 0.10, 0.05, //
+				0.70, 0.20, 0.10, //
+				0.65, 0.25, 0.10, //
+				0.40, 0.50, 0.10, //
+				0.35, 0.35, 0.30, //
+				0.55, 0.35, 0.10, //
+				0.30, 0.40, 0.30, //
+				0.35, 0.15, 0.50, //
+				0.60, 0.35, 0.05, //
+				0.40, 0.55, 0.05, //
 				0.33, 0.34, 0.33, //
-				0.3, 0.65, 0.05, //
-				0.4, 0.5, 0.1, //
-				0.2, 0.5, 0.3, //
-				0.3, 0.4, 0.3, //
-				0.2, 0.45, 0.35, //
-				0.1, 0.45, 0.45, //
-				0.6, 0.1, 0.3, //
-				0.35, 0.4, 0.25, //
-				0.35, 0.15, 0.5, //
-				0.3, 0.4, 0.3, //
-				0.2, 0.4, 0.4, //
-				0.15, 0.35, 0.5, //
-				0.25, 0.25, 0.5, //
-				0.15, 0.35, 0.5, //
-				0.5, 0.05, 0.9);
+				0.30, 0.65, 0.05, //
+				0.25, 0.50, 0.25, //
+				0.20, 0.50, 0.30, //
+				0.30, 0.40, 0.30, //
+				0.20, 0.45, 0.35, //
+				0.10, 0.30, 0.60, //
+				0.55, 0.15, 0.30, //
+				0.30, 0.30, 0.40, //
+				0.35, 0.15, 0.50, //
+				0.30, 0.33, 0.37, //
+				0.15, 0.50, 0.35, //
+				0.15, 0.35, 0.50, //
+				0.25, 0.20, 0.55, //
+				0.05, 0.30, 0.65, //
+				0.00, 0.05, 0.95//
+		);
 	}
 
 	private void iniciarNoPrioridadeTesteDoRequisito() {
@@ -201,15 +198,15 @@ public class BayesianNetwork {
 		prioridadeDeTesteDoRequisito.setParents(Arrays.asList(prioridadeDoRequisito, riscoDeBugRequisito));
 
 		prioridadeDeTesteDoRequisito.setProbabilities(//
-				1, 0.0, 0.0, //
-				0.7, 0.25, 0.05, //
-				0.5, 0.25, 0.25, //
-				0.7, 0.25, 0.05, //
-				0.3, 0.4, 0.3, //
-				0.1, 0.45, 0.45, //
-				0.5, 0.25, 0.25, //
-				0.1, 0.45, 0.45, //
-				0.0, 0.05, 0.95//
+				0.90, 0.05, 0.05,//
+				0.60, 0.35, 0.05,//
+				0.45, 0.20, 0.35,//
+				0.55, 0.40, 0.05,//
+				0.35, 0.45, 0.20,//
+				0.25, 0.40, 0.35,//
+				0.30, 0.20, 0.50,//
+				0.05, 0.40, 0.55,//
+				0.05, 0.05, 0.90//
 		);
 	}
 
@@ -231,16 +228,16 @@ public class BayesianNetwork {
 		predicaoFinalRequisito.setParents(Arrays.asList(notaPrioridadeRequisito, prioridadeDeTesteDoRequisito));
 
 		predicaoFinalRequisito.setProbabilities(//
-				1, 0.0, 0.0, //
-				0.7, 0.25, 0.05, //
-				0.5, 0.25, 0.25, //
-				0.7, 0.25, 0.05, //
-				0.3, 0.4, 0.3, //
-				0.1, 0.45, 0.45, //
-				0.5, 0.25, 0.25, //
-				0.1, 0.45, 0.45, //
-				0.0, 0.05, 0.95//
-		);
+				0.90, 0.05, 0.05,//
+				0.60, 0.35, 0.05,//
+				0.40, 0.20, 0.40,//
+				0.70, 0.20, 0.10,//
+				0.05, 0.90, 0.05,//
+				0.05, 0.55, 0.40,//
+				0.40, 0.20, 0.40,//
+				0.25, 0.30, 0.45,//
+				0.05, 0.05, 0.90//
+				);
 	}
 
 }
