@@ -163,9 +163,7 @@ public class RequisitoFX implements Initializable {
 
 	@FXML
 	private void excluirRequisito() throws IOException {
-		// Verificar se existe plano de teste vinculado ao requisito
-		// Se existe, avise e nao exclua
-		// Se nao existe, exclua
+
 		if (listaRequisitos.getSelectionModel().getSelectedItem() == null)
 			AlertController.alertUsingWarningDialog("Selecione um requisito da lista");
 		else {
@@ -173,6 +171,7 @@ public class RequisitoFX implements Initializable {
 			for (int i = 0; i < listaPlanoTestes.size(); i++) {
 				if (listaPlanoTestes.get(i).getIdRequisito() == listaRequisitos.getSelectionModel().getSelectedItem().getId()) {
 					AlertController.alertUsingWarningDialog("Existe caso de teste vinculado ao requisito.");
+					return;
 				} else if (i == listaPlanoTestes.size() - 1) {
 					controller.removerRequisito(listaRequisitos.getSelectionModel().getSelectedItem());
 					AlertController.alertUsingSuccessDialog("Requisito excluido com sucesso!");
