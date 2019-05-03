@@ -1,4 +1,4 @@
-# TAADSP-Test
+# T-AADSP-Test
 
 O T-AADSP Test é um módulo de gerenciamento de testes que utiliza Redes Bayesianas para priorização de casos de teste.
 
