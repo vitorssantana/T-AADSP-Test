@@ -9,3 +9,5 @@ Foi apresentado por Vitor Santana como trabalho de conclusão de curso (TCC) par
 Página oficial: http://www.labrasoft.ifba.edu.br/canal-aadsp/aadsp/t-aadsp-test
 
 Link do TCC/Artigo: https://ads.ifba.edu.br/item1190
+
+Livro: Em desenvolvimento
